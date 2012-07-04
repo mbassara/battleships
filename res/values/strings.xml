@@ -5,5 +5,7 @@
     <string name="new_game_button">Nowa gra</string>
     <string name="options_button">Opcje</string>
     <string name="title_activity_main_menu">Battleships</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_game">Battleships</string>
 
 </resources>
