@@ -1,10 +1,12 @@
 <resources>
 
     <string name="app_name">Battleships</string>
-    <string name="menu_settings">Ustawienia</string>
-    <string name="new_game_button">Nowa gra</string>
-    <string name="options_button">Opcje</string>
     <string name="title_activity_main_menu">Battleships</string>
     <string name="title_activity_game">Battleships</string>
+    <string name="menu_settings">Ustawienia</string>
+    <string name="new_game">Nowa gra</string>
+    <string name="options">Opcje</string>
+    <string name="add_ship">Dodaj statek</string>
+    <string name="commit_changes">Potwierdź zmiany</string>
 
 </resources>

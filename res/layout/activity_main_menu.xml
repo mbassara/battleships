@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="172dp"
-        android:text="@string/new_game_button"
+        android:text="@string/new_game"
         android:onClick="newGame" />
 
     <Button
@@ -22,6 +22,6 @@
         android:layout_alignRight="@+id/new_game_button"
         android:layout_below="@+id/new_game_button"
         android:layout_marginTop="17dp"
-        android:text="@string/options_button" />
+        android:text="@string/options" />
 
 </RelativeLayout>
