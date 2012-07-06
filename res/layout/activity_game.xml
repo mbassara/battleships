@@ -1,91 +1,137 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    xmlns:tools="http://schemas.android.com/tools"
-	    android:id="@+id/layout"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:layout_gravity="center"
-	    android:paddingLeft="10dp"
-	    android:paddingTop="10dp"
-	    android:paddingRight="10dp"
-	    android:paddingBottom="10dp"
-	    android:background="@drawable/ic_background_skull" >
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_game_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/ic_background_skull"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
 
-	<ToggleButton
-	    android:id="@+id/add_ship_button"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentTop="true"
-	    android:layout_centerHorizontal="true"
-	    android:layout_marginTop="30dp"
-	    android:onClick="addShip"
-	    android:textOff="@string/add_ship"
-	    android:textOn="@string/commit_changes" />
+    <RelativeLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/padding_small" >
 
-	<TableLayout
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:layout_centerHorizontal="true" >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical" >
 
-	    <TableRow
-	        android:id="@+id/tableRow0"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" >
-	    </TableRow>
+            <ToggleButton
+                android:id="@+id/place_ships_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="addShip"
+                android:textOff="@string/place_ships"
+                android:textOn="@string/commit_changes" />
 
-	    <TableRow
-	        android:id="@+id/tableRow1"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" >
-	    </TableRow>
+            <Button
+                android:id="@+id/next_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/next" />
 
-	    <TableRow
-	        android:id="@+id/tableRow2"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" >
-	    </TableRow>
+        </LinearLayout>
 
-	    <TableRow
-	        android:id="@+id/tableRow3"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" >
-	    </TableRow>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="right" >
 
-	    <TableRow
-	        android:id="@+id/tableRow4"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" >
-	    </TableRow>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-	    <TableRow
-	        android:id="@+id/tableRow5"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" >
-	    </TableRow>
+                <TextView
+                    android:id="@+id/aircraft_carriers_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/background_light"
+                    android:text="@string/aircraft_carriers" />
 
-	    <TableRow
-	        android:id="@+id/tableRow6"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" >
-	    </TableRow>
+                <TextView
+                    android:id="@+id/battleships_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/background_light"
+                    android:text="@string/battleships" />
 
-	    <TableRow
-	        android:id="@+id/tableRow7"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" >
-	    </TableRow>
+                <TextView
+                    android:id="@+id/submarines_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/background_light"
+                    android:text="@string/submarines" />
 
-	    <TableRow
-	        android:id="@+id/tableRow8"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" >
-	    </TableRow>
+                <TextView
+                    android:id="@+id/destroyers_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/background_light"
+                    android:text="@string/destroyers" />
 
-	    <TableRow
-	        android:id="@+id/tableRow9"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" >
-	    </TableRow>
-	</TableLayout>
-	
+                <TextView
+                    android:id="@+id/patrol_boats_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/background_light"
+                    android:text="@string/patrol_boats" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_small"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/aircraft_carriers_value_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/background_light"
+                    android:text="@string/of1" />
+
+                <TextView
+                    android:id="@+id/battleships_value_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/background_light"
+                    android:text="@string/of2" />
+
+                <TextView
+                    android:id="@+id/submarines_value_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/background_light"
+                    android:text="@string/of3" />
+
+                <TextView
+                    android:id="@+id/destroyers_value_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/background_light"
+                    android:text="@string/of4" />
+
+                <TextView
+                    android:id="@+id/patrol_boats_value_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/background_light"
+                    android:text="@string/of5" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
 </RelativeLayout>
+	

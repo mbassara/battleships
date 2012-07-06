@@ -56,17 +56,14 @@ public class ShipButton extends ToggleButton {
 	
 	public void setNotSelected() {
 		state = NOT_SELECTED;
-		setBackgroundResource(R.drawable.ic_im_ship);
 	}
 	
 	public void setSoftSelected() {
 		state = SOFT_SELECTED;
-		setBackgroundResource(R.drawable.ic_im_ship_sel);
 	}
 	
 	public void setHardSelected() {
 		state = HARD_SELECTED;
-		setBackgroundResource(R.drawable.ic_im_ship_sel);
 	}
 
 }

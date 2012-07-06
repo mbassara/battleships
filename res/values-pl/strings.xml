@@ -6,7 +6,28 @@
     <string name="menu_settings">Ustawienia</string>
     <string name="new_game">Nowa gra</string>
     <string name="options">Opcje</string>
-    <string name="add_ship">Dodaj statek</string>
+    <string name="place_ships">Dodaj statki</string>
     <string name="commit_changes">Potwierdź zmiany</string>
+    <string name="next">Dalej</string>
+    
+    <!-- SHIPS -->
+    <string name="aircraft_carriers">Pięciomasztowce: </string>
+    <string name="battleships">Czteromasztowce: </string>
+    <string name="submarines">Trójmasztowce: </string>
+    <string name="destroyers">Dwumasztowce: </string>
+    <string name="patrol_boats">Jednomasztowce: </string>
+    
+    <!-- VALUES -->
+    <string name="of"> z </string>
+    <string name="of1">0 z 1</string>
+    <string name="of2">0 z 2</string>
+    <string name="of3">0 z 3</string>
+    <string name="of4">0 z 4</string>
+    <string name="of5">0 z 5</string>
+    <string name="aircraft_carriers_value"> z 1</string>
+    <string name="battleships_value"> z 2</string>
+    <string name="submarines_value"> z 3</string>
+    <string name="destroyers_value"> z 4</string>
+    <string name="patrol_boats_value"> z 5</string>
 
 </resources>

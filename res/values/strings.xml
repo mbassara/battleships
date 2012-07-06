@@ -6,7 +6,28 @@
     <string name="menu_settings">Settings</string>
     <string name="new_game">New game</string>
     <string name="options">Options</string>
-    <string name="add_ship">Add ship</string>
+    <string name="place_ships">Place ships</string>
     <string name="commit_changes">Commit changes</string>
+    <string name="next">Next</string>
+    
+    <!-- SHIPS -->
+    <string name="aircraft_carriers">Aircraft carriers: </string>
+    <string name="battleships">Battleships: </string>
+    <string name="submarines">Submarines: </string>
+    <string name="destroyers">Destroyers: </string>
+    <string name="patrol_boats">Patrol boats: </string>
+    
+    <!-- VALUES -->
+    <string name="of"> of </string>
+    <string name="of1">0 of 1</string>
+    <string name="of2">0 of 2</string>
+    <string name="of3">0 of 3</string>
+    <string name="of4">0 of 4</string>
+    <string name="of5">0 of 5</string>
+    <string name="aircraft_carriers_value"> of 1</string>
+    <string name="battleships_value"> of 2</string>
+    <string name="submarines_value"> of 3</string>
+    <string name="destroyers_value"> of 4</string>
+    <string name="patrol_boats_value"> of 5</string>
 
 </resources>
