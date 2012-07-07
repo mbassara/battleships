@@ -29,5 +29,8 @@
     <string name="submarines_value"> z 3</string>
     <string name="destroyers_value"> z 4</string>
     <string name="patrol_boats_value"> z 5</string>
+    
+    <!-- MESSAGES -->
+    <string name="bt_not_supported">Twoje urządzenie nie obsługuje komunikacji za pomocą bluetooth</string>
 
 </resources>

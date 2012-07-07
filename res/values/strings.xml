@@ -9,14 +9,14 @@
     <string name="place_ships">Place ships</string>
     <string name="commit_changes">Commit changes</string>
     <string name="next">Next</string>
-    
+
     <!-- SHIPS -->
     <string name="aircraft_carriers">Aircraft carriers: </string>
     <string name="battleships">Battleships: </string>
     <string name="submarines">Submarines: </string>
     <string name="destroyers">Destroyers: </string>
     <string name="patrol_boats">Patrol boats: </string>
-    
+
     <!-- VALUES -->
     <string name="of"> of </string>
     <string name="of1">0 of 1</string>
@@ -29,5 +29,10 @@
     <string name="submarines_value"> of 3</string>
     <string name="destroyers_value"> of 4</string>
     <string name="patrol_boats_value"> of 5</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_bluetooth">BluetoothActivity</string>
+    
+    <!-- MESSAGES -->
+    <string name="bt_not_supported">Bluetooth is not supported on your device</string>
 
 </resources>
