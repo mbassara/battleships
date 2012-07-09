@@ -16,11 +16,9 @@ public class BluetoothService {
 	
 	public boolean setUp(Activity parentActivity) {
 		adapter = BluetoothAdapter.getDefaultAdapter();
-    	if(MainMenu.D) System.out.println("BluetoothService setUp 1");
 		
 		if(adapter == null)
 			return false;
-    	if(MainMenu.D) System.out.println("BluetoothService setUp 2");
 		
 		if(!adapter.isEnabled()) {
 			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);

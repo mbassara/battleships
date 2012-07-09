@@ -2,14 +2,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/padding_medium"
     android:background="@drawable/ic_background_skull" >
 
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/bluetoothHelpTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" >
-    </ListView>
+        android:text="@string/bluetooth_help_finding_OFF"
+        android:layout_margin="@dimen/padding_medium"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/findDevicesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bluetoothHelpTextView"
+        android:layout_centerHorizontal="true"
+        android:onClick="discoveryDevicesON"
+        android:text="@string/find_devices" />
+
+	<ListView
+	    android:id="@+id/listView1"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/findDevicesButton" >
+	    
+	</ListView>
     
 </RelativeLayout>

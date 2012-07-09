@@ -24,13 +24,23 @@
         android:text="@string/options" />
 
     <Button
-        android:id="@+id/bluetooth_button"
+        android:id="@+id/bluetooth_client_button"
         android:layout_centerHorizontal="true"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/options_button"
         android:layout_marginTop="17dp"
-        android:text="Bluetooth"
-        android:onClick="bluetooth" />
+        android:text="Bluetooth client"
+        android:onClick="bluetoothClient" />
+
+    <Button
+        android:id="@+id/bluetooth_button"
+        android:layout_centerHorizontal="true"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bluetooth_client_button"
+        android:layout_marginTop="17dp"
+        android:text="Bluetooth host"
+        android:onClick="bluetoothHost" />
 
 </RelativeLayout>

@@ -29,12 +29,14 @@ public class MainMenu extends Activity {
     	if(D) System.out.println("newGame button clicked");
     }
     
-    public void bluetooth(View view) {
-    	if(D) System.out.println("bluetooth button clicked 1");
-    	Intent intent = new Intent(this, BluetoothActivity.class);
-    	if(D) System.out.println("bluetooth button clicked 2");
+    public void bluetoothClient(View view) {
+    	Intent intent = new Intent(this, BluetoothClientActivity.class);
     	startActivity(intent);
-    	if(D) System.out.println("bluetooth button clicked 3");
+    }
+    
+    public void bluetoothHost(View view) {
+    	Intent intent = new Intent(this, BluetoothHostActivity.class);
+    	startActivity(intent);
     }
     
 }

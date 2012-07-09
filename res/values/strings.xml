@@ -3,12 +3,20 @@
     <string name="app_name">Battleships</string>
     <string name="title_activity_main_menu">Battleships</string>
     <string name="title_activity_game">Battleships</string>
+
+    <!-- MAIN MENU -->
     <string name="menu_settings">Settings</string>
     <string name="new_game">New game</string>
     <string name="options">Options</string>
     <string name="place_ships">Place ships</string>
     <string name="commit_changes">Commit changes</string>
     <string name="next">Next</string>
+
+    <!-- BLUETOOTH ACTIVITY -->
+    <string name="UUID">76b4c611-da5a-4672-af97-7eb2fb71597e</string>
+    <string name="find_devices">Find devices</string>
+    <string name="bluetooth_help_finding_OFF">Press \"Find devices\" to scan for devices</string>
+    <string name="bluetooth_help_finding_ON">Choose a device when it appears on a list below</string>
 
     <!-- SHIPS -->
     <string name="aircraft_carriers">Aircraft carriers: </string>
@@ -31,8 +39,9 @@
     <string name="patrol_boats_value"> of 5</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_bluetooth">BluetoothActivity</string>
-    
+
     <!-- MESSAGES -->
     <string name="bt_not_supported">Bluetooth is not supported on your device</string>
+    <string name="title_activity_bluetooth_host">BluetoothHostActivity</string>
 
 </resources>

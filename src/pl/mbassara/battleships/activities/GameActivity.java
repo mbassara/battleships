@@ -2,9 +2,6 @@ package pl.mbassara.battleships.activities;
 
 import pl.mbassara.battleships.GameBoard;
 import pl.mbassara.battleships.R;
-import pl.mbassara.battleships.R.id;
-import pl.mbassara.battleships.R.layout;
-import pl.mbassara.battleships.R.menu;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
