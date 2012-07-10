@@ -11,9 +11,15 @@
     <string name="place_ships">Place ships</string>
     <string name="commit_changes">Commit changes</string>
     <string name="next">Next</string>
+    
+    <!-- GAME MODE SELECTION -->
+    <string name="game_mode_host">Create game</string>
+    <string name="game_mode_client">Join game</string>
 
     <!-- BLUETOOTH ACTIVITY -->
     <string name="UUID">76b4c611-da5a-4672-af97-7eb2fb71597e</string>
+    <string name="waiting_for_client">Please wait for other device to connect…</string>
+    <string name="connecting_to_host">Connecting to selected device…</string>
     <string name="find_devices">Find devices</string>
     <string name="bluetooth_help_finding_OFF">Press \"Find devices\" to scan for devices</string>
     <string name="bluetooth_help_finding_ON">Choose a device when it appears on a list below</string>
@@ -43,5 +49,6 @@
     <!-- MESSAGES -->
     <string name="bt_not_supported">Bluetooth is not supported on your device</string>
     <string name="title_activity_bluetooth_host">BluetoothHostActivity</string>
+    <string name="title_activity_game_mode">GameModeActivity</string>
 
 </resources>

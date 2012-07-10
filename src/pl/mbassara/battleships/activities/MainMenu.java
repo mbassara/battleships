@@ -24,18 +24,7 @@ public class MainMenu extends Activity {
     }
     
     public void newGame(View view) {
-    	Intent intent = new Intent(this, GameActivity.class);
-    	startActivity(intent);
-    	if(D) System.out.println("newGame button clicked");
-    }
-    
-    public void bluetoothClient(View view) {
-    	Intent intent = new Intent(this, BluetoothClientActivity.class);
-    	startActivity(intent);
-    }
-    
-    public void bluetoothHost(View view) {
-    	Intent intent = new Intent(this, BluetoothHostActivity.class);
+    	Intent intent = new Intent(this, GameModeActivity.class);
     	startActivity(intent);
     }
     

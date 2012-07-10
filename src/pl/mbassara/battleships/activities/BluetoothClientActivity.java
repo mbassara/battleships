@@ -1,17 +1,14 @@
 package pl.mbassara.battleships.activities;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import pl.mbassara.battleships.R;
+import pl.mbassara.battleships.bluetooth.BluetoothClientService;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +27,6 @@ public class BluetoothClientActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
 
-        UUID = getString(R.string.UUID);
 		adapter = BluetoothAdapter.getDefaultAdapter();
 		
 		if(adapter == null)
@@ -100,27 +96,31 @@ public class BluetoothClientActivity extends Activity {
     			hostDevice = device;
     	
     	if(hostDevice != null) {
-    		try {
-				BluetoothSocket socket = hostDevice.createRfcommSocketToServiceRecord(java.util.UUID.fromString(UUID));
-				socket.connect();
-				
-				Thread.sleep(2000);
-				BufferedWriter writer = new BufferedWriter(
-											new OutputStreamWriter(
-												socket.getOutputStream()));
-				writer.write("pzdr od klienta!");
-				writer.newLine();
-				writer.flush();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    		final BluetoothClientService bluetooth = new BluetoothClientService(hostDevice, this);
+    		bluetooth.connect();
+    		
+			final ProgressDialog progressDialog = ProgressDialog.show(this, "", getString(R.string.connecting_to_host), true);
+			final Intent intent = new Intent(this, CreatingShipsActivity.class);
+    		
+    		Thread thread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					while(!bluetooth.isConnected())
+						try {
+							Thread.sleep(500);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					
+					progressDialog.dismiss();
+					startActivity(intent);
+				}
+			});
+    		
+    		thread.start();
     	}
     }
 
-	private String UUID;
 	private BluetoothAdapter adapter;
 	private final int REQUEST_ENABLE_BT = 1;
 	private ListView listView;

@@ -3,7 +3,6 @@ package pl.mbassara.battleships.activities;
 import pl.mbassara.battleships.GameBoard;
 import pl.mbassara.battleships.R;
 import android.os.Bundle;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
@@ -11,18 +10,17 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
-@TargetApi(16)
-public class GameActivity extends Activity{
+public class CreatingShipsActivity extends Activity{
 	
 	GameBoard board;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_creating_ships);
         Context context = getApplicationContext();
         
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_game_layout);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.creating_ships_layout);
         board = new GameBoard(context, layout);
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);

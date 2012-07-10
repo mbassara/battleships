@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_background_skull" >
+
+    <Button
+        android:id="@+id/joinGameButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/game_mode_client"
+        android:onClick="gameModeClient" />
+
+    <Button
+        android:id="@+id/createGameButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/joinGameButton"
+        android:text="@string/game_mode_host"
+        android:onClick="gameModeHost" />
+
+</RelativeLayout>
