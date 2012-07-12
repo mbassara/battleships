@@ -1,28 +1,25 @@
-package pl.mbassara.battleships.activities;
+package pl.mbassara.battleships;
 
-import pl.mbassara.battleships.GameActivity;
-import pl.mbassara.battleships.CreatingShipsGameBoard;
-import pl.mbassara.battleships.R;
+import pl.mbassara.battleships.activities.CreatingShipsActivity;
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
 import android.view.Menu;
-import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
-public class CreatingShipsActivity extends Activity{
-
-	private static CreatingShipsGameBoard board = null;
+public class GameActivity extends Activity {
+	
+	private CreatingShipsGameBoard board;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_creating_ships);
+        setContentView(R.layout.activity_game);
         
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.creating_ships_layout);
+        board = CreatingShipsActivity.getBoard();
+        
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_game_layout);
         board = new CreatingShipsGameBoard(this);
-        board.createShipsCounter(this);
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -35,18 +32,6 @@ public class CreatingShipsActivity extends Activity{
         getMenuInflater().inflate(R.menu.activity_game, menu);
         return true;
     }
-    
-    public void addShip(View view){
-    	board.addShip(view);
-    }
-    
-    public void next(View view) {
-    	Intent intent = new Intent(this, GameActivity.class);
-    	startActivity(intent);
-	}
-    
-    public static CreatingShipsGameBoard getBoard() {
-    	return board;
-    }
-}
 
+    
+}

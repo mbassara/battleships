@@ -1,5 +1,6 @@
 package pl.mbassara.battleships;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +11,16 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
 
-public class GameBoard extends TableLayout 
+public class CreatingShipsGameBoard extends TableLayout 
 	implements OnCheckedChangeListener {
 	
-	private ShipButton[][] ships;
+	private CreatingShipsButton[][] ships;
 	private boolean[][] multipurposeMatrix = new boolean[10][10]; 
 	private boolean placingShipsMode = false;
 	private ShipsCounter shipsCounter;
-
-	public GameBoard(Context context, View parent) {
+	
+	public CreatingShipsGameBoard(Context context) {
 		super(context);
-		shipsCounter = new ShipsCounter(parent);
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
 														LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -34,14 +34,18 @@ public class GameBoard extends TableLayout
         	this.addView(rows[i]);
         }
         
-        ships = new ShipButton[10][10];
+        ships = new CreatingShipsButton[10][10];
         for(int i = 0; i < 10; i++)
         	for(int j = 0; j < 10; j++) {
-        		ships[i][j] = new ShipButton(context, i, j);
+        		ships[i][j] = new CreatingShipsButton(context, i, j);
         		ships[i][j].setOnCheckedChangeListener(this);
         		rows[i].addView(ships[i][j]);
         	}
 		
+	}
+	
+	public void createShipsCounter(Activity activity) {
+		shipsCounter = new ShipsCounter(activity);
 	}
     
     private boolean isFieldPossible(int x, int y) {
@@ -162,7 +166,7 @@ public class GameBoard extends TableLayout
     
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		ShipButton ship = (ShipButton) buttonView;
+		CreatingShipsButton ship = (CreatingShipsButton) buttonView;
 		int x = ship.getFieldX();
 		int y = ship.getFieldY();
 		int size = shipSize(x, y);
@@ -187,5 +191,15 @@ public class GameBoard extends TableLayout
 				ship.setBackgroundResource(R.drawable.ic_im_ship_sel);
 			}
 		}
+	}
+	
+	public boolean[][] getBoardMatrix() {
+		boolean[][] matrix = new boolean[10][10];
+
+		for(int i = 0; i < 10; i++)
+			for(int j = 0; j < 10; j++)
+				matrix[i][j] = ships[i][j].isHardSelected();
+		
+		return matrix;
 	}
 }

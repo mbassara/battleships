@@ -1,28 +1,53 @@
 package pl.mbassara.battleships;
 
-import android.annotation.TargetApi;
 import android.content.Context;
+import android.util.AttributeSet;
 import android.widget.ToggleButton;
 
-@TargetApi(14)
 public class ShipButton extends ToggleButton {
 
-	private static final int NOT_SELECTED = 0;
-	private static final int SOFT_SELECTED = 1;
-	private static final int HARD_SELECTED = 2;
-	
-	private int x;
-	private int y;
-	private int state = NOT_SELECTED;
-
-	public ShipButton(Context context) {
-		this(context, -1, -1);
-	}
+	protected int x = -1;
+	protected int y = -1;
 	
 	public ShipButton(Context context, int x, int y) {
 		super(context);
 		this.x = x;
 		this.y = y;
+	}
+	
+	public ShipButton(Context context, AttributeSet attrs, int x, int y) {
+		super(context, attrs);
+		this.x = x;
+		this.y = y;
+	}
+	
+	public ShipButton(Context context, AttributeSet attrs, int defStyle, int x, int y) {
+		super(context, attrs, defStyle);
+		this.x = x;
+		this.y = y;
+	}
+
+	public ShipButton(Context context) {
+		super(context);
+		setUp();
+	}
+
+	public ShipButton(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		setUp();
+	}
+
+	public ShipButton(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		setUp();
+	}
+
+	public void setSize(int width, int height) {
+		setWidth(width);
+		setHeight(height);
+	}
+	
+	private void setUp() {
 		setBackgroundResource(R.drawable.ic_im_ship);
 		setTextOn("");
 		setTextOff("");
@@ -33,37 +58,21 @@ public class ShipButton extends ToggleButton {
 		setEnabled(false);
 		setChecked(false);
 	}
-	
+
+	public void setFieldX(int x) {
+		this.x = x;
+	}
+
+	public void setFieldY(int y) {
+		this.y = y;
+	}
+
 	public int getFieldX() {
 		return x;
 	}
-	
+
 	public int getFieldY() {
 		return y;
-	}
-	
-	public boolean isNotSelected() {
-		return state == NOT_SELECTED;
-	}
-	
-	public boolean isSoftSelected() {
-		return state == SOFT_SELECTED;
-	}
-	
-	public boolean isHardSelected() {
-		return state == HARD_SELECTED;
-	}
-	
-	public void setNotSelected() {
-		state = NOT_SELECTED;
-	}
-	
-	public void setSoftSelected() {
-		state = SOFT_SELECTED;
-	}
-	
-	public void setHardSelected() {
-		state = HARD_SELECTED;
 	}
 
 }

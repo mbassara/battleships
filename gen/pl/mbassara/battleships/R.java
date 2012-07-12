@@ -29,37 +29,44 @@ public final class R {
         public static final int ic_menu_button=0x7f02000a;
     }
     public static final class id {
+        public static final int activity_game_layout=0x7f080011;
         public static final int aircraft_carriers_text=0x7f080007;
         public static final int aircraft_carriers_value_text=0x7f08000c;
         public static final int battleships_text=0x7f080008;
         public static final int battleships_value_text=0x7f08000d;
         public static final int bluetoothHelpTextView=0x7f080000;
-        public static final int createGameButton=0x7f080012;
+        public static final int createGameButton=0x7f080018;
         public static final int creating_ships_layout=0x7f080003;
         public static final int destroyers_text=0x7f08000a;
         public static final int destroyers_value_text=0x7f08000f;
-        public static final int device_textView=0x7f080015;
+        public static final int device_textView=0x7f08001b;
         public static final int findDevicesButton=0x7f080001;
-        public static final int joinGameButton=0x7f080011;
+        public static final int gameBoard1=0x7f080012;
+        public static final int joinGameButton=0x7f080017;
         public static final int linearLayout1=0x7f080004;
         public static final int listView1=0x7f080002;
-        public static final int menu_settings=0x7f080016;
-        public static final int new_game_button=0x7f080013;
+        public static final int menu_settings=0x7f08001c;
+        public static final int new_game_button=0x7f080019;
         public static final int next_button=0x7f080006;
-        public static final int options_button=0x7f080014;
+        public static final int options_button=0x7f08001a;
         public static final int patrol_boats_text=0x7f08000b;
         public static final int patrol_boats_value_text=0x7f080010;
         public static final int place_ships_button=0x7f080005;
         public static final int submarines_text=0x7f080009;
         public static final int submarines_value_text=0x7f08000e;
+        public static final int tableRow1=0x7f080013;
+        public static final int tableRow2=0x7f080014;
+        public static final int tableRow3=0x7f080015;
+        public static final int tableRow4=0x7f080016;
     }
     public static final class layout {
         public static final int activity_bluetooth=0x7f030000;
         public static final int activity_bluetooth_host=0x7f030001;
         public static final int activity_creating_ships=0x7f030002;
-        public static final int activity_game_mode=0x7f030003;
-        public static final int activity_main_menu=0x7f030004;
-        public static final int bluetooth_device=0x7f030005;
+        public static final int activity_game=0x7f030003;
+        public static final int activity_game_mode=0x7f030004;
+        public static final int activity_main_menu=0x7f030005;
+        public static final int bluetooth_device=0x7f030006;
     }
     public static final class menu {
         public static final int activity_bluetooth=0x7f070000;

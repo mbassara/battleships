@@ -1,6 +1,6 @@
 package pl.mbassara.battleships;
 
-import android.view.View;
+import android.app.Activity;
 import android.widget.TextView;
 
 public class ShipsCounter {
@@ -9,7 +9,7 @@ public class ShipsCounter {
 	private String[] valuesStrings = new String[5];
 	private int[] values = new int[5];
 	
-	public ShipsCounter(View parent) {
+	public ShipsCounter(Activity parent) {
         shipsCountTexts[4] = (TextView) parent.findViewById(R.id.aircraft_carriers_value_text);
         shipsCountTexts[3] = (TextView) parent.findViewById(R.id.battleships_value_text);
         shipsCountTexts[2] = (TextView) parent.findViewById(R.id.submarines_value_text);
