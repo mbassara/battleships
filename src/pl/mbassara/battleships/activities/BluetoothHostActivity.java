@@ -16,11 +16,6 @@ public class BluetoothHostActivity extends BluetoothActivity {
         setContentView(R.layout.activity_bluetooth_host);
         
         adapter = BluetoothAdapter.getDefaultAdapter();
-        
-		if(adapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
-			Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-			startActivity(discoverableIntent);
-		}
 		
     }
     

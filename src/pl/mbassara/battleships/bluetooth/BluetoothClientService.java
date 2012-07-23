@@ -2,6 +2,8 @@ package pl.mbassara.battleships.bluetooth;
 
 import java.io.IOException;
 
+import pl.mbassara.battleships.Log;
+
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 
@@ -17,6 +19,7 @@ public class BluetoothClientService extends BluetoothService {
 	}
 	
 	public boolean connectSpecific() {
+		if(Log.enabled) System.out.println("BluetoothClientService.connectSpecific()");
 		if(socket == null)
 			return false;
 		

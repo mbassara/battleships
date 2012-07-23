@@ -21,8 +21,12 @@
     <string name="waiting_for_client">Please wait for other device to connect…</string>
     <string name="connecting_to_host">Connecting to selected device…</string>
     <string name="find_devices">Find devices</string>
+    <string name="set_visivility">Set visibility of your device</string>
+    <string name="bluetooth_discoverability">You have to set visibility in order to let other devices connect with you</string>
     <string name="bluetooth_help_finding_OFF">Press \"Find devices\" to scan for devices</string>
     <string name="bluetooth_help_finding_ON">Choose a device when it appears on a list below</string>
+    <string name="connection_timeout">Connection timeout!</string>
+    <string name="bt_not_supported">Bluetooth is not supported on your device</string>
 
     <!-- SHIPS -->
     <string name="aircraft_carriers">Aircraft carriers: </string>
@@ -45,9 +49,14 @@
     <string name="patrol_boats_value"> of 5</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_bluetooth">BluetoothActivity</string>
+    
+    <!-- GAME -->
+    <string name="you_start">You shoot first</string>
+    <string name="opponent_starts">Your opponent shoots first</string>
+    <string name="choose_field">Wybór pola</string>
+    <string name="shoot">Strzel</string>
 
     <!-- MESSAGES -->
-    <string name="bt_not_supported">Bluetooth is not supported on your device</string>
     <string name="title_activity_bluetooth_host">BluetoothHostActivity</string>
     <string name="title_activity_game_mode">GameModeActivity</string>
 

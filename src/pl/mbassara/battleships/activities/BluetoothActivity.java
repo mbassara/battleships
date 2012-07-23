@@ -1,5 +1,7 @@
 package pl.mbassara.battleships.activities;
 
+import pl.mbassara.battleships.Log;
+import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.bluetooth.BluetoothService;
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,24 +20,37 @@ public abstract class BluetoothActivity extends Activity {
     public abstract String getSpecificInfoString();
     
     protected void connect(BluetoothService service) {
+		if(Log.enabled) System.out.println("BluetoothActivity.connect()");
 		bluetoothService = service;
 		
 		final ProgressDialog progressDialog = ProgressDialog.show(this, "", getSpecificInfoString(), true);
 		final Intent intent = new Intent(this, CreatingShipsActivity.class);
+		
+		final BluetoothActivity activity = this;
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				bluetoothService.connect();
 	    		
-				while(!bluetoothService.isConnected())
+				int trialsCounter = 0;
+				int COUNTER_MAX = 100;
+				while(!bluetoothService.isConnected() && trialsCounter < COUNTER_MAX) {
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					trialsCounter++;
+				}
 				
 				progressDialog.dismiss();
-				startActivity(intent);
+				if(trialsCounter < COUNTER_MAX)
+					startActivity(intent);
+				else {
+					bluetoothService.stop();
+					System.out.println(getString(R.string.connection_timeout));
+					activity.finish();
+				}
 			}
 		});
 		

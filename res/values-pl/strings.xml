@@ -3,6 +3,8 @@
     <string name="app_name">Battleships</string>
     <string name="title_activity_main_menu">Battleships</string>
     <string name="title_activity_game">Battleships</string>
+
+    <!-- MAIN MENU -->
     <string name="menu_settings">Ustawienia</string>
     <string name="new_game">Nowa gra</string>
     <string name="options">Opcje</string>
@@ -23,6 +25,8 @@
     <string name="bluetooth_discoverability">Musisz ustawić widoczność aby inne urządenia mogły się z tobą połączyć</string>
     <string name="bluetooth_help_finding_OFF">Kliknij \"Znajdź urządzenia\" aby rozpocząć szukanie urządzeń bluetooth będących w zasięgu</string>
     <string name="bluetooth_help_finding_ON">Wybierz urządzenie gdy wyświetli się na liście poniżej</string>
+    <string name="connection_timeout">Przekroczono czas oczekiwania na połączenie!</string>
+    <string name="bt_not_supported">Twoje urządzenie nie obsługuje komunikacji za pomocą bluetooth</string>
     
     <!-- SHIPS -->
     <string name="aircraft_carriers">Pięciomasztowce: </string>
@@ -44,7 +48,10 @@
     <string name="destroyers_value"> z 4</string>
     <string name="patrol_boats_value"> z 5</string>
     
-    <!-- MESSAGES -->
-    <string name="bt_not_supported">Twoje urządzenie nie obsługuje komunikacji za pomocą bluetooth</string>
+    <!-- GAME -->
+    <string name="you_start">Strzelasz pierwszy</string>
+    <string name="opponent_starts">Przeciwnik strzela pierwszy</string>
+    <string name="choose_field">Choose field</string>
+    <string name="shoot">Shoot</string>
 
 </resources>
