@@ -89,11 +89,10 @@ public abstract class BluetoothService {
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				isConnected = connectSpecific();
-				if(isConnected) {
-					sendingThread.start();
-					receivingThread.start();
-				}
+				while(!isConnected)
+					isConnected = connectSpecific();	// can block
+				if(!sendingThread.isAlive()) sendingThread.start();
+				if(!receivingThread.isAlive()) receivingThread.start();
 			}
 		});
 		thread.start();
@@ -116,5 +115,4 @@ public abstract class BluetoothService {
 		else
 			return null;
 	}
-	
 }

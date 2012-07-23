@@ -1,7 +1,7 @@
 package pl.mbassara.battleships.activities;
 
-import pl.mbassara.battleships.GameActivity;
-import pl.mbassara.battleships.CreatingShipsGameBoard;
+import pl.mbassara.battleships.activities.GameActivity;
+import pl.mbassara.battleships.CreatingShipsBoard;
 import pl.mbassara.battleships.R;
 import android.os.Bundle;
 import android.app.Activity;
@@ -13,7 +13,7 @@ import android.widget.RelativeLayout.LayoutParams;
 
 public class CreatingShipsActivity extends Activity{
 
-	private static CreatingShipsGameBoard board = null;
+	private static CreatingShipsBoard board = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class CreatingShipsActivity extends Activity{
         setContentView(R.layout.activity_creating_ships);
         
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.creating_ships_layout);
-        board = new CreatingShipsGameBoard(this);
+        board = new CreatingShipsBoard(this);
         board.createShipsCounter(this);
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -45,8 +45,8 @@ public class CreatingShipsActivity extends Activity{
     	startActivity(intent);
 	}
     
-    public static CreatingShipsGameBoard getBoard() {
-    	return board;
+    public static boolean[][] getBoardMatrix() {
+    	return board.getBoardMatrix();
     }
 }
 

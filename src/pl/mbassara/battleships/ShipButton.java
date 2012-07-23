@@ -13,18 +13,21 @@ public class ShipButton extends ToggleButton {
 		super(context);
 		this.x = x;
 		this.y = y;
+		setUp();
 	}
 	
 	public ShipButton(Context context, AttributeSet attrs, int x, int y) {
 		super(context, attrs);
 		this.x = x;
 		this.y = y;
+		setUp();
 	}
 	
 	public ShipButton(Context context, AttributeSet attrs, int defStyle, int x, int y) {
 		super(context, attrs, defStyle);
 		this.x = x;
 		this.y = y;
+		setUp();
 	}
 
 	public ShipButton(Context context) {
@@ -53,9 +56,7 @@ public class ShipButton extends ToggleButton {
 		setTextOff("");
 		setMinimumHeight(10);
 		setMinimumWidth(10);
-		setWidth(35);
-		setHeight(35);
-		setEnabled(false);
+		setSize(35, 35);
 		setChecked(false);
 	}
 

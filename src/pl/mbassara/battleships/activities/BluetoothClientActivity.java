@@ -5,27 +5,24 @@ import java.util.ArrayList;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.bluetooth.BluetoothClientService;
 import android.os.Bundle;
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class BluetoothClientActivity extends Activity {
+public class BluetoothClientActivity extends BluetoothActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bluetooth);
+        setContentView(R.layout.activity_bluetooth_client);
 
 		adapter = BluetoothAdapter.getDefaultAdapter();
 		
@@ -48,29 +45,6 @@ public class BluetoothClientActivity extends Activity {
     }
     
     @Override
-    protected void onStart() {
-    	if(MainMenu.D) System.out.println("BluetoothActivity onStart");
-
-//    	for(BluetoothDevice device : btService.getDevices())
-//    		arrayAdapter.add(device.toString());
-
-    	super.onStart();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_bluetooth, menu);
-        return true;
-    }
-    
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	if(requestCode == REQUEST_ENABLE_BT)
-    		System.out.println("activity result code: " + requestCode);
-    	super.onActivityResult(requestCode, resultCode, data);
-    }
-    
-    @Override
     protected void onDestroy() {
     	unregisterReceiver(receiver);
     	super.onDestroy();
@@ -85,40 +59,18 @@ public class BluetoothClientActivity extends Activity {
     }
     
     public void bluetoothDeviceClicked(View view) {
-    	String adres = ((TextView) view).getText().toString();
-    	adres = adres.substring(adres.indexOf("\n") + 1);
-    	System.out.println("connecting to " + adres);
+    	String deviceName = ((TextView) view).getText().toString();
+    	deviceName = deviceName.substring(deviceName.indexOf("\n") + 1);
+    	System.out.println("connecting to " + deviceName);
     	adapter.cancelDiscovery();
     	
     	BluetoothDevice hostDevice = null;
     	for(BluetoothDevice device : devices)
-    		if(device.getAddress().equals(adres))
+    		if(device.getAddress().equals(deviceName))
     			hostDevice = device;
     	
-    	if(hostDevice != null) {
-    		final BluetoothClientService bluetooth = new BluetoothClientService(hostDevice, this);
-    		bluetooth.connect();
-    		
-			final ProgressDialog progressDialog = ProgressDialog.show(this, "", getString(R.string.connecting_to_host), true);
-			final Intent intent = new Intent(this, CreatingShipsActivity.class);
-    		
-    		Thread thread = new Thread(new Runnable() {
-				@Override
-				public void run() {
-					while(!bluetooth.isConnected())
-						try {
-							Thread.sleep(500);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					
-					progressDialog.dismiss();
-					startActivity(intent);
-				}
-			});
-    		
-    		thread.start();
-    	}
+    	if(hostDevice != null)
+    		connect(new BluetoothClientService(hostDevice, this));
     }
 
 	private BluetoothAdapter adapter;
@@ -141,4 +93,9 @@ public class BluetoothClientActivity extends Activity {
 			
 		}
 	};
+
+	@Override
+	public String getSpecificInfoString() {
+		return getString(R.string.connecting_to_host);
+	}
 }

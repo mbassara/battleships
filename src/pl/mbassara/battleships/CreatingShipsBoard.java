@@ -3,42 +3,26 @@ package pl.mbassara.battleships;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.ToggleButton;
 
-public class CreatingShipsGameBoard extends TableLayout 
+public class CreatingShipsBoard extends Board 
 	implements OnCheckedChangeListener {
 	
 	private CreatingShipsButton[][] ships;
-	private boolean[][] multipurposeMatrix = new boolean[10][10]; 
 	private boolean placingShipsMode = false;
 	private ShipsCounter shipsCounter;
 	
-	public CreatingShipsGameBoard(Context context) {
+	public CreatingShipsBoard(Context context) {
 		super(context);
-		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-														LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		this.setLayoutParams(layoutParams);
-        
-        TableRow[] rows = new TableRow[10];
-        for(int i = 0; i < 10; i++) {
-        	rows[i] = new TableRow(context);
-        	rows[i].setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        	this.addView(rows[i]);
-        }
         
         ships = new CreatingShipsButton[10][10];
         for(int i = 0; i < 10; i++)
         	for(int j = 0; j < 10; j++) {
         		ships[i][j] = new CreatingShipsButton(context, i, j);
         		ships[i][j].setOnCheckedChangeListener(this);
+        		ships[i][j].setEnabled(false);
         		rows[i].addView(ships[i][j]);
         	}
 		
@@ -114,26 +98,28 @@ public class CreatingShipsGameBoard extends TableLayout
     }
     
     private int shipSize(int x, int y) {
+    	boolean[][] matrix = new boolean[10][10];
+    	
     	for(int i = 0; i < 10; i++)
 			for(int j = 0; j < 10; j++)
-				multipurposeMatrix[i][j] = true;
+				matrix[i][j] = true;
     	
-    	return shipSizeRecursive(x, y);
+    	return shipSizeRecursive(x, y, matrix);
     }
     
-    private int shipSizeRecursive(int x, int y) {
+    private int shipSizeRecursive(int x, int y, boolean[][] matrix) {
     	
     	int size = 0;
-    	multipurposeMatrix[x][y] = false;
+    	matrix[x][y] = false;
 		
-    	if((x+1)<10 && multipurposeMatrix[x+1][y] && !ships[x+1][y].isNotSelected())
-    		size += shipSizeRecursive(x+1, y);
-    	if((y+1)<10 && multipurposeMatrix[x][y+1] && !ships[x][y+1].isNotSelected())
-    		size += shipSizeRecursive(x, y+1);
-    	if((x-1)>=0 && multipurposeMatrix[x-1][y] && !ships[x-1][y].isNotSelected())
-    		size += shipSizeRecursive(x-1, y);
-    	if((y-1)>=0 && multipurposeMatrix[x][y-1] && !ships[x][y-1].isNotSelected())
-    		size += shipSizeRecursive(x, y-1);
+    	if((x+1)<10 && matrix[x+1][y] && !ships[x+1][y].isNotSelected())
+    		size += shipSizeRecursive(x+1, y, matrix);
+    	if((y+1)<10 && matrix[x][y+1] && !ships[x][y+1].isNotSelected())
+    		size += shipSizeRecursive(x, y+1, matrix);
+    	if((x-1)>=0 && matrix[x-1][y] && !ships[x-1][y].isNotSelected())
+    		size += shipSizeRecursive(x-1, y, matrix);
+    	if((y-1)>=0 && matrix[x][y-1] && !ships[x][y-1].isNotSelected())
+    		size += shipSizeRecursive(x, y-1, matrix);
 
 		return size + 1;
     }
