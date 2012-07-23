@@ -4,9 +4,14 @@ import android.content.Context;
 
 public class GameShipButton extends ShipButton {
 
-	public static int NOT_SHIP = 0;
-	public static int SHIP = 1;
-	public static int SUNK = 2;
+	public static final int NOT_SHIP = 0;
+	public static final int SHIP = 1;
+	public static final int SUNK = 2;
+	
+	public static final int GREEN = 3;
+	public static final int RED = 4;
+	public static final int WHITE = 5;
+	public static final int BLACK = 6;
 	
 	private Context context;
 	private int state;
@@ -40,6 +45,23 @@ public class GameShipButton extends ShipButton {
 	public void setSunk() {
 		state = SUNK;
 		this.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship_sunk));
+	}
+	
+	public void setColor(int color) {
+		switch (color) {
+		case RED:
+			setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship_impossible));
+			break;
+		case GREEN:
+			setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship_possible));
+			break;
+		case WHITE:
+			setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship));
+			break;
+		case BLACK:
+			setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship_sel));
+			break;
+		}
 	}
 
 }

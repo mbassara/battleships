@@ -7,11 +7,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class GameBoard extends Board
-	implements OnCheckedChangeListener{
+public class GameBoard extends Board {
 	
 	public static String X = "x";
 	public static String Y = "y";
@@ -39,7 +37,6 @@ public class GameBoard extends Board
 			for (int j = 0; j < 10; j++) {
 				state = matrix[i][j] ? GameShipButton.SHIP : GameShipButton.NOT_SHIP; 
 				ships[i][j] = new GameShipButton(context, state, i, j);
-				ships[i][j].setOnCheckedChangeListener(this);
 				rows[i].addView(ships[i][j]);
 			}
 		
@@ -87,12 +84,9 @@ public class GameBoard extends Board
 			for (int j = 0; j < 10; j++)
 				ships[i][j].setEnabled(enabled);
 	}
-
-	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		GameShipButton button = (GameShipButton) buttonView;
-		if(Log.enabled) System.out.println("button (" + button.getFieldX() + "," + button.getFieldY() + ") clicked");
-		bluetoothService.send(new GamePacket(button.getFieldX(), button.getFieldY()));
+	
+	public void setShipColor(int x, int y, int color) {
+		ships[x][y].setColor(color);
 	}
 
 }

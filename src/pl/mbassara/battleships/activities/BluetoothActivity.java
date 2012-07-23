@@ -33,7 +33,7 @@ public abstract class BluetoothActivity extends Activity {
 				bluetoothService.connect();
 	    		
 				int trialsCounter = 0;
-				int COUNTER_MAX = 100;
+				int COUNTER_MAX = 50;
 				while(!bluetoothService.isConnected() && trialsCounter < COUNTER_MAX) {
 					try {
 						Thread.sleep(500);

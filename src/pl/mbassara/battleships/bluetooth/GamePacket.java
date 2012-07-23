@@ -22,6 +22,11 @@ public class GamePacket implements Serializable{
 		type = WHO_STARTS;
 	}
 	
+	public GamePacket(Coordinates coordinates) {
+		this.coordinates = coordinates;
+		type = SHOT;
+	}
+	
 	public GamePacket(int x, int y) {
 		coordinates = new Coordinates(x, y);
 		type = SHOT;

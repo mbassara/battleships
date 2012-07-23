@@ -2,7 +2,10 @@ package pl.mbassara.battleships.activities;
 
 import java.util.Random;
 
+import pl.mbassara.battleships.Coordinates;
 import pl.mbassara.battleships.GameBoard;
+import pl.mbassara.battleships.GameShipButton;
+import pl.mbassara.battleships.Log;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.activities.CreatingShipsActivity;
 import pl.mbassara.battleships.bluetooth.BluetoothService;
@@ -24,23 +27,12 @@ public class GameActivity extends Activity
 	private boolean meStartFirst;
 	private int gameMode;
 	private ToggleButton shotButton;
+	private Coordinates field = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_game_layout);
-        shotButton = (ToggleButton) findViewById(R.id.shotButton);
-        shotButton.setOnCheckedChangeListener(this);
-        board = new GameBoard(this, CreatingShipsActivity.getBoardMatrix());
-        
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        board.setLayoutParams(layoutParams);
-        board.setEnabled(false);
-        layout.addView(board);
         
         bluetoothService = BluetoothActivity.getBluetoothService();
         gameMode = GameModeActivity.getMode();
@@ -67,6 +59,19 @@ public class GameActivity extends Activity
         	meStartFirst = packet.getWhoStarts() == GamePacket.CLIENT_FIRST;
         }
         
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_game_layout);
+        shotButton = (ToggleButton) findViewById(R.id.shotButton);
+        shotButton.setOnCheckedChangeListener(this);
+        board = new GameBoard(this, CreatingShipsActivity.getBoardMatrix());
+        board.setOnCheckedChangeListener(this);
+        
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        board.setLayoutParams(layoutParams);
+        board.setEnabled(false);
+        layout.addView(board);
+        
         if(meStartFirst)
         	Toast.makeText(this, getString(R.string.you_start), Toast.LENGTH_SHORT).show();
         else
@@ -83,6 +88,21 @@ public class GameActivity extends Activity
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		if(buttonView.equals(shotButton)) {
 			board.setEnabled(isChecked);
+			if(!isChecked && field != null) {	// shot
+				bluetoothService.send(new GamePacket(field));
+				field = null;
+			}
+		}
+		else {
+			if(field != null) {
+				board.setShipColor(field.getX(), field.getY(), GameShipButton.WHITE);
+			}
+			GameShipButton button = (GameShipButton) buttonView;
+			int x = button.getFieldX();
+			int y = button.getFieldY();
+			if(Log.enabled) System.out.println("button (" + x + "," + y + ") clicked");
+			field = new Coordinates(x, y);
+			button.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_im_ship_possible));
 		}
 	}
     
