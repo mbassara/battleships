@@ -40,25 +40,18 @@
         </activity>
         <activity
             android:name=".activities.GameModeActivity"
-            android:label="@string/title_activity_game_mode" >
+            android:label="@string/title_activity_game_mode"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activities.GameActivity"
-            android:label="@string/title_activity_game" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="@string/title_activity_game"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activities.BluetoothActivity"
-            android:label="@string/title_activity_bluetooth" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="@string/title_activity_bluetooth"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

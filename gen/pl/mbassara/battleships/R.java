@@ -22,12 +22,21 @@ public final class R {
         public static final int ic_im_but=0x7f020003;
         public static final int ic_im_but_hov=0x7f020004;
         public static final int ic_im_ship=0x7f020005;
-        public static final int ic_im_ship_impossible=0x7f020006;
-        public static final int ic_im_ship_possible=0x7f020007;
-        public static final int ic_im_ship_sel=0x7f020008;
-        public static final int ic_im_ship_sunk=0x7f020009;
-        public static final int ic_launcher=0x7f02000a;
-        public static final int ic_menu_button=0x7f02000b;
+        public static final int ic_im_ship_hit=0x7f020006;
+        public static final int ic_im_ship_hit_small=0x7f020007;
+        public static final int ic_im_ship_impossible=0x7f020008;
+        public static final int ic_im_ship_impossible_small=0x7f020009;
+        public static final int ic_im_ship_missed=0x7f02000a;
+        public static final int ic_im_ship_missed_small=0x7f02000b;
+        public static final int ic_im_ship_possible=0x7f02000c;
+        public static final int ic_im_ship_possible_small=0x7f02000d;
+        public static final int ic_im_ship_sel=0x7f02000e;
+        public static final int ic_im_ship_sel_small=0x7f02000f;
+        public static final int ic_im_ship_small=0x7f020010;
+        public static final int ic_im_ship_sunk=0x7f020011;
+        public static final int ic_im_ship_sunk_small=0x7f020012;
+        public static final int ic_launcher=0x7f020013;
+        public static final int ic_menu_button=0x7f020014;
     }
     public static final class id {
         public static final int activity_game_layout=0x7f080011;
@@ -75,7 +84,6 @@ public final class R {
     }
     public static final class string {
         /**  BLUETOOTH ACTIVITY 
- BLUETOOTH ACTIVITY 
          */
         public static final int UUID=0x7f05000b;
         /**  SHIPS 
@@ -134,6 +142,8 @@ public final class R {
         public static final int title_activity_game=0x7f050002;
         public static final int title_activity_game_mode=0x7f05002c;
         public static final int title_activity_main_menu=0x7f050001;
+        /**  BLUETOOTH ACTIVITY 
+         */
         public static final int waiting_for_client=0x7f05000c;
         /**  GAME 
  GAME 

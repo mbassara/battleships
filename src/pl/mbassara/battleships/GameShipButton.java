@@ -6,62 +6,67 @@ public class GameShipButton extends ShipButton {
 
 	public static final int NOT_SHIP = 0;
 	public static final int SHIP = 1;
-	public static final int SUNK = 2;
+	public static final int HIT = 2;
+	public static final int SUNK = 3;
+	public static final int MISSED = 4;
 	
-	public static final int GREEN = 3;
-	public static final int RED = 4;
-	public static final int WHITE = 5;
-	public static final int BLACK = 6;
-	
-	private Context context;
 	private int state;
 	
 	public GameShipButton(Context context) {
-		this(context, NOT_SHIP, -1, -1);
+		this(context, NOT_SHIP, -1, -1, SIZE_BIG);
 	}
 
-	public GameShipButton(Context context, int state, int x, int y) {
-		super(context, x, y);
+	public GameShipButton(Context context, int state, int x, int y, int size) {
+		super(context, x, y, size);
 		
-		this.context = context;
 		this.state = state;
 		
 		if(state == NOT_SHIP)
-			this.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship));
+			this.setLaF(LAF_NORMAL);
 		else if(state == SHIP)
-			this.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship_sel));
+			this.setLaF(LAF_SELECTED);
 		else if(state == SUNK)
-			this.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship_sunk));
+			this.setLaF(LAF_SUNK);
+		else if(state == HIT)
+			this.setLaF(LAF_HIT);
+		else if(state == MISSED)
+			this.setLaF(LAF_MISSED);
+	}
+	
+	public boolean shoot() {
+		if(state == SHIP) {
+			setHit();
+			return true;
+		}
+		else if(state == SUNK || state == HIT)
+			return true;
+		else {
+			setMissed();
+			return false;	
+		}
 	}
 	
 	public boolean isShip() {
 		return state != NOT_SHIP;
 	}
 	
-	public boolean isSunk() {
-		return state == SUNK;
+	public boolean isHit() {
+		return state == SUNK || state == HIT;
 	}
 	
-	public void setSunk() {
+	protected void setSunk() {
 		state = SUNK;
-		this.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship_sunk));
+		this.setLaF(LAF_SUNK);
 	}
 	
-	public void setColor(int color) {
-		switch (color) {
-		case RED:
-			setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship_impossible));
-			break;
-		case GREEN:
-			setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship_possible));
-			break;
-		case WHITE:
-			setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship));
-			break;
-		case BLACK:
-			setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_im_ship_sel));
-			break;
-		}
+	protected void setHit() {
+		state = HIT;
+		this.setLaF(LAF_HIT);
+	}
+	
+	protected void setMissed() {
+		state = MISSED;
+		this.setLaF(LAF_MISSED);
 	}
 
 }

@@ -9,8 +9,8 @@ public class CreatingShipsButton extends ShipButton {
 		super(context, attrs, defStyle);
 	}
 
-	public CreatingShipsButton(Context context, int x, int y) {
-		super(context, x, y);
+	public CreatingShipsButton(Context context, int x, int y, int size) {
+		super(context, x, y, size);
 	}
 
 	public CreatingShipsButton(Context context) {

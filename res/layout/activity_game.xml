@@ -12,11 +12,12 @@
         android:id="@+id/shotButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:textOn="@string/shoot"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="45dp"
+        android:checked="false"
         android:textOff="@string/choose_field"
-        android:checked="false" />
+        android:textOn="@string/shoot" />
 
 </RelativeLayout>

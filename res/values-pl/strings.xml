@@ -17,7 +17,6 @@
     <string name="game_mode_client">Dołącz do gry</string>
     
     <!-- BLUETOOTH ACTIVITY -->
-    <string name="UUID">76b4c611-da5a-4672-af97-7eb2fb71597e</string>
     <string name="waiting_for_client">Proszę czekać na podłączenie drugiego urządzenia…</string>
     <string name="connecting_to_host">Proszę czekać na podłączenie do wybranego urządzenia…</string>
     <string name="find_devices">Znajdź urządzenia</string>
@@ -51,7 +50,7 @@
     <!-- GAME -->
     <string name="you_start">Strzelasz pierwszy</string>
     <string name="opponent_starts">Przeciwnik strzela pierwszy</string>
-    <string name="choose_field">Choose field</string>
-    <string name="shoot">Shoot</string>
+    <string name="choose_field">Wybór pola</string>
+    <string name="shoot">Strzał!</string>
 
 </resources>

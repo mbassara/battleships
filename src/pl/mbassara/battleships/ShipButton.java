@@ -5,9 +5,22 @@ import android.util.AttributeSet;
 import android.widget.ToggleButton;
 
 public class ShipButton extends ToggleButton {
+	
+	public static final int SIZE_SMALL = 1;
+	public static final int SIZE_BIG = 2;
+	
+	public static final int LAF_POSSIBLE = 3;
+	public static final int LAF_IMPOSSIBLE = 4;
+	public static final int LAF_NORMAL = 5;
+	public static final int LAF_SELECTED = 6;
+	public static final int LAF_HIT = 7;
+	public static final int LAF_SUNK = 8;
+	public static final int LAF_MISSED = 9;
 
 	protected int x = -1;
 	protected int y = -1;
+	protected int size = SIZE_BIG;
+	protected int LaF = LAF_NORMAL;
 	
 	public ShipButton(Context context, int x, int y) {
 		super(context);
@@ -16,17 +29,11 @@ public class ShipButton extends ToggleButton {
 		setUp();
 	}
 	
-	public ShipButton(Context context, AttributeSet attrs, int x, int y) {
-		super(context, attrs);
+	public ShipButton(Context context, int x, int y, int size) {
+		super(context);
 		this.x = x;
 		this.y = y;
-		setUp();
-	}
-	
-	public ShipButton(Context context, AttributeSet attrs, int defStyle, int x, int y) {
-		super(context, attrs, defStyle);
-		this.x = x;
-		this.y = y;
+		this.size = size;
 		setUp();
 	}
 
@@ -44,19 +51,15 @@ public class ShipButton extends ToggleButton {
 		super(context, attrs, defStyle);
 		setUp();
 	}
-
-	public void setSize(int width, int height) {
-		setWidth(width);
-		setHeight(height);
-	}
 	
 	private void setUp() {
-		setBackgroundResource(R.drawable.ic_im_ship);
+		setLaF(LAF_NORMAL);
 		setTextOn("");
 		setTextOff("");
 		setMinimumHeight(10);
 		setMinimumWidth(10);
-		setSize(35, 35);
+		setWidth(10);
+		setHeight(10);
 		setChecked(false);
 	}
 
@@ -74,6 +77,45 @@ public class ShipButton extends ToggleButton {
 
 	public int getFieldY() {
 		return y;
+	}
+	
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+		setLaF(LaF);
+	}
+	
+	public int getLaF() {
+		return LaF;
+	}
+	
+	public void setLaF(int laf) {
+		switch (laf) {
+		case LAF_IMPOSSIBLE:
+			setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_impossible_small : R.drawable.ic_im_ship_impossible);
+			break;
+		case LAF_POSSIBLE:
+			setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_possible_small : R.drawable.ic_im_ship_possible);
+			break;
+		case LAF_NORMAL:
+			setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_small : R.drawable.ic_im_ship);
+			break;
+		case LAF_SELECTED:
+			setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_sel_small : R.drawable.ic_im_ship_sel);
+			break;
+		case LAF_HIT:
+			setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_hit_small : R.drawable.ic_im_ship_hit);
+			break;
+		case LAF_SUNK:
+			setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_sunk_small : R.drawable.ic_im_ship_sunk);
+			break;
+		case LAF_MISSED:
+			setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_missed_small : R.drawable.ic_im_ship_missed);
+			break;
+		}
 	}
 
 }

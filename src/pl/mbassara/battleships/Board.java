@@ -8,6 +8,9 @@ import android.widget.TableRow;
 
 public class Board extends TableLayout {
 	
+	public static final int SIZE_SMALL = 1;
+	public static final int SIZE_BIG = 2;
+	
 	protected TableRow[] rows = new TableRow[10];
 	
 	public Board(Context context) {

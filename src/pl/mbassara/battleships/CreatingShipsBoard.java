@@ -15,12 +15,16 @@ public class CreatingShipsBoard extends Board
 	private ShipsCounter shipsCounter;
 	
 	public CreatingShipsBoard(Context context) {
+		this(context, SIZE_BIG);
+	}
+	
+	public CreatingShipsBoard(Context context, int size) {
 		super(context);
         
         ships = new CreatingShipsButton[10][10];
         for(int i = 0; i < 10; i++)
         	for(int j = 0; j < 10; j++) {
-        		ships[i][j] = new CreatingShipsButton(context, i, j);
+        		ships[i][j] = new CreatingShipsButton(context, i, j, size);
         		ships[i][j].setOnCheckedChangeListener(this);
         		ships[i][j].setEnabled(false);
         		rows[i].addView(ships[i][j]);
@@ -132,9 +136,9 @@ public class CreatingShipsBoard extends Board
         			ships[i][j].setEnabled(true);
 	        		if(ships[i][j].isNotSelected()) {
 		        		if(isFieldPossible(i, j))
-		        			ships[i][j].setBackgroundResource(R.drawable.ic_im_ship_possible);
+		        			ships[i][j].setLaF(ShipButton.LAF_POSSIBLE);
 		        		else
-		        			ships[i][j].setBackgroundResource(R.drawable.ic_im_ship_impossible);
+		        			ships[i][j].setLaF(ShipButton.LAF_IMPOSSIBLE);
 	        		}
 	        	}
     	}
@@ -143,7 +147,7 @@ public class CreatingShipsBoard extends Board
 	        	for(int j = 0; j < 10; j++) {
 	        		ships[i][j].setEnabled(false);
 	        		if(ships[i][j].isNotSelected())
-		        		ships[i][j].setBackgroundResource(R.drawable.ic_im_ship);
+	        			ships[i][j].setLaF(ShipButton.LAF_NORMAL);
 	        		else if(ships[i][j].isSoftSelected())
 	        			ships[i][j].setHardSelected();
 	        	}
@@ -161,9 +165,9 @@ public class CreatingShipsBoard extends Board
 			shipsCounter.removeShip(size);
 			shipsCounter.addShip(size-1);
 			if(placingShipsMode)
-				ship.setBackgroundResource(R.drawable.ic_im_ship_possible);
+    			ship.setLaF(ShipButton.LAF_POSSIBLE);
 			else
-				ship.setBackgroundResource(R.drawable.ic_im_ship);
+    			ship.setLaF(ShipButton.LAF_NORMAL);
 		}
 		if(isChecked) {
 			boolean possible = isFieldPossible(x, y) && shipsCounter.canAddShip(size);
@@ -174,7 +178,7 @@ public class CreatingShipsBoard extends Board
 				ship.setSoftSelected();
 				shipsCounter.removeShip(size-1);
 				shipsCounter.addShip(size);
-				ship.setBackgroundResource(R.drawable.ic_im_ship_sel);
+    			ship.setLaF(ShipButton.LAF_SELECTED);
 			}
 		}
 	}

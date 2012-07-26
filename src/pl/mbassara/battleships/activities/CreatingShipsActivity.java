@@ -1,6 +1,7 @@
 package pl.mbassara.battleships.activities;
 
 import pl.mbassara.battleships.activities.GameActivity;
+import pl.mbassara.battleships.Board;
 import pl.mbassara.battleships.CreatingShipsBoard;
 import pl.mbassara.battleships.R;
 import android.os.Bundle;
@@ -21,7 +22,7 @@ public class CreatingShipsActivity extends Activity{
         setContentView(R.layout.activity_creating_ships);
         
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.creating_ships_layout);
-        board = new CreatingShipsBoard(this);
+        board = new CreatingShipsBoard(this, Board.SIZE_BIG);
         board.createShipsCounter(this);
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
