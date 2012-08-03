@@ -28,7 +28,7 @@
                 android:id="@+id/place_ships_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:onClick="addShip"
+                android:onClick="togglePlacingShipsMode"
                 android:textOff="@string/place_ships"
                 android:textOn="@string/commit_changes" />
 
@@ -41,6 +41,7 @@
 
         </LinearLayout>
 
+<!-- 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -131,7 +132,7 @@
             </LinearLayout>
 
         </LinearLayout>
-
+ -->
     </RelativeLayout>
 
 </RelativeLayout>

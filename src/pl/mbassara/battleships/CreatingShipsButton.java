@@ -22,8 +22,7 @@ public class CreatingShipsButton extends ShipButton {
 	}
 
 	private static final int NOT_SELECTED = 0;
-	private static final int SOFT_SELECTED = 1;
-	private static final int HARD_SELECTED = 2;
+	private static final int SELECTED = 1;
 	
 	private int state = NOT_SELECTED;
 	
@@ -53,24 +52,16 @@ public class CreatingShipsButton extends ShipButton {
 		return state == NOT_SELECTED;
 	}
 	
-	public boolean isSoftSelected() {
-		return state == SOFT_SELECTED;
-	}
-	
-	public boolean isHardSelected() {
-		return state == HARD_SELECTED;
+	public boolean isSelected() {
+		return state == SELECTED;
 	}
 	
 	public void setNotSelected() {
 		state = NOT_SELECTED;
 	}
 	
-	public void setSoftSelected() {
-		state = SOFT_SELECTED;
-	}
-	
-	public void setHardSelected() {
-		state = HARD_SELECTED;
+	public void setSelected() {
+		state = SELECTED;
 	}
 
 }

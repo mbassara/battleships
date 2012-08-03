@@ -10,7 +10,8 @@ import android.content.Context;
 
 public class BluetoothHostService extends BluetoothService {
 	
-	BluetoothAdapter adapter;
+	private BluetoothAdapter adapter;
+	private BluetoothServerSocket serverSocket = null;
 
 	public BluetoothHostService(BluetoothAdapter adapter, Context context) {
 		super(context);
@@ -24,7 +25,7 @@ public class BluetoothHostService extends BluetoothService {
 			return false;
 		
 		try {
-			BluetoothServerSocket serverSocket = adapter.listenUsingRfcommWithServiceRecord("Battleships Game", java.util.UUID.fromString(UUID));
+			serverSocket = adapter.listenUsingRfcommWithServiceRecord("Battleships Game", java.util.UUID.fromString(UUID));
 			socket = serverSocket.accept();
 			serverSocket.close();
 			
@@ -35,6 +36,18 @@ public class BluetoothHostService extends BluetoothService {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public void cancelSpecific() {
+		try {
+			if(serverSocket != null)
+				serverSocket.close();
+			if(socket != null)
+				socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

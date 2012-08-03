@@ -4,39 +4,40 @@
     <string name="title_activity_main_menu">Battleships</string>
     <string name="title_activity_game">Battleships</string>
 
-    <!-- GAME PREPARATION -->
-    <string name="menu_settings">Ustawienia</string>
-    <string name="new_game">Nowa gra</string>
-    <string name="options">Opcje</string>
-    <string name="place_ships">Dodaj statki</string>
-    <string name="commit_changes">Potwierdź zmiany</string>
-    <string name="next">Dalej</string>
-    <string name="placing_ships_error">Błędy w ułożeniu statków</string>
+    <!-- MAIN MENU -->
+    <string name="menu_settings">Einstellungen</string>
+    <string name="new_game">Neues Spiel</string>
+    <string name="options">Option</string>
+    <string name="place_ships">Schiffe geben</string>
+    <string name="commit_changes">OK</string>
+    <string name="next">Weiter</string>
     
     <!-- GAME MODE SELECTION -->
-    <string name="game_mode_host">Stwórz grę</string>
-    <string name="game_mode_client">Dołącz do gry</string>
+    <string name="game_mode_host">Mach das Spiel</string>
+    <string name="game_mode_client">Verbinden</string>
     
     <!-- BLUETOOTH ACTIVITY -->
-    <string name="waiting_for_client">Proszę czekać na podłączenie drugiego urządzenia…</string>
-    <string name="connecting_to_host">Proszę czekać na podłączenie do wybranego urządzenia…</string>
-    <string name="find_devices">Znajdź urządzenia</string>
-    <string name="set_visivility">Ustaw widoczność</string>
+    <string name="waiting_for_client">Bitte auf die Verbindung warten…</string>
+    <string name="connecting_to_host">Bitte auf die Verbindung warten…</string>
+    <string name="find_devices">Finde das Spiel</string>
+<!--    <string name="set_visivility">Ustaw widoczność</string>
     <string name="bluetooth_discoverability">Musisz ustawić widoczność aby inne urządenia mogły się z tobą połączyć</string>
     <string name="bluetooth_help_finding_OFF">Kliknij \"Znajdź urządzenia\" aby rozpocząć szukanie urządzeń bluetooth będących w zasięgu</string>
     <string name="bluetooth_help_finding_ON">Wybierz urządzenie gdy wyświetli się na liście poniżej</string>
     <string name="connection_timeout">Przekroczono czas oczekiwania na połączenie!</string>
     <string name="bt_not_supported">Twoje urządzenie nie obsługuje komunikacji za pomocą bluetooth</string>
+ -->
     
     <!-- SHIPS -->
-    <string name="aircraft_carriers">Pięciomasztowce: </string>
+<!--     <string name="aircraft_carriers">Pięciomasztowce: </string>
     <string name="battleships">Czteromasztowce: </string>
     <string name="submarines">Trójmasztowce: </string>
     <string name="destroyers">Dwumasztowce: </string>
     <string name="patrol_boats">Jednomasztowce: </string>
-    
+ -->
+     
     <!-- VALUES -->
-    <string name="of"> z </string>
+<!--     <string name="of"> z </string>
     <string name="of1">0 z 1</string>
     <string name="of2">0 z 2</string>
     <string name="of3">0 z 3</string>
@@ -47,11 +48,13 @@
     <string name="submarines_value"> z 3</string>
     <string name="destroyers_value"> z 4</string>
     <string name="patrol_boats_value"> z 5</string>
+ -->
     
     <!-- GAME -->
-    <string name="you_start">Strzelasz pierwszy</string>
+<!--     <string name="you_start">Strzelasz pierwszy</string>
     <string name="opponent_starts">Przeciwnik strzela pierwszy</string>
     <string name="choose_field">Wybór pola</string>
     <string name="shoot">Strzał!</string>
+ -->
 
 </resources>

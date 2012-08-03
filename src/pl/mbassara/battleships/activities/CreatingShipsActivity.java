@@ -23,7 +23,6 @@ public class CreatingShipsActivity extends Activity{
         
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.creating_ships_layout);
         board = new CreatingShipsBoard(this, Board.SIZE_BIG);
-        board.createShipsCounter(this);
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -37,8 +36,8 @@ public class CreatingShipsActivity extends Activity{
         return true;
     }
     
-    public void addShip(View view){
-    	board.addShip(view);
+    public void togglePlacingShipsMode(View view){
+    	board.togglePlacingShipsMode(view);
     }
     
     public void next(View view) {

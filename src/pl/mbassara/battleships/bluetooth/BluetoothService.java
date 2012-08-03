@@ -35,15 +35,26 @@ public abstract class BluetoothService {
 	
 	abstract public boolean connectSpecific();
 	
+	abstract void cancelSpecific();
+	
 	public void connect() {
 		if(Log.enabled) System.out.println("BluetoothService.connect()");
 		if(!connectingThread.isAlive()) connectingThread.start();
 	}
 	
 	public void stop() {
-		if(sendingThread != null) sendingThread.cancel();
-		if(receivingThread != null) receivingThread.cancel();
-		if(connectingThread != null) connectingThread.cancel();
+		while(sendingThread.isAlive() || receivingThread.isAlive() || connectingThread.isAlive()) {
+			
+			if(sendingThread != null && sendingThread.isAlive()) sendingThread.cancel();
+			if(receivingThread != null && receivingThread.isAlive()) receivingThread.cancel();
+			if(connectingThread != null && connectingThread.isAlive()) connectingThread.cancel();
+			
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public boolean isConnected() {
@@ -76,8 +87,10 @@ public abstract class BluetoothService {
 				while(!isConnected && isAlive)
 					Thread.sleep(250);
 				
-				outputStream = new ObjectOutputStream(
-								socket.getOutputStream());
+				if(isAlive) {
+					outputStream = new ObjectOutputStream(
+									socket.getOutputStream());
+				}
 				GamePacket packet;
 			
 				while(isAlive) {
@@ -120,9 +133,11 @@ public abstract class BluetoothService {
 			try {
 				while(!isConnected && isAlive)
 					Thread.sleep(250);
-				
-				inputStream = new ObjectInputStream(
-								socket.getInputStream());
+
+				if(isAlive) {
+					inputStream = new ObjectInputStream(
+									socket.getInputStream());
+				}
 				GamePacket packet;
 				
 				while(isAlive) {
@@ -176,12 +191,9 @@ public abstract class BluetoothService {
 		
 		public void cancel() {
 			if(Log.enabled) System.out.println("ConnectingThread.cancel()");
+			
+			cancelSpecific();
 			isAlive = false;
-			try {
-				if(socket != null) socket.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 

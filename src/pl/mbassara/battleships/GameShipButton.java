@@ -47,7 +47,7 @@ public class GameShipButton extends ShipButton {
 	}
 	
 	public boolean isShip() {
-		return state != NOT_SHIP;
+		return state == SHIP;
 	}
 	
 	public boolean isHit() {

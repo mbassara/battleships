@@ -32,5 +32,15 @@ public class BluetoothClientService extends BluetoothService {
 
 		return false;
 	}
+
+	@Override
+	public void cancelSpecific() {
+		try {
+			if(socket != null)
+				socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

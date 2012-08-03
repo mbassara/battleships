@@ -190,7 +190,7 @@ public class GameActivity extends Activity
 				int y = msg.getData().getInt(KEY_Y);
 				ShotResult result = previewBoard.shoot(x, y);
 				bluetoothService.send(new GamePacket(result));
-				if(!result.isHit())
+				if(!result.isHit() || result.isSunk())
 					shotButton.setEnabled(true);
 			}
 			else if(data.getInt(KEY_TYPE) == TYPE_RESULT) {

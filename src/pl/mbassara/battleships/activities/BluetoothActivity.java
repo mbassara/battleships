@@ -6,11 +6,14 @@ import pl.mbassara.battleships.bluetooth.BluetoothService;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 
-public abstract class BluetoothActivity extends Activity {
+public abstract class BluetoothActivity extends Activity
+	implements DialogInterface.OnCancelListener {
 	
 	private static BluetoothService bluetoothService;
+	private boolean isActive = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,7 +26,7 @@ public abstract class BluetoothActivity extends Activity {
 		if(Log.enabled) System.out.println("BluetoothActivity.connect()");
 		bluetoothService = service;
 		
-		final ProgressDialog progressDialog = ProgressDialog.show(this, "", getSpecificInfoString(), true);
+		final ProgressDialog progressDialog = ProgressDialog.show(this, "", getSpecificInfoString(), true, true, this);
 		final Intent intent = new Intent(this, CreatingShipsActivity.class);
 		
 		final BluetoothActivity activity = this;
@@ -34,7 +37,7 @@ public abstract class BluetoothActivity extends Activity {
 	    		
 				int trialsCounter = 0;
 				int COUNTER_MAX = 50;
-				while(!bluetoothService.isConnected() && trialsCounter < COUNTER_MAX) {
+				while(!bluetoothService.isConnected() && trialsCounter < COUNTER_MAX && isActive) {
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
@@ -44,9 +47,9 @@ public abstract class BluetoothActivity extends Activity {
 				}
 				
 				progressDialog.dismiss();
-				if(trialsCounter < COUNTER_MAX)
+				if(trialsCounter < COUNTER_MAX && isActive)
 					startActivity(intent);
-				else {
+				else if(isActive){
 					bluetoothService.stop();
 					System.out.println(getString(R.string.connection_timeout));
 					activity.finish();
@@ -60,4 +63,12 @@ public abstract class BluetoothActivity extends Activity {
     public static BluetoothService getBluetoothService() {
 		return bluetoothService;
 	}
+    
+    @Override
+    public void onCancel(DialogInterface dialog) {
+		bluetoothService.stop();
+		isActive = false;
+		System.out.println("connection canceled");
+		this.finish();
+    }
 }

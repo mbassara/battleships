@@ -4,13 +4,14 @@
     <string name="title_activity_main_menu">Battleships</string>
     <string name="title_activity_game">Battleships</string>
 
-    <!-- MAIN MENU -->
+    <!-- GAME PREPARATION -->
     <string name="menu_settings">Settings</string>
     <string name="new_game">New game</string>
     <string name="options">Options</string>
     <string name="place_ships">Place ships</string>
     <string name="commit_changes">Commit changes</string>
     <string name="next">Next</string>
+    <string name="placing_ships_error">Ships are placed wrong</string>
     
     <!-- GAME MODE SELECTION -->
     <string name="game_mode_host">Create game</string>
@@ -53,8 +54,8 @@
     <!-- GAME -->
     <string name="you_start">You shoot first</string>
     <string name="opponent_starts">Your opponent shoots first</string>
-    <string name="choose_field">Wybór pola</string>
-    <string name="shoot">Strzel</string>
+    <string name="choose_field">Choose field</string>
+    <string name="shoot">Shoot!</string>
 
     <!-- MESSAGES -->
     <string name="title_activity_bluetooth_host">BluetoothHostActivity</string>
