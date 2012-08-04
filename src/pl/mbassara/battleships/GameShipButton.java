@@ -54,6 +54,14 @@ public class GameShipButton extends ShipButton {
 		return state == SUNK || state == HIT;
 	}
 	
+	public boolean isSunk() {
+		return state == SUNK;
+	}
+	
+	public boolean isFinished() {	// sunk, missed or not ship
+		return state == SUNK || state == MISSED || state == NOT_SHIP;
+	}
+	
 	protected void setSunk() {
 		state = SUNK;
 		this.setLaF(LAF_SUNK);

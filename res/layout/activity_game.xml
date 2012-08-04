@@ -10,7 +10,7 @@
 
     <ToggleButton
         android:id="@+id/shotButton"
-        android:layout_width="150dp"
+        android:layout_width="@dimen/button_width_middle"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"

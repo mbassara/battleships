@@ -4,6 +4,7 @@ import java.util.Random;
 
 import pl.mbassara.battleships.Coordinates;
 import pl.mbassara.battleships.GameBoard;
+import pl.mbassara.battleships.GameResult;
 import pl.mbassara.battleships.GameShipButton;
 import pl.mbassara.battleships.Log;
 import pl.mbassara.battleships.R;
@@ -17,6 +18,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -27,6 +29,9 @@ import android.widget.ToggleButton;
 
 public class GameActivity extends Activity
 	implements OnCheckedChangeListener {
+	
+	public static final String KEY_GAME_RESULT = "gameReslut"; 
+	
 	private GameBoard mainBoard;
 	private GameBoard previewBoard;
 	private BluetoothService bluetoothService;
@@ -128,6 +133,14 @@ public class GameActivity extends Activity
 		}
 	}
 	
+	private void endGame(boolean result) {
+		Intent intent = new Intent(this, GameResultActivity.class);
+		intent.putExtra(KEY_GAME_RESULT, result);
+		
+		startActivity(intent);
+		this.finish();
+	}
+	
 	private Thread receivingThread = new Thread(new Runnable() {
 		private GameMessagesHandler handler = new GameMessagesHandler();
 		
@@ -152,10 +165,14 @@ public class GameActivity extends Activity
 					}
 					else if(packet.getType() == GamePacket.TYPE_RESULT) {
 						bundle.putInt(GameMessagesHandler.KEY_TYPE, GameMessagesHandler.TYPE_RESULT);
-						bundle.putBoolean(GameMessagesHandler.KEY_RESULT_IS_HIT, packet.getResult().isHit());
-						bundle.putBoolean(GameMessagesHandler.KEY_RESULT_IS_SUNK, packet.getResult().isSunk());
-						matrix = packet.getResult().getMatrix();
-						if(Log.enabled) System.out.println("shot result");
+						bundle.putBoolean(GameMessagesHandler.KEY_RESULT_IS_HIT, packet.getShotResult().isHit());
+						bundle.putBoolean(GameMessagesHandler.KEY_RESULT_IS_SUNK, packet.getShotResult().isSunk());
+						matrix = packet.getShotResult().getMatrix();
+						if(Log.enabled) System.out.println("shot result received");
+					}
+					else if(packet.getType() == GamePacket.TYPE_GAME_RESULT) {
+						endGame(packet.getGameResult().isWinner());
+						if(Log.enabled) System.out.println("game result received");
 					}
 
 					message.setData(bundle);
@@ -189,9 +206,15 @@ public class GameActivity extends Activity
 				int x = msg.getData().getInt(KEY_X);
 				int y = msg.getData().getInt(KEY_Y);
 				ShotResult result = previewBoard.shoot(x, y);
-				bluetoothService.send(new GamePacket(result));
-				if(!result.isHit() || result.isSunk())
-					shotButton.setEnabled(true);
+				if(previewBoard.isGameEnded()) {
+					bluetoothService.send(new GamePacket(new GameResult(GameResult.RESULT_WINNER)));	// opponent is winner because he sunk all of my ships
+					endGame(false);
+				}
+				else {
+					bluetoothService.send(new GamePacket(result));
+					if(!result.isHit() || result.isSunk())
+						shotButton.setEnabled(true);
+				}
 			}
 			else if(data.getInt(KEY_TYPE) == TYPE_RESULT) {
 				if(Log.enabled) System.out.println("shot result info handled");

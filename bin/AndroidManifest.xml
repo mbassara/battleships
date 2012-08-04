@@ -53,6 +53,11 @@
             android:label="@string/title_activity_bluetooth"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".activities.GameResultActivity"
+            android:label="@string/title_activity_game_result"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

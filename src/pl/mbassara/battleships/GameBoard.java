@@ -104,4 +104,15 @@ public class GameBoard extends Board {
 
 		return result;
     }
+	
+	public boolean isGameEnded() {
+		boolean ended = true;
+		
+		for(int i = 0; i < 10 && ended; i++)
+			for(int j = 0; j < 10 && ended; j++)
+				if(!ships[i][j].isFinished())
+					ended = false;
+		
+		return ended;
+	}
 }

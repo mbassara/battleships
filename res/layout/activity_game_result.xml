@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/ic_background_skull"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
+
+    <TextView
+        android:id="@+id/game_result_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/padding_medium"
+        android:textColor="#C0C0C0"
+        android:textSize="@dimen/text_size_large"
+        tools:context=".activity.GameResultActivity" />
+
+    <Button
+        android:id="@+id/game_result_new_game_button"
+        android:layout_width="@dimen/button_width_large"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/game_result_textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:text="@string/new_game"
+        android:alpha="0.99"
+        android:onClick="newGame" />
+
+    <Button
+        android:id="@+id/game_result_exit_button"
+        android:layout_width="@dimen/button_width_large"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/game_result_new_game_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="@string/exit"
+        android:alpha="0.99"
+        android:onClick="exit" />
+
+</RelativeLayout>

@@ -12,7 +12,8 @@
     <string name="commit_changes">Commit changes</string>
     <string name="next">Next</string>
     <string name="placing_ships_error">Ships are placed wrong</string>
-    
+    <string name="not_available_yet">This function is not available yet</string>
+
     <!-- GAME MODE SELECTION -->
     <string name="game_mode_host">Create game</string>
     <string name="game_mode_client">Join game</string>
@@ -50,15 +51,19 @@
     <string name="patrol_boats_value"> of 5</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_bluetooth">BluetoothActivity</string>
-    
+
     <!-- GAME -->
     <string name="you_start">You shoot first</string>
     <string name="opponent_starts">Your opponent shoots first</string>
     <string name="choose_field">Choose field</string>
     <string name="shoot">Shoot!</string>
+    <string name="result_winner">You\'ve won!!!</string>
+    <string name="result_looser">You\'ve lost…</string>
+    <string name="exit">Exit</string>
 
     <!-- MESSAGES -->
     <string name="title_activity_bluetooth_host">BluetoothHostActivity</string>
     <string name="title_activity_game_mode">GameModeActivity</string>
+    <string name="title_activity_game_result">GameResultActivity</string>
 
 </resources>

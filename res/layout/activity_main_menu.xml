@@ -22,6 +22,6 @@
         android:layout_below="@+id/new_game_button"
         android:layout_marginTop="17dp"
         android:text="@string/options"
-        android:onClick="test" />
+        android:onClick="options" />
 
 </RelativeLayout>

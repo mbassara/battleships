@@ -6,21 +6,30 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainMenu extends Activity {
-	
-	public static final boolean D = false; 
+public class GameResultActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
+        setContentView(R.layout.activity_game_result);
+        
+        TextView gameResultTextView = (TextView) findViewById(R.id.game_result_textView);
+        
+        Intent intent = getIntent();
+        if(intent.getBooleanExtra(GameActivity.KEY_GAME_RESULT, false))
+        	gameResultTextView.setText(getString(R.string.result_winner));
+        else
+        	gameResultTextView.setText(getString(R.string.result_looser));
+        	
+        
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main_menu, menu);
+        getMenuInflater().inflate(R.menu.activity_game_result, menu);
         return true;
     }
     
@@ -28,8 +37,8 @@ public class MainMenu extends Activity {
     	Intent intent = new Intent(this, GameModeActivity.class);
     	startActivity(intent);
     }
-    
-    public void options(View view) {
+
+    public void exit(View view) {
     	Toast.makeText(this, getString(R.string.not_available_yet), Toast.LENGTH_SHORT).show();
     }
     
