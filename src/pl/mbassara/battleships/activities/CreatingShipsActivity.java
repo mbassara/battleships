@@ -9,7 +9,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.ToggleButton;
 import android.widget.RelativeLayout.LayoutParams;
 
 public class CreatingShipsActivity extends Activity{
@@ -37,6 +39,7 @@ public class CreatingShipsActivity extends Activity{
     }
     
     public void togglePlacingShipsMode(View view){
+    	((Button) findViewById(R.id.next_button)).setEnabled(!((ToggleButton) view).isChecked());
     	board.togglePlacingShipsMode(view);
     }
     

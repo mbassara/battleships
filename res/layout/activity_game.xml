@@ -2,7 +2,7 @@
     android:id="@+id/activity_game_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/ic_background_skull"
+    android:background="@drawable/ic_background"
     android:paddingBottom="10dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
@@ -17,6 +17,7 @@
         android:layout_marginRight="7dp"
         android:layout_marginTop="45dp"
         android:checked="false"
+        android:background="@drawable/button_mid"
         android:textOff="@string/choose_field"
         android:textOn="@string/shoot" />
 

@@ -31,7 +31,7 @@ public abstract class BluetoothActivity extends Activity
 		
 		final BluetoothActivity activity = this;
 		Thread thread = new Thread(new Runnable() {
-			@Override
+			
 			public void run() {
 				bluetoothService.connect();
 	    		
@@ -64,7 +64,7 @@ public abstract class BluetoothActivity extends Activity
 		return bluetoothService;
 	}
     
-    @Override
+    
     public void onCancel(DialogInterface dialog) {
 		bluetoothService.stop();
 		isActive = false;

@@ -2,26 +2,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_background_skull" >
-
-    <Button
-        android:id="@+id/new_game_button"
-        android:layout_centerHorizontal="true"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="145dp"
-        android:text="@string/new_game"
-        android:onClick="newGame" />
+    android:background="@drawable/ic_background" >
 
     <Button
         android:id="@+id/options_button"
-        android:layout_centerHorizontal="true"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/new_game_button"
-        android:layout_marginTop="17dp"
-        android:text="@string/options"
-        android:onClick="options" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/button_large"
+        android:onClick="options"
+        android:text="@string/options" />
+
+    <Button
+        android:id="@+id/new_game_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/options_button"
+        android:layout_alignLeft="@+id/options_button"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_large"
+        android:onClick="newGame"
+        android:text="@string/new_game" />
+
+    <ImageView
+        android:id="@+id/logoMainMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/new_game_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/ic_logo" />
 
 </RelativeLayout>

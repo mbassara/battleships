@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
-    android:background="@drawable/ic_background_skull"
+    android:background="@drawable/ic_background"
     android:paddingBottom="10dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
         android:padding="@dimen/padding_small" >
 
         <LinearLayout
@@ -30,109 +31,18 @@
                 android:layout_height="wrap_content"
                 android:onClick="togglePlacingShipsMode"
                 android:textOff="@string/place_ships"
+                android:background="@drawable/button_large"
                 android:textOn="@string/commit_changes" />
 
             <Button
                 android:id="@+id/next_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/next"
-                android:onClick="next" />
-
+                android:onClick="next"
+                android:enabled="false"
+                android:background="@drawable/button_large"
+                android:text="@string/next" />
         </LinearLayout>
-
-<!-- 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:gravity="right" >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/aircraft_carriers_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/background_light"
-                    android:text="@string/aircraft_carriers" />
-
-                <TextView
-                    android:id="@+id/battleships_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/background_light"
-                    android:text="@string/battleships" />
-
-                <TextView
-                    android:id="@+id/submarines_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/background_light"
-                    android:text="@string/submarines" />
-
-                <TextView
-                    android:id="@+id/destroyers_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/background_light"
-                    android:text="@string/destroyers" />
-
-                <TextView
-                    android:id="@+id/patrol_boats_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/background_light"
-                    android:text="@string/patrol_boats" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding_small"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/aircraft_carriers_value_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/background_light"
-                    android:text="@string/of1" />
-
-                <TextView
-                    android:id="@+id/battleships_value_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/background_light"
-                    android:text="@string/of2" />
-
-                <TextView
-                    android:id="@+id/submarines_value_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/background_light"
-                    android:text="@string/of3" />
-
-                <TextView
-                    android:id="@+id/destroyers_value_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/background_light"
-                    android:text="@string/of4" />
-
-                <TextView
-                    android:id="@+id/patrol_boats_value_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/background_light"
-                    android:text="@string/of5" />
-            </LinearLayout>
-
-        </LinearLayout>
- -->
     </RelativeLayout>
 
 </RelativeLayout>

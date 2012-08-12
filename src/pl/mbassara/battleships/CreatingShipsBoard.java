@@ -152,8 +152,17 @@ public class CreatingShipsBoard extends Board
     		}
     	}
     }
+	
+	public boolean[][] getBoardMatrix() {
+		boolean[][] matrix = new boolean[10][10];
+
+		for(int i = 0; i < 10; i++)
+			for(int j = 0; j < 10; j++)
+				matrix[i][j] = ships[i][j].isSelected();
+		
+		return matrix;
+	}
     
-	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		CreatingShipsButton ship = (CreatingShipsButton) buttonView;
 		if(isChecked) {
@@ -168,16 +177,6 @@ public class CreatingShipsBoard extends Board
 			else
     			ship.setLaF(ShipButton.LAF_NORMAL);
 		}
-	}
-	
-	public boolean[][] getBoardMatrix() {
-		boolean[][] matrix = new boolean[10][10];
-
-		for(int i = 0; i < 10; i++)
-			for(int j = 0; j < 10; j++)
-				matrix[i][j] = ships[i][j].isSelected();
-		
-		return matrix;
 	}
 }
 

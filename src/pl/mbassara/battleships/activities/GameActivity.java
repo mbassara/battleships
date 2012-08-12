@@ -57,7 +57,7 @@ public class GameActivity extends Activity
       }
       else {
       	GamePacket packet = null;
-      	while(packet == null) {
+      	while(packet == null) {		// TODO: Screen freezes while waiting for host to start game!
       		packet = bluetoothService.receive();
       		try {
 					Thread.sleep(200);
@@ -109,7 +109,7 @@ public class GameActivity extends Activity
         return true;
     }
 
-	@Override
+	
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		if(buttonView.equals(shotButton)) {
 			mainBoard.setEnabled(isChecked);
@@ -144,7 +144,7 @@ public class GameActivity extends Activity
 	private Thread receivingThread = new Thread(new Runnable() {
 		private GameMessagesHandler handler = new GameMessagesHandler();
 		
-		@Override
+		
 		public void run() {
 			GamePacket packet;
 			while (true) {
