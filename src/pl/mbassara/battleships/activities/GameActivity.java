@@ -134,8 +134,8 @@ public class GameActivity extends Activity
 	}
 	
 	private void endGame(boolean result) {
-		Intent intent = new Intent(this, GameResultActivity.class);
-		intent.putExtra(KEY_GAME_RESULT, result);
+		Intent intent = new Intent(this, MainMenu.class);
+		intent.putExtra(Constants.KEY_GAME_RESULT, result ? Constants.GAME_RESULT_WINNER : Constants.GAME_RESULT_LOOSER);
 		
 		startActivity(intent);
 		this.finish();

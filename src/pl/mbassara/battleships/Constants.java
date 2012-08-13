@@ -17,4 +17,8 @@ public class Constants {
 	public static final int GameMessagesHandler_TYPE_RESULT = 2;
 	public static final int GameMessagesHandler_TYPE_SHOOT_BUTTON_SET_ENABLED = 3;
 
+	public static final String KEY_GAME_RESULT = "gameReslut";
+	public static final int GAME_RESULT_WINNER = 4;
+	public static final int GAME_RESULT_LOOSER = 5;
+
 }

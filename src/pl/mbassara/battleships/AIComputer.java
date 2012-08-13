@@ -210,7 +210,6 @@ public class AIComputer {
 			for(int i = 0; i < 10; i++)
 				for(int j = 0; j < 10; j++)
 					if(matrix[i][j]) {
-						ships[i][j].setSunk();
 						opponentShips.remove(Dim.get(i, j));
 						opponentShips.remove(Dim.get(i-1, j-1));
 						opponentShips.remove(Dim.get(i, j-1));
@@ -227,12 +226,8 @@ public class AIComputer {
 			int y = result.getCoordinates().getY();
 			
 			if(result.isHit()) {
-				ships[x][y].setHit();
 				currentlyShotShip.add(Dim.get(x, y));
 				doShot();
-			}
-			else {
-				ships[x][y].setMissed();
 			}
 			
 			opponentShips.remove(Dim.get(x, y));
@@ -240,12 +235,20 @@ public class AIComputer {
 	}
 	
 	public ShotResult receiveShot(int x, int y) {
+
+    	for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++)
+				System.out.print("  " + ships[i][j]);
+			System.out.println();
+    	}
+		System.out.println();
+		
 		Bundle bundle = new Bundle();
 		Message message = new Message();
 		ShotResult result;
 		if(ships[x][y].isShip()) {
-			result = markShipAsSunkIfReallyIs(x, y);
 			ships[x][y].setHit();
+			result = markShipAsSunkIfReallyIs(x, y);
 		}
 		else {
 			result = new ShotResult(false, false, (Coordinates) null);
@@ -355,6 +358,27 @@ class Ship {
 	
 	public boolean isSunk() {
 		return state == SUNK;
+	}
+	
+	@Override
+	public String toString() {
+		String result = "·";
+		switch (state) {
+		case SHIP:
+			result = "S";
+			break;
+		case SUNK:
+			result = "X";
+			break;
+		case HIT:
+			result = "H";
+			break;
+		case MISSED:
+			result = "M";
+			break;
+		}
+		
+		return result;
 	}
 }
 

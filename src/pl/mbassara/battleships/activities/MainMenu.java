@@ -18,6 +18,25 @@ public class MainMenu extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
     }
+    
+    @Override
+    protected void onStart() {
+    	super.onStart();
+    	
+    	if(getIntent() != null && getIntent().getExtras() != null) {
+    		int result = getIntent().getExtras().getInt(Constants.KEY_GAME_RESULT);
+    		
+			switch (result) {
+			case Constants.GAME_RESULT_WINNER:
+		    	Toast.makeText(this, getString(R.string.result_winner), Toast.LENGTH_LONG).show();
+				break;
+			case Constants.GAME_RESULT_LOOSER:
+		    	Toast.makeText(this, getString(R.string.result_looser), Toast.LENGTH_LONG).show();
+				break;
+			}
+    	}
+    	
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

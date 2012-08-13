@@ -6,18 +6,14 @@ import pl.mbassara.battleships.AIComputer;
 import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.Coordinates;
 import pl.mbassara.battleships.GameBoard;
-import pl.mbassara.battleships.GameResult;
 import pl.mbassara.battleships.GameShipButton;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.ShipButton;
 import pl.mbassara.battleships.ShotResult;
 import pl.mbassara.battleships.activities.CreatingShipsActivity;
-import pl.mbassara.battleships.bluetooth.BluetoothService;
-import pl.mbassara.battleships.bluetooth.GamePacket;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.R.bool;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -31,8 +27,6 @@ import android.widget.ToggleButton;
 
 public class OfflineGameActivity extends Activity
 	implements OnCheckedChangeListener {
-	
-	public static final String KEY_GAME_RESULT = "gameReslut"; 
 	
 	private GameBoard mainBoard;
 	private GameBoard previewBoard;
@@ -116,8 +110,8 @@ public class OfflineGameActivity extends Activity
 	}
 	
 	private void endGame(boolean result) {
-		Intent intent = new Intent(this, GameResultActivity.class);
-		intent.putExtra(KEY_GAME_RESULT, result);
+		Intent intent = new Intent(this, MainMenu.class);
+		intent.putExtra(Constants.KEY_GAME_RESULT, result ? Constants.GAME_RESULT_WINNER : Constants.GAME_RESULT_LOOSER);
 		
 		startActivity(intent);
 		this.finish();
@@ -158,6 +152,8 @@ public class OfflineGameActivity extends Activity
 				if(data.getBoolean(Constants.GameMessagesHandler_KEY_RESULT_IS_SUNK)) {
 					if(Constants.LOGS_ENABLED) System.out.println("ship is sunked");
 					mainBoard.setShipSunk(matrix);
+					if(aiComputer.isGameEnded())
+						endGame(true);
 				}
 			}
 			else if (data.getInt(Constants.GameMessagesHandler_KEY_TYPE) == Constants.GameMessagesHandler_TYPE_SHOOT_BUTTON_SET_ENABLED) {

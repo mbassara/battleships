@@ -18,8 +18,7 @@ public class GameResultActivity extends Activity {
         
         TextView gameResultTextView = (TextView) findViewById(R.id.game_result_textView);
         
-        Intent intent = getIntent();
-        if(intent.getBooleanExtra(GameActivity.KEY_GAME_RESULT, false))
+        if(getIntent().getBooleanExtra(GameActivity.KEY_GAME_RESULT, false))
         	gameResultTextView.setText(getString(R.string.result_winner));
         else
         	gameResultTextView.setText(getString(R.string.result_looser));
