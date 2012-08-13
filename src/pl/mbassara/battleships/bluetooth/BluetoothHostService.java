@@ -2,7 +2,7 @@ package pl.mbassara.battleships.bluetooth;
 
 import java.io.IOException;
 
-import pl.mbassara.battleships.Log;
+import pl.mbassara.battleships.Constants;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
@@ -20,7 +20,7 @@ public class BluetoothHostService extends BluetoothService {
 
 	@Override
 	public boolean connectSpecific() {
-		if(Log.enabled) System.out.println("BluetoothHostService.connectSpecific()");
+		if(Constants.LOGS_ENABLED) System.out.println("BluetoothHostService.connectSpecific()");
 		if(adapter == null)
 			return false;
 		

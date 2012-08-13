@@ -2,6 +2,7 @@ package pl.mbassara.battleships.activities;
 
 import java.util.Random;
 
+import pl.mbassara.battleships.AIComputer;
 import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.Coordinates;
 import pl.mbassara.battleships.GameBoard;
@@ -16,6 +17,7 @@ import pl.mbassara.battleships.bluetooth.GamePacket;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.R.bool;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -27,57 +29,36 @@ import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ToggleButton;
 
-public class GameActivity extends Activity
+public class OfflineGameActivity extends Activity
 	implements OnCheckedChangeListener {
 	
 	public static final String KEY_GAME_RESULT = "gameReslut"; 
 	
 	private GameBoard mainBoard;
 	private GameBoard previewBoard;
-	private BluetoothService bluetoothService;
+	private AIComputer aiComputer;
 	private boolean meStartFirst = true;
-	private int gameMode;
 	private ToggleButton shotButton;
 	private Coordinates field = null;
 	private boolean[][] matrix = null;
+	private GameMessagesHandler handler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_offline_game);
+        handler = new GameMessagesHandler();
         
-        bluetoothService = BluetoothActivity.getBluetoothService();
-        gameMode = GameModeActivity.getMode();
-
-      if(gameMode == GameModeActivity.HOST_MODE) {
-      	boolean whoStarts = (new Random(System.currentTimeMillis())).nextBoolean();
-      	meStartFirst = whoStarts == GamePacket.HOST_FIRST;
-	        GamePacket packet = new GamePacket(whoStarts);
-	        bluetoothService.send(packet);
-      }
-      else {
-      	GamePacket packet = null;
-      	while(packet == null) {		// TODO: Screen freezes while waiting for host to start game!
-      		packet = bluetoothService.receive();
-      		try {
-					Thread.sleep(200);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-      		
-      		if(packet != null && (packet.getType() != GamePacket.TYPE_WHO_STARTS))
-      			packet = null;
-      	}
-      	meStartFirst = packet.getWhoStarts() == GamePacket.CLIENT_FIRST;
-      }
+        meStartFirst = (new Random(System.currentTimeMillis())).nextBoolean();
         
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_game_layout);
-        shotButton = (ToggleButton) findViewById(R.id.shotButton);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_offline_game_layout);
+        shotButton = (ToggleButton) findViewById(R.id.offlineShotButton);
         shotButton.setOnCheckedChangeListener(this);
         previewBoard = new GameBoard(this, CreatingShipsActivity.getBoardMatrix(), GameBoard.SIZE_SMALL);
         previewBoard.setEnabled(false);
         mainBoard = new GameBoard(this, null, GameBoard.SIZE_BIG);
         mainBoard.setOnCheckedChangeListener(this);
+        aiComputer = new AIComputer(handler);
         
         LayoutParams previewBoardParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         previewBoardParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -97,10 +78,11 @@ public class GameActivity extends Activity
         shotButton.setEnabled(meStartFirst);
         if(meStartFirst)
         	Toast.makeText(this, getString(R.string.you_start), Toast.LENGTH_SHORT).show();
-        else
+        else {
         	Toast.makeText(this, getString(R.string.opponent_starts), Toast.LENGTH_SHORT).show();
+        	aiComputer.doShot();
+        }
         
-        receivingThread.start();
     }
 
     @Override
@@ -114,18 +96,18 @@ public class GameActivity extends Activity
 		if(buttonView.equals(shotButton)) {
 			mainBoard.setEnabled(isChecked);
 			if(!isChecked && field != null) {	// shot
-				bluetoothService.send(new GamePacket(field));
+				matrix = aiComputer.receiveShot(field.getX(), field.getY()).getMatrix();
 				buttonView.setEnabled(false);
 			}
 		}
 		else {
-			if(field != null) {
-				mainBoard.setShipLaF(field.getX(), field.getY(), GameShipButton.LAF_NORMAL);
-			}
 			GameShipButton button = (GameShipButton) buttonView;
 			int x = button.getFieldX();
 			int y = button.getFieldY();
-			if(mainBoard.isNotShip(x, y)) {
+			if(button.isNotShip()) {
+				if(field != null)
+					mainBoard.setShipLaF(field.getX(), field.getY(), GameShipButton.LAF_NORMAL);
+				
 				if(Constants.LOGS_ENABLED) System.out.println("button (" + x + "," + y + ") clicked");
 				field = new Coordinates(x, y);
 				button.setLaF(ShipButton.LAF_POSSIBLE);
@@ -141,91 +123,45 @@ public class GameActivity extends Activity
 		this.finish();
 	}
 	
-	private Thread receivingThread = new Thread(new Runnable() {
-		private GameMessagesHandler handler = new GameMessagesHandler();
-		
-		
-		public void run() {
-			GamePacket packet;
-			while (true) {
-				packet = bluetoothService.receive();
-				if(packet != null) {
-					if(Constants.LOGS_ENABLED) System.out.println("packet received");
-					Bundle bundle = new Bundle();
-					Message message = new Message();
-					
-					if(packet.getType() == GamePacket.TYPE_SHOT) {
-						int x = packet.getCoordinates().getX();
-						int y = packet.getCoordinates().getY();
-						if(Constants.LOGS_ENABLED) System.out.println("shot - field: " + x + "," + y);
-						
-						bundle.putInt(GameMessagesHandler.KEY_TYPE, GameMessagesHandler.TYPE_SHOT);
-						bundle.putInt(GameMessagesHandler.KEY_X, x);
-						bundle.putInt(GameMessagesHandler.KEY_Y, y);
-					}
-					else if(packet.getType() == GamePacket.TYPE_RESULT) {
-						bundle.putInt(GameMessagesHandler.KEY_TYPE, GameMessagesHandler.TYPE_RESULT);
-						bundle.putBoolean(GameMessagesHandler.KEY_RESULT_IS_HIT, packet.getShotResult().isHit());
-						bundle.putBoolean(GameMessagesHandler.KEY_RESULT_IS_SUNK, packet.getShotResult().isSunk());
-						matrix = packet.getShotResult().getMatrix();
-						if(Constants.LOGS_ENABLED) System.out.println("shot result received");
-					}
-					else if(packet.getType() == GamePacket.TYPE_GAME_RESULT) {
-						endGame(packet.getGameResult().isWinner());
-						if(Constants.LOGS_ENABLED) System.out.println("game result received");
-					}
-
-					message.setData(bundle);
-					handler.sendMessage(message);
-				}
-				try {
-					Thread.sleep(250);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
-	});
-	
 	@SuppressLint("HandlerLeak")
 	class GameMessagesHandler extends Handler {
-		public static final String KEY_X = "x";
-		public static final String KEY_Y = "y";
-		public static final String KEY_RESULT_IS_HIT = "isHit";
-		public static final String KEY_RESULT_IS_SUNK = "isSunk";
-		public static final String KEY_TYPE = "type";
-		public static final int TYPE_SHOT = 1;
-		public static final int TYPE_RESULT = 2;
 		
 		@Override
 		public void handleMessage(Message msg) {
 			Bundle data = msg.getData();
-			if(data.getInt(KEY_TYPE) == TYPE_SHOT) {
+			if(data.getInt(Constants.GameMessagesHandler_KEY_TYPE) == Constants.GameMessagesHandler_TYPE_SHOT) {
 				if(Constants.LOGS_ENABLED) System.out.println("shot info handled");
-				int x = msg.getData().getInt(KEY_X);
-				int y = msg.getData().getInt(KEY_Y);
+				int x = msg.getData().getInt(Constants.GameMessagesHandler_KEY_X);
+				int y = msg.getData().getInt(Constants.GameMessagesHandler_KEY_Y);
 				ShotResult result = previewBoard.shoot(x, y);
 				if(previewBoard.isGameEnded()) {
-					bluetoothService.send(new GamePacket(new GameResult(GameResult.RESULT_WINNER)));	// opponent is winner because he sunk all of my ships
 					endGame(false);
 				}
 				else {
-					bluetoothService.send(new GamePacket(result));
+					result.setCoordinates(new Coordinates(x, y));
+					aiComputer.receiveResult(result);
 					if(!result.isHit() || result.isSunk())
 						shotButton.setEnabled(true);
 				}
 			}
-			else if(data.getInt(KEY_TYPE) == TYPE_RESULT) {
+			else if(data.getInt(Constants.GameMessagesHandler_KEY_TYPE) == Constants.GameMessagesHandler_TYPE_RESULT) {
 				if(Constants.LOGS_ENABLED) System.out.println("shot result info handled");
-				boolean result = data.getBoolean(KEY_RESULT_IS_HIT);
+				boolean result = data.getBoolean(Constants.GameMessagesHandler_KEY_RESULT_IS_HIT);
 				mainBoard.shotResult(field.getX(), field.getY(), result);
-				shotButton.setEnabled(result && !data.getBoolean(KEY_RESULT_IS_SUNK));
+				boolean nextShot = result && !data.getBoolean(Constants.GameMessagesHandler_KEY_RESULT_IS_SUNK);
+				shotButton.setEnabled(nextShot);
+				
+				if(!nextShot)
+					aiComputer.doShot();
+					
 				field = null;
-				if(data.getBoolean(KEY_RESULT_IS_SUNK)) {
+				if(data.getBoolean(Constants.GameMessagesHandler_KEY_RESULT_IS_SUNK)) {
 					if(Constants.LOGS_ENABLED) System.out.println("ship is sunked");
 					mainBoard.setShipSunk(matrix);
 				}
+			}
+			else if (data.getInt(Constants.GameMessagesHandler_KEY_TYPE) == Constants.GameMessagesHandler_TYPE_SHOOT_BUTTON_SET_ENABLED) {
+				shotButton.setEnabled(data.getBoolean(Constants.GameMessagesHandler_KEY_SHOOT_BUTTON_SET_ENABLED));
 			}
 		}
 	};

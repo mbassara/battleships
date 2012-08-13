@@ -1,6 +1,6 @@
 package pl.mbassara.battleships.activities;
 
-import pl.mbassara.battleships.Log;
+import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.bluetooth.BluetoothService;
 import android.os.Bundle;
@@ -23,11 +23,12 @@ public abstract class BluetoothActivity extends Activity
     public abstract String getSpecificInfoString();
     
     protected void connect(BluetoothService service) {
-		if(Log.enabled) System.out.println("BluetoothActivity.connect()");
+		if(Constants.LOGS_ENABLED) System.out.println("BluetoothActivity.connect()");
 		bluetoothService = service;
 		
 		final ProgressDialog progressDialog = ProgressDialog.show(this, "", getSpecificInfoString(), true, true, this);
 		final Intent intent = new Intent(this, CreatingShipsActivity.class);
+		intent.putExtra(Constants.GAME_TYPE, Constants.MULTIPLAYER);
 		
 		final BluetoothActivity activity = this;
 		Thread thread = new Thread(new Runnable() {

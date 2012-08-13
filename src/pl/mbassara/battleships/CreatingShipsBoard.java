@@ -37,6 +37,18 @@ public class CreatingShipsBoard extends Board
         
         placeShipsButton.setEnabled(true);
 	}
+	
+	public void setBoard(boolean[][] matrix) {
+		for(int i = 0; i < 10; i++)
+			for(int j = 0; j < 10; j++)
+				if(matrix[i][j])
+					ships[i][j].setSelected();
+				else if(placeShipsButton != null)
+					ships[i][j].setNotSelected(placeShipsButton.isChecked());
+				else
+					ships[i][j].setNotSelected(false);
+		
+	}
     
     private int shipSize(int x, int y) {
     	boolean[][] matrix = new boolean[10][10];
@@ -79,7 +91,7 @@ public class CreatingShipsBoard extends Board
     			if (result && matrix[i][j] && ships[i][j].isSelected())
     				result = result && !checkShip(matrix, i, j).isUndefined();
     	
-    	if(Log.enabled) System.out.println("checking ships result: " + result);
+    	if(Constants.LOGS_ENABLED) System.out.println("checking ships result: " + result);
 		return result;
     }
     
@@ -122,13 +134,12 @@ public class CreatingShipsBoard extends Board
     			dir.concatenate(checkShip(matrix, x, y-1));
     	}
     	
-    	if(Log.enabled) System.out.println("\tchecking ship " + x + "," + y + " result: " + dir);
+    	if(Constants.LOGS_ENABLED) System.out.println("\tchecking ship " + x + "," + y + " result: " + dir);
     	
     	return dir;	
     }
     
-    public void togglePlacingShipsMode(View view) {
-    	ToggleButton button = (ToggleButton) view;
+    public boolean togglePlacingShipsMode(ToggleButton button) {
     	if(button.isChecked()) {
 	        for(int i = 0; i < 10; i++)
 	        	for(int j = 0; j < 10; j++) {
@@ -136,6 +147,7 @@ public class CreatingShipsBoard extends Board
 	        		if(ships[i][j].isNotSelected())
 	        			ships[i][j].setLaF(ShipButton.LAF_POSSIBLE);
 	        	}
+	        return true;
     	}
     	else {
     		if(checkShipsBoard()) {
@@ -145,10 +157,12 @@ public class CreatingShipsBoard extends Board
 		        		if(ships[i][j].isNotSelected())
 		        			ships[i][j].setLaF(ShipButton.LAF_NORMAL);
 		        	}
+		        return true;
     		}
     		else {
     			placeShipsButton.setChecked(true);
     			Toast.makeText(activity, activity.getString(R.string.placing_ships_error), Toast.LENGTH_SHORT).show();
+    			return false;
     		}
     	}
     }
@@ -171,11 +185,7 @@ public class CreatingShipsBoard extends Board
    			ship.setLaF(ShipButton.LAF_SELECTED);
 		}
 		else {
-			ship.setNotSelected();
-			if(placeShipsButton.isChecked())
-    			ship.setLaF(ShipButton.LAF_POSSIBLE);
-			else
-    			ship.setLaF(ShipButton.LAF_NORMAL);
+			ship.setNotSelected(placeShipsButton.isChecked());
 		}
 	}
 }

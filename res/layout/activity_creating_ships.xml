@@ -10,40 +10,41 @@
     android:paddingRight="10dp"
     android:paddingTop="10dp" >
 
-    <RelativeLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
+    <ToggleButton
+        android:id="@+id/place_ships_button"
+        android:layout_width="@dimen/button_width_middle"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:padding="@dimen/padding_small" >
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_large"
+        android:onClick="togglePlacingShipsMode"
+        android:textOff="@string/place_ships"
+        android:textOn="@string/commit_changes" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:orientation="vertical" >
+    <Button
+        android:id="@+id/create_random_button"
+        android:layout_width="@dimen/button_width_middle"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/place_ships_button"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button_large"
+        android:enabled="false"
+        android:onClick="random"
+        android:text="@string/random" />
 
-            <ToggleButton
-                android:id="@+id/place_ships_button"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:onClick="togglePlacingShipsMode"
-                android:textOff="@string/place_ships"
-                android:background="@drawable/button_large"
-                android:textOn="@string/commit_changes" />
-
-            <Button
-                android:id="@+id/next_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="next"
-                android:enabled="false"
-                android:background="@drawable/button_large"
-                android:text="@string/next" />
-        </LinearLayout>
-    </RelativeLayout>
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="@dimen/button_width_middle"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/create_random_button"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button_large"
+        android:enabled="false"
+        android:onClick="next"
+        android:text="@string/next" />
 
 </RelativeLayout>
 	

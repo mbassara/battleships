@@ -1,7 +1,9 @@
 package pl.mbassara.battleships.activities;
 
 import pl.mbassara.battleships.activities.GameActivity;
+import pl.mbassara.battleships.AIComputer;
 import pl.mbassara.battleships.Board;
+import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.CreatingShipsBoard;
 import pl.mbassara.battleships.R;
 import android.os.Bundle;
@@ -39,12 +41,24 @@ public class CreatingShipsActivity extends Activity{
     }
     
     public void togglePlacingShipsMode(View view){
-    	((Button) findViewById(R.id.next_button)).setEnabled(!((ToggleButton) view).isChecked());
-    	board.togglePlacingShipsMode(view);
+    	boolean successfull = board.togglePlacingShipsMode((ToggleButton) view);
+    	if(successfull) {
+        	((Button) findViewById(R.id.next_button)).setEnabled(!((ToggleButton) view).isChecked());
+        	((Button) findViewById(R.id.create_random_button)).setEnabled(((ToggleButton) view).isChecked());
+    	}
+    }
+    
+    public void random(View view){
+    	board.setBoard(AIComputer.generateMatrix());
     }
     
     public void next(View view) {
-    	Intent intent = new Intent(this, GameActivity.class);
+    	Intent intent;
+    	if(getIntent().getStringExtra(Constants.GAME_TYPE).equals(Constants.MULTIPLAYER))
+    		intent = new Intent(this, GameActivity.class);
+    	else
+    		intent = new Intent(this, OfflineGameActivity.class);
+    	
     	startActivity(intent);
 	}
     

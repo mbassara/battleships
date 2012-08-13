@@ -7,11 +7,22 @@ public class ShotResult implements Serializable{
 	private boolean[][] matrix;
 	private boolean isHit;
 	private boolean isSunk;
+	private Coordinates coordinates;
+	
+	public ShotResult(boolean isHit, boolean isSunk, Coordinates coordinates) {
+		this.isHit = isHit;
+		this.isSunk = isSunk;
+		this.coordinates = coordinates;
+	}
 	
 	public ShotResult(boolean isHit, boolean isSunk, boolean[][] matrix) {
 		this.isHit = isHit;
 		this.isSunk = isSunk;
 		this.matrix = matrix;
+	}
+	
+	public void setCoordinates(Coordinates coordinates) {
+		this.coordinates = coordinates;
 	}
 	
 	public boolean isHit() {
@@ -24,5 +35,9 @@ public class ShotResult implements Serializable{
 
 	public boolean[][] getMatrix() {
 		return matrix;
+	}
+	
+	public Coordinates getCoordinates() {
+		return coordinates;
 	}
 }

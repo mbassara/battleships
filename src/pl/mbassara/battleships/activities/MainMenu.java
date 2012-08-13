@@ -1,5 +1,6 @@
 package pl.mbassara.battleships.activities;
 
+import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.R;
 import android.os.Bundle;
 import android.app.Activity;
@@ -24,8 +25,14 @@ public class MainMenu extends Activity {
         return true;
     }
     
-    public void newGame(View view) {
+    public void multiplayer(View view) {
     	Intent intent = new Intent(this, GameModeActivity.class);
+    	startActivity(intent);
+    }
+    
+    public void singleplayer(View view) {
+    	Intent intent = new Intent(this, CreatingShipsActivity.class);
+    	intent.putExtra(Constants.GAME_TYPE, Constants.SINGLEPLAYER);
     	startActivity(intent);
     }
     

@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
-import pl.mbassara.battleships.Log;
+import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.R;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
@@ -38,7 +38,7 @@ public abstract class BluetoothService {
 	abstract void cancelSpecific();
 	
 	public void connect() {
-		if(Log.enabled) System.out.println("BluetoothService.connect()");
+		if(Constants.LOGS_ENABLED) System.out.println("BluetoothService.connect()");
 		if(!connectingThread.isAlive()) connectingThread.start();
 	}
 	
@@ -81,7 +81,7 @@ public abstract class BluetoothService {
 		
 		@Override
 		public void run() {
-			if(Log.enabled) System.out.println("SendingThread.run()");
+			if(Constants.LOGS_ENABLED) System.out.println("SendingThread.run()");
 			isAlive = true;
 			try {
 				while(!isConnected && isAlive)
@@ -112,7 +112,7 @@ public abstract class BluetoothService {
 		}
 		
 		public void cancel() {
-			if(Log.enabled) System.out.println("SendingThread.cancel()");
+			if(Constants.LOGS_ENABLED) System.out.println("SendingThread.cancel()");
 			isAlive = false;
 			try {
 				if(outputStream != null) outputStream.close();
@@ -128,7 +128,7 @@ public abstract class BluetoothService {
 		
 		@Override
 		public void run() {
-			if(Log.enabled) System.out.println("ReceivingThread.run()");
+			if(Constants.LOGS_ENABLED) System.out.println("ReceivingThread.run()");
 			isAlive = true;
 			try {
 				while(!isConnected && isAlive)
@@ -159,7 +159,7 @@ public abstract class BluetoothService {
 		}
 		
 		public void cancel() {
-			if(Log.enabled) System.out.println("ReceivingThread.cancel()");
+			if(Constants.LOGS_ENABLED) System.out.println("ReceivingThread.cancel()");
 			isAlive = false;
 			try {
 				if(inputStream != null) inputStream.close();
@@ -174,7 +174,7 @@ public abstract class BluetoothService {
 		
 		@Override
 		public void run() {
-			if(Log.enabled) System.out.println("ConnectingThread.run()");
+			if(Constants.LOGS_ENABLED) System.out.println("ConnectingThread.run()");
 			isAlive = true;
 			while(!isConnected && isAlive) {
 				isConnected = connectSpecific();	// can block
@@ -190,7 +190,7 @@ public abstract class BluetoothService {
 		}
 		
 		public void cancel() {
-			if(Log.enabled) System.out.println("ConnectingThread.cancel()");
+			if(Constants.LOGS_ENABLED) System.out.println("ConnectingThread.cancel()");
 			
 			cancelSpecific();
 			isAlive = false;

@@ -6,30 +6,41 @@
 
     <Button
         android:id="@+id/options_button"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/button_width_large"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/singleplayer_button"
+        android:layout_marginTop="15dp"
         android:background="@drawable/button_large"
         android:onClick="options"
         android:text="@string/options" />
 
     <Button
-        android:id="@+id/new_game_button"
-        android:layout_width="wrap_content"
+        android:id="@+id/singleplayer_button"
+        android:layout_width="@dimen/button_width_large"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/options_button"
-        android:layout_alignLeft="@+id/options_button"
-        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:background="@drawable/button_large"
-        android:onClick="newGame"
-        android:text="@string/new_game" />
+        android:onClick="singleplayer"
+        android:text="@string/singleplayer" />
+
+    <Button
+        android:id="@+id/multiplayer_button"
+        android:layout_width="@dimen/button_width_large"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/singleplayer_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/button_large"
+        android:onClick="multiplayer"
+        android:text="@string/multiplayer" />
 
     <ImageView
         android:id="@+id/logoMainMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/new_game_button"
+        android:layout_above="@+id/multiplayer_button"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="35dp"
         android:contentDescription="@string/logo"

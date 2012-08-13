@@ -20,14 +20,14 @@ public class GameBoard extends Board {
 		int state;
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 10; j++) {
-				state = matrix != null && matrix[i][j] ? GameShipButton.SHIP : GameShipButton.NOT_SHIP; 
+				state = (matrix != null && matrix[i][j]) ? GameShipButton.SHIP : GameShipButton.NOT_SHIP; 
 				ships[i][j] = new GameShipButton(context, state, i, j, size);
 				rows[i].addView(ships[i][j]);
 			}
 	}
 	
 	public boolean isNotShip(int x, int y) {
-		return !ships[x][y].isShip();
+		return ships[x][y].isNotShip();
 	}
 	
 	public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
@@ -58,14 +58,14 @@ public class GameBoard extends Board {
 		if(ships[x][y].shoot())
 			return markShipAsSunkIfReallyIs(x, y);
 		else
-			return new ShotResult(false, false, null);
+			return new ShotResult(false, false, (boolean[][]) null);
 	}
 	
 	public void shotResult(int x, int y, boolean result) {
 		if(result)
-			ships[x][y].setLaF(ShipButton.LAF_HIT);
+			ships[x][y].setHit();
 		else
-			ships[x][y].setLaF(ShipButton.LAF_MISSED);
+			ships[x][y].setMissed();
 	}
     
     public ShotResult markShipAsSunkIfReallyIs(int x, int y) {

@@ -22,15 +22,15 @@ public class GameShipButton extends ShipButton {
 		this.state = state;
 		
 		if(state == NOT_SHIP)
-			this.setLaF(LAF_NORMAL);
+			this.setNotShip();
 		else if(state == SHIP)
-			this.setLaF(LAF_SELECTED);
+			this.setShip();
 		else if(state == SUNK)
-			this.setLaF(LAF_SUNK);
+			this.setSunk();
 		else if(state == HIT)
-			this.setLaF(LAF_HIT);
+			this.setHit();
 		else if(state == MISSED)
-			this.setLaF(LAF_MISSED);
+			this.setMissed();
 	}
 	
 	public boolean shoot() {
@@ -50,6 +50,10 @@ public class GameShipButton extends ShipButton {
 		return state == SHIP;
 	}
 	
+	public boolean isNotShip() {
+		return state == NOT_SHIP;
+	}
+	
 	public boolean isHit() {
 		return state == SUNK || state == HIT;
 	}
@@ -60,6 +64,16 @@ public class GameShipButton extends ShipButton {
 	
 	public boolean isFinished() {	// sunk, missed or not ship
 		return state == SUNK || state == MISSED || state == NOT_SHIP;
+	}
+	
+	protected void setNotShip() {
+		state = NOT_SHIP;
+		this.setLaF(LAF_NORMAL);
+	}
+	
+	protected void setShip() {
+		state = SHIP;
+		this.setLaF(LAF_SELECTED);
 	}
 	
 	protected void setSunk() {

@@ -25,27 +25,9 @@ public class CreatingShipsButton extends ShipButton {
 	private static final int SELECTED = 1;
 	
 	private int state = NOT_SELECTED;
-	
-	public CreatingShipsButton clone() {
-		try {
-			CreatingShipsButton clone = (CreatingShipsButton) super.clone();
-			clone.setState(state);
-			clone.setFieldX(x);
-			clone.setFieldY(y);
-			
-			return clone;
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 
 	public int getState() {
 		return state;
-	}
-
-	public void setState(int state) {
-		this.state = state;
 	}
 	
 	public boolean isNotSelected() {
@@ -56,12 +38,17 @@ public class CreatingShipsButton extends ShipButton {
 		return state == SELECTED;
 	}
 	
-	public void setNotSelected() {
+	public void setNotSelected(boolean creatingMode) {
 		state = NOT_SELECTED;
+		if(creatingMode)
+			this.setLaF(this.LAF_POSSIBLE);
+		else
+			this.setLaF(this.LAF_NORMAL);
 	}
 	
 	public void setSelected() {
 		state = SELECTED;
+		this.setLaF(this.LAF_SELECTED);
 	}
 
 }

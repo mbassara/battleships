@@ -16,7 +16,8 @@
         android:theme="@style/NoTitleBarFullScreenTheme" >
         <activity
             android:name=".activities.MainMenu"
-            android:label="@string/title_activity_main_menu" >
+            android:label="@string/title_activity_main_menu"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,6 +57,11 @@
         <activity
             android:name=".activities.GameResultActivity"
             android:label="@string/title_activity_game_result"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.OfflineGameActivity"
+            android:label="@string/title_activity_offline_game"
             android:screenOrientation="portrait" >
         </activity>
     </application>

@@ -5,12 +5,15 @@
     <string name="title_activity_game">Battleships</string>
 
     <!-- GAME PREPARATION -->
+    <string name="singleplayer">Jeden gracz</string>
+    <string name="multiplayer">Wielu graczy</string>
     <string name="menu_settings">Ustawienia</string>
     <string name="new_game">Nowa gra</string>
     <string name="options">Opcje</string>
     <string name="place_ships">Dodaj statki</string>
     <string name="commit_changes">Potwierdź zmiany</string>
     <string name="next">Dalej</string>
+    <string name="random">Losuj</string>
     <string name="placing_ships_error">Błędy w ułożeniu statków</string>
     <string name="not_available_yet">Ta funkcja jest jeszcze niedostępna</string>
     
