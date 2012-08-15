@@ -192,7 +192,7 @@ public class AIComputer {
 
 				message.setData(bundle);
 				try {
-					Thread.sleep(1000);
+					Thread.sleep((new Random()).nextInt(3000) + 1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

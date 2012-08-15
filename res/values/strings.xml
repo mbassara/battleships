@@ -1,9 +1,18 @@
 <resources>
 
     <string name="app_name">Battleships</string>
-    <string name="title_activity_main_menu">Battleships</string>
-    <string name="title_activity_game">Battleships</string>
     <string name="logo">Logo</string>
+
+    <!-- ABOUT -->
+    <string name="about">About</string>
+    <string name="games_name">Battleships v1.0</string>
+    <string name="author">Author:</string>
+    <string name="authors_name">Maciej Bassara</string>
+    <string name="german_translator">German translator:</string>
+    <string name="german_translators_name">Marcel Bassara</string>
+    
+    <!-- OPTIONS -->
+    <string name="enable_vibra">Enable vibrations</string>
 
     <!-- GAME PREPARATION -->
     <string name="singleplayer">Singleplayer</string>
@@ -65,9 +74,12 @@
     <string name="exit">Exit</string>
 
     <!-- MESSAGES -->
+    <string name="title_activity_main_menu">Battleships</string>
+    <string name="title_activity_game">Battleships</string>
     <string name="title_activity_bluetooth_host">BluetoothHostActivity</string>
     <string name="title_activity_game_mode">GameModeActivity</string>
     <string name="title_activity_game_result">GameResultActivity</string>
     <string name="title_activity_offline_game">OfflineGameActivity</string>
+    <string name="title_activity_options">OptionsActivity</string>
 
 </resources>

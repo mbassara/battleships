@@ -11,6 +11,7 @@ public class GameShipButton extends ShipButton {
 	public static final int MISSED = 4;
 	
 	private int state;
+	private Vibra vibra;
 	
 	public GameShipButton(Context context) {
 		this(context, NOT_SHIP, -1, -1, SIZE_BIG);
@@ -18,7 +19,8 @@ public class GameShipButton extends ShipButton {
 
 	public GameShipButton(Context context, int state, int x, int y, int size) {
 		super(context, x, y, size);
-		
+
+		this.vibra = Vibra.getInstance(context);
 		this.state = state;
 		
 		if(state == NOT_SHIP)
@@ -77,16 +79,19 @@ public class GameShipButton extends ShipButton {
 	}
 	
 	protected void setSunk() {
+		vibra.beepTriple();
 		state = SUNK;
 		this.setLaF(LAF_SUNK);
 	}
 	
 	protected void setHit() {
+		vibra.beepDouble();
 		state = HIT;
 		this.setLaF(LAF_HIT);
 	}
 	
 	protected void setMissed() {
+		vibra.beepLong();
 		state = MISSED;
 		this.setLaF(LAF_MISSED);
 	}

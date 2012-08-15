@@ -1,9 +1,15 @@
 <resources>
 
     <string name="app_name">Battleships</string>
-    <string name="title_activity_main_menu">Battleships</string>
-    <string name="title_activity_game">Battleships</string>
     <string name="logo">Logo</string>
+    
+    <!-- ABOUT -->
+    <string name="about">Über</string>
+    <string name="author">Autor:</string>
+    <string name="german_translator">Deutsch Übersetzer:</string>
+    
+    <!-- OPTIONS -->
+    <string name="enable_vibra">Aktivieren Vibrationen</string>
 
     <!-- GAME PREPARATION -->
     <string name="singleplayer">Spieler vs. Computer</string>
@@ -41,11 +47,5 @@
     <string name="result_winner">Du hast gewonnen!!!</string>
     <string name="result_looser">Du hast verloren…</string>
     <string name="exit">Verlassen</string>
-
-    <!-- MESSAGES -->
-    <string name="title_activity_bluetooth_host">BluetoothHostActivity</string>
-    <string name="title_activity_game_mode">GameModeActivity</string>
-    <string name="title_activity_game_result">GameResultActivity</string>
-    <string name="title_activity_offline_game">OfflineGameActivity</string>
 
 </resources>

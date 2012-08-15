@@ -10,6 +10,7 @@ import pl.mbassara.battleships.GameShipButton;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.ShipButton;
 import pl.mbassara.battleships.ShotResult;
+import pl.mbassara.battleships.Vibra;
 import pl.mbassara.battleships.activities.CreatingShipsActivity;
 import pl.mbassara.battleships.bluetooth.BluetoothService;
 import pl.mbassara.battleships.bluetooth.GamePacket;
@@ -40,12 +41,14 @@ public class GameActivity extends Activity
 	private ToggleButton shotButton;
 	private Coordinates field = null;
 	private boolean[][] matrix = null;
+	private Vibra vibra;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        
+
+		this.vibra = Vibra.getInstance(this);
         bluetoothService = BluetoothActivity.getBluetoothService();
         gameMode = GameModeActivity.getMode();
 
@@ -111,6 +114,7 @@ public class GameActivity extends Activity
 
 	
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		vibra.beep();
 		if(buttonView.equals(shotButton)) {
 			mainBoard.setEnabled(isChecked);
 			if(!isChecked && field != null) {	// shot

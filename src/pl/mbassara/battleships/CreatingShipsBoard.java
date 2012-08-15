@@ -13,6 +13,7 @@ public class CreatingShipsBoard extends Board
 	private CreatingShipsButton[][] ships;
 	private ToggleButton placeShipsButton;
 	private Activity activity;
+	private Vibra vibra;
 		
 	public CreatingShipsBoard(Context context) {
 		this(context, SIZE_BIG);
@@ -20,7 +21,8 @@ public class CreatingShipsBoard extends Board
 	
 	public CreatingShipsBoard(Context context, int size) {
 		super(context);
-        
+
+		vibra = Vibra.getInstance(context);
 		activity = (Activity) context;
         ships = new CreatingShipsButton[10][10];
         placeShipsButton = (ToggleButton) activity.findViewById(R.id.place_ships_button);
@@ -180,6 +182,7 @@ public class CreatingShipsBoard extends Board
     		}
     		else {
     			placeShipsButton.setChecked(true);
+    			vibra.beepTriple();
     			Toast.makeText(activity, activity.getString(R.string.placing_ships_error), Toast.LENGTH_SHORT).show();
     			return false;
     		}
@@ -198,6 +201,7 @@ public class CreatingShipsBoard extends Board
     
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		CreatingShipsButton ship = (CreatingShipsButton) buttonView;
+		vibra.beep();
 		if(isChecked) {
 			ship.setChecked(true);
 			ship.setSelected();
