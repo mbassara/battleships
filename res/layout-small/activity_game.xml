@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_game_layout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/ic_background"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp" >
+
+    <ToggleButton
+        android:id="@+id/shotButton"
+        android:layout_width="@dimen/button_width_middle"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="45dp"
+        android:checked="false"
+        android:background="@drawable/button_mid"
+        android:textOff="@string/choose_field"
+        android:textOn="@string/shoot" />
+
+</RelativeLayout>

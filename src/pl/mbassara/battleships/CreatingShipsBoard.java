@@ -2,7 +2,6 @@ package pl.mbassara.battleships;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Toast;
@@ -14,7 +13,7 @@ public class CreatingShipsBoard extends Board
 	private CreatingShipsButton[][] ships;
 	private ToggleButton placeShipsButton;
 	private Activity activity;
-	
+		
 	public CreatingShipsBoard(Context context) {
 		this(context, SIZE_BIG);
 	}
@@ -49,16 +48,34 @@ public class CreatingShipsBoard extends Board
 					ships[i][j].setNotSelected(false);
 		
 	}
-    
-    private int shipSize(int x, int y) {
+	
+	private boolean checkShipsSize() {
+		int[] shipsCounter = new int[Constants.SHIPS_COUNER.length];
+		for(int i = 0; i < Constants.SHIPS_COUNER.length; i++)
+			shipsCounter[i] = Constants.SHIPS_COUNER[i];
+		
+		boolean result = true;
     	boolean[][] matrix = new boolean[10][10];
-    	
     	for(int i = 0; i < 10; i++)
 			for(int j = 0; j < 10; j++)
 				matrix[i][j] = true;
-    	
-    	return shipSizeRecursive(x, y, matrix);
-    }
+
+    	for(int i = 0; i < 10; i++)
+			for(int j = 0; j < 10; j++)
+				if(matrix[i][j] && ships[i][j].isSelected()) {
+					int size = shipSizeRecursive(i, j, matrix);
+					if(size < shipsCounter.length)
+						shipsCounter[size]--;
+					else
+						return false;
+				}
+
+		for(int i = 1; i < shipsCounter.length; i++)
+			if(shipsCounter[i] != 0)
+				result = false;
+		
+		return result;
+	}
     
     private int shipSizeRecursive(int x, int y, boolean[][] matrix) {
     	
@@ -90,6 +107,8 @@ public class CreatingShipsBoard extends Board
     		for (int j = 0; j < 10; j++)
     			if (result && matrix[i][j] && ships[i][j].isSelected())
     				result = result && !checkShip(matrix, i, j).isUndefined();
+    	
+    	result = result && checkShipsSize();
     	
     	if(Constants.LOGS_ENABLED) System.out.println("checking ships result: " + result);
 		return result;

@@ -3,6 +3,16 @@
     android:background="@drawable/ic_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/logoBluetoothHost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/ic_logo" />
 <!-- 
     <Button
         android:id="@+id/listen_button"

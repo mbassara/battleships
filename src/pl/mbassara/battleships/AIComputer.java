@@ -48,8 +48,8 @@ public class AIComputer {
 		
 		Random rand = new Random();
 		
-		for(int size = 5; size > 1; size--) {
-			for(int no = 0; no < (size < 5 ? 2 : 1); no++) {
+		for(int size = Constants.SHIPS_COUNER.length-1; size > 1; size--) {
+			for(int no = 0; no < Constants.SHIPS_COUNER[size]; no++) {
 				Collections.shuffle(fields);
 				for(Dim dim : fields) {
 					boolean possible = true;

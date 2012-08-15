@@ -3,62 +3,49 @@
     <string name="app_name">Battleships</string>
     <string name="title_activity_main_menu">Battleships</string>
     <string name="title_activity_game">Battleships</string>
+    <string name="logo">Logo</string>
 
     <!-- GAME PREPARATION -->
+    <string name="singleplayer">Spieler vs. Computer</string>
+    <string name="multiplayer">Spieler vs. Spieler</string>
     <string name="menu_settings">Einstellungen</string>
     <string name="new_game">Neues Spiel</string>
     <string name="options">Option</string>
     <string name="place_ships">Schiffe geben</string>
     <string name="commit_changes">OK</string>
     <string name="next">Weiter</string>
-    <string name="not_available_yet">This function is not available yet</string>
+    <string name="random">Zufällig</string>
+    <string name="placing_ships_error">Die Schiffe sind nicht richtig aufgestellt</string>
+    <string name="not_available_yet">Diese Funktion ist noch nicht verfügbar</string>
     
     <!-- GAME MODE SELECTION -->
     <string name="game_mode_host">Mach das Spiel</string>
-    <string name="game_mode_client">Verbinden</string>
+    <string name="game_mode_client">Beitreten das spiel</string>
     
     <!-- BLUETOOTH ACTIVITY -->
     <string name="waiting_for_client">Bitte auf die Verbindung warten…</string>
     <string name="connecting_to_host">Bitte auf die Verbindung warten…</string>
     <string name="find_devices">Finde das Spiel</string>
-<!--    <string name="set_visivility">Ustaw widoczność</string>
-    <string name="bluetooth_discoverability">Musisz ustawić widoczność aby inne urządenia mogły się z tobą połączyć</string>
-    <string name="bluetooth_help_finding_OFF">Kliknij \"Znajdź urządzenia\" aby rozpocząć szukanie urządzeń bluetooth będących w zasięgu</string>
-    <string name="bluetooth_help_finding_ON">Wybierz urządzenie gdy wyświetli się na liście poniżej</string>
-    <string name="connection_timeout">Przekroczono czas oczekiwania na połączenie!</string>
-    <string name="bt_not_supported">Twoje urządzenie nie obsługuje komunikacji za pomocą bluetooth</string>
- -->
-    
-    <!-- SHIPS -->
-<!--     <string name="aircraft_carriers">Pięciomasztowce: </string>
-    <string name="battleships">Czteromasztowce: </string>
-    <string name="submarines">Trójmasztowce: </string>
-    <string name="destroyers">Dwumasztowce: </string>
-    <string name="patrol_boats">Jednomasztowce: </string>
- -->
-     
-    <!-- VALUES -->
-<!--     <string name="of"> z </string>
-    <string name="of1">0 z 1</string>
-    <string name="of2">0 z 2</string>
-    <string name="of3">0 z 3</string>
-    <string name="of4">0 z 4</string>
-    <string name="of5">0 z 5</string>
-    <string name="aircraft_carriers_value"> z 1</string>
-    <string name="battleships_value"> z 2</string>
-    <string name="submarines_value"> z 3</string>
-    <string name="destroyers_value"> z 4</string>
-    <string name="patrol_boats_value"> z 5</string>
- -->
-    
+    <string name="set_visivility">Machen Sie Ihr Gerät sichtbar</string>
+    <string name="bluetooth_discoverability">Sie haben, um die Sichtbarkeit gesetzt, um damit andere Geräte mit Ihnen verbinden</string>
+    <string name="bluetooth_help_finding_OFF">Press \"Find devices\" to scan for devices</string>
+    <string name="bluetooth_help_finding_ON">Wählen Sie ein Gerät, wenn es auf einer Liste unten erscheint</string>
+    <string name="connection_timeout">Verbindungstimeout!</string>
+    <string name="bt_not_supported">Bluetooth ist nicht auf deinem Gerät unterstützt</string>
+
     <!-- GAME -->
-<!--     <string name="you_start">Strzelasz pierwszy</string>
-    <string name="opponent_starts">Przeciwnik strzela pierwszy</string>
-    <string name="choose_field">Wybór pola</string>
-    <string name="shoot">Strzał!</string>
-    <string name="result_winner">You\'ve won!!!</string>
-    <string name="result_looser">You\'ve lost…</string>
-    <string name="exit">Exit</string>
- -->
+    <string name="you_start">Du schießt zuerst</string>
+    <string name="opponent_starts">Dein Gegner schießt zuerst</string>
+    <string name="choose_field">Wählen eine Stelle</string>
+    <string name="shoot">Schießen!</string>
+    <string name="result_winner">Du hast gewonnen!!!</string>
+    <string name="result_looser">Du hast verloren…</string>
+    <string name="exit">Verlassen</string>
+
+    <!-- MESSAGES -->
+    <string name="title_activity_bluetooth_host">BluetoothHostActivity</string>
+    <string name="title_activity_game_mode">GameModeActivity</string>
+    <string name="title_activity_game_result">GameResultActivity</string>
+    <string name="title_activity_offline_game">OfflineGameActivity</string>
 
 </resources>

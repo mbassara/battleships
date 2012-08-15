@@ -46,6 +46,13 @@ public class BluetoothClientActivity extends BluetoothActivity {
     }
     
     @Override
+    protected void onStart() {
+    	super.onStart();
+    	
+    	Toast.makeText(this, getString(R.string.bluetooth_help_finding_OFF), Toast.LENGTH_LONG).show();
+    }
+    
+    @Override
     protected void onDestroy() {
     	unregisterReceiver(receiver);
     	super.onDestroy();
@@ -53,10 +60,12 @@ public class BluetoothClientActivity extends BluetoothActivity {
 
     public void discoveryDevicesON(View view) {
     	adapter.startDiscovery();
+    	Toast.makeText(this, getString(R.string.bluetooth_help_finding_ON), Toast.LENGTH_LONG).show();
     }
 
     public void discoveryDevicesOFF(View view) {
     	adapter.cancelDiscovery();
+    	Toast.makeText(this, getString(R.string.bluetooth_help_finding_OFF), Toast.LENGTH_LONG).show();
     }
     
     public void bluetoothDeviceClicked(View view) {

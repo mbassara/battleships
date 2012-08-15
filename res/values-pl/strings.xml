@@ -3,6 +3,7 @@
     <string name="app_name">Battleships</string>
     <string name="title_activity_main_menu">Battleships</string>
     <string name="title_activity_game">Battleships</string>
+    <string name="logo">Logo</string>
 
     <!-- GAME PREPARATION -->
     <string name="singleplayer">Jeden gracz</string>

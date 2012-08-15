@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
 import pl.mbassara.battleships.Constants;
-import pl.mbassara.battleships.R;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 
@@ -23,8 +22,7 @@ public abstract class BluetoothService {
 	private ConnectingThread connectingThread;
 	
 	public BluetoothService(Context parentContext) {
-		Context context = parentContext.getApplicationContext();
-        UUID = context.getString(R.string.UUID);
+        UUID = Constants.UUID;
         toSendQueue = new LinkedList<GamePacket>();
         receivedQueue = new LinkedList<GamePacket>();
         

@@ -41,14 +41,14 @@ public class CreatingShipsButton extends ShipButton {
 	public void setNotSelected(boolean creatingMode) {
 		state = NOT_SELECTED;
 		if(creatingMode)
-			this.setLaF(this.LAF_POSSIBLE);
+			this.setLaF(ShipButton.LAF_POSSIBLE);
 		else
-			this.setLaF(this.LAF_NORMAL);
+			this.setLaF(ShipButton.LAF_NORMAL);
 	}
 	
 	public void setSelected() {
 		state = SELECTED;
-		this.setLaF(this.LAF_SELECTED);
+		this.setLaF(ShipButton.LAF_SELECTED);
 	}
 
 }

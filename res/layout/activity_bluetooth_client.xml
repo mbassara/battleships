@@ -5,21 +5,22 @@
     android:padding="@dimen/padding_medium"
     android:background="@drawable/ic_background" >
 
-    <TextView
-        android:id="@+id/bluetoothHelpTextView"
+    <ImageView
+        android:id="@+id/logoBluetoothClient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/bluetooth_help_finding_OFF"
-        android:layout_margin="@dimen/padding_medium"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/ic_logo" />
 
     <Button
         android:id="@+id/findDevicesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bluetoothHelpTextView"
+        android:layout_below="@+id/logoBluetoothClient"
+        android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_large"
         android:onClick="discoveryDevicesON"

@@ -4,6 +4,16 @@
     android:layout_height="fill_parent"
     android:background="@drawable/ic_background" >
 
+    <ImageView
+        android:id="@+id/logoGameMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/ic_logo" />
+
     <Button
         android:id="@+id/joinGameButton"
         android:layout_width="200dp"
