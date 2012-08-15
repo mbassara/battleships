@@ -20,7 +20,6 @@ import android.os.Message;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
@@ -104,12 +103,6 @@ public class GameActivity extends Activity
         	Toast.makeText(this, getString(R.string.opponent_starts), Toast.LENGTH_SHORT).show();
         
         receivingThread.start();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_game, menu);
-        return true;
     }
 
 	

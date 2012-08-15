@@ -1,5 +1,7 @@
-package pl.mbassara.battleships;
+package pl.mbassara.battleships.activities;
 
+import pl.mbassara.battleships.R;
+import pl.mbassara.battleships.Vibra;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;

@@ -17,7 +17,7 @@
 
     <Button
         android:id="@+id/findDevicesButton"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/button_width_large"
         android:layout_height="wrap_content"
         android:layout_below="@+id/logoBluetoothClient"
         android:layout_marginTop="15dp"

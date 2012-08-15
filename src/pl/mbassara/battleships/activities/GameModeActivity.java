@@ -4,7 +4,6 @@ import pl.mbassara.battleships.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 
 public class GameModeActivity extends Activity {
@@ -17,12 +16,6 @@ public class GameModeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_mode);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_game_mode, menu);
-        return true;
     }
     
     public static int getMode() {

@@ -1,7 +1,6 @@
 package pl.mbassara.battleships.activities;
 
 import pl.mbassara.battleships.Constants;
-import pl.mbassara.battleships.OptionsActivity;
 import pl.mbassara.battleships.R;
 import android.os.Bundle;
 import android.app.Activity;
