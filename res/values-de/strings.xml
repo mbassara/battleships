@@ -9,7 +9,7 @@
     <string name="german_translator">Deutsch Übersetzer:</string>
     
     <!-- OPTIONS -->
-    <string name="enable_vibra">Aktivieren Vibrationen</string>
+    <string name="enable_vibra">Vibrationen aktivieren</string>
 
     <!-- GAME PREPARATION -->
     <string name="singleplayer">Spieler vs. Computer</string>
@@ -34,8 +34,8 @@
     <string name="find_devices">Finde das Spiel</string>
     <string name="set_visivility">Machen Sie Ihr Gerät sichtbar</string>
     <string name="bluetooth_discoverability">Sie haben, um die Sichtbarkeit gesetzt, um damit andere Geräte mit Ihnen verbinden</string>
-    <string name="bluetooth_help_finding_OFF">Press \"Find devices\" to scan for devices</string>
-    <string name="bluetooth_help_finding_ON">Wählen Sie ein Gerät, wenn es auf einer Liste unten erscheint</string>
+    <string name="bluetooth_help_finding_OFF">Drücken Sie die \"Geräte suchen\", um nach Geräten scannen</string>
+    <string name="bluetooth_help_finding_ON">Wähl Sie ein Gerät, wenn es auf einer Liste unten erscheint</string>
     <string name="connection_timeout">Verbindungstimeout!</string>
     <string name="bt_not_supported">Bluetooth ist nicht auf deinem Gerät unterstützt</string>
 

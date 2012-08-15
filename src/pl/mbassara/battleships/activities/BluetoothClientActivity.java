@@ -49,7 +49,7 @@ public class BluetoothClientActivity extends BluetoothActivity {
     protected void onStart() {
     	super.onStart();
     	
-    	Toast.makeText(this, getString(R.string.bluetooth_help_finding_OFF), Toast.LENGTH_LONG).show();
+//    	Toast.makeText(this, getString(R.string.bluetooth_help_finding_OFF), Toast.LENGTH_LONG).show();
     }
     
     @Override
