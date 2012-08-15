@@ -120,8 +120,19 @@ public class AIComputer {
 				if(Constants.LOGS_ENABLED) System.out.println("currentlyShotShips:\n" + currentlyShotShip);
 				
 				Dim dim = null;
-				if(currentlyShotShip.isEmpty())
+				try {
+					Thread.sleep(1000);		// computer is thinking
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				if(currentlyShotShip.isEmpty()) {
+					try {
+						Thread.sleep((new Random()).nextInt(3000));		// computer is thinking longer
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 					dim = opponentShips.get(rand.nextInt(opponentShips.size()));
+				}
 				else if(currentlyShotShip.size() == 1) {
 					Dim tmpDim = currentlyShotShip.get(0);
 					
@@ -182,7 +193,7 @@ public class AIComputer {
 					}
 				}
 				
-				int x = dim.x; // TODO
+				int x = dim.x;
 				int y = dim.y;
 				if(Constants.LOGS_ENABLED) System.out.println("shot - field: " + x + "," + y);
 				
@@ -191,11 +202,6 @@ public class AIComputer {
 				bundle.putInt(Constants.GameMessagesHandler_KEY_Y, y);
 
 				message.setData(bundle);
-				try {
-					Thread.sleep((new Random()).nextInt(3000) + 1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
 				handler.sendMessage(message);
 			}
 		});
