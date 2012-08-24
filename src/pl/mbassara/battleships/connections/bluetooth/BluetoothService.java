@@ -1,4 +1,4 @@
-package pl.mbassara.battleships.bluetooth;
+package pl.mbassara.battleships.connections.bluetooth;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -6,10 +6,12 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
 import pl.mbassara.battleships.Constants;
+import pl.mbassara.battleships.connections.RemoteService;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 
-public abstract class BluetoothService {
+public abstract class BluetoothService
+	implements RemoteService{
 	
 	protected BluetoothSocket socket = null;
 	protected String UUID;

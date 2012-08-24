@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.R;
-import pl.mbassara.battleships.bluetooth.BluetoothClientService;
+import pl.mbassara.battleships.connections.bluetooth.BluetoothClientService;
 import android.os.Bundle;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

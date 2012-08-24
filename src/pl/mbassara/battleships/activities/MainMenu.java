@@ -27,7 +27,7 @@ public class MainMenu extends Activity {
 				"\n\n" + getString(R.string.german_translator) + "\n" + getString(R.string.german_translators_name))
 				.setCancelable(false)
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					@Override
+
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.cancel();
 					}
@@ -78,7 +78,7 @@ public class MainMenu extends Activity {
     }
     
     public void multiplayer(View view) {
-    	Intent intent = new Intent(this, GameModeActivity.class);
+    	Intent intent = new Intent(this, MultiplayerModeActivity.class);
     	startActivity(intent);
     }
     

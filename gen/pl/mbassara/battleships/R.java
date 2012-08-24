@@ -11,6 +11,7 @@ public final class R {
     public static final class attr {
     }
     public static final class dimen {
+        public static final int IP_box_width=0x7f040007;
         public static final int button_width_large=0x7f040006;
         public static final int button_width_middle=0x7f040005;
         public static final int padding_large=0x7f040002;
@@ -54,13 +55,18 @@ public final class R {
         public static final int ic_logo=0x7f02001f;
     }
     public static final class id {
+        public static final int HostIPAdressTextView=0x7f08001c;
+        public static final int HostIPLabelTextView=0x7f08001b;
+        public static final int WiFiModeButton=0x7f080014;
         public static final int activity_game_layout=0x7f080008;
-        public static final int activity_offline_game_layout=0x7f080014;
+        public static final int activity_offline_game_layout=0x7f080016;
+        public static final int bluetoothModeButton=0x7f080015;
+        public static final int connectToServerButton=0x7f08001a;
         public static final int createGameButton=0x7f08000c;
         public static final int create_random_button=0x7f080006;
         public static final int creating_ships_layout=0x7f080004;
-        public static final int device_textView=0x7f080017;
-        public static final int enableVibraCheckBox=0x7f080016;
+        public static final int device_textView=0x7f08001d;
+        public static final int enableVibraCheckBox=0x7f080018;
         public static final int findDevicesButton=0x7f080001;
         public static final int game_result_exit_button=0x7f08000f;
         public static final int game_result_new_game_button=0x7f08000e;
@@ -71,11 +77,12 @@ public final class R {
         public static final int logoBluetoothHost=0x7f080003;
         public static final int logoGameMode=0x7f08000a;
         public static final int logoMainMenu=0x7f080010;
-        public static final int menu_item_about=0x7f080019;
-        public static final int menu_settings=0x7f080018;
+        public static final int logoWiFiClient=0x7f080019;
+        public static final int menu_item_about=0x7f08001f;
+        public static final int menu_settings=0x7f08001e;
         public static final int multiplayer_button=0x7f080011;
         public static final int next_button=0x7f080007;
-        public static final int offlineShotButton=0x7f080015;
+        public static final int offlineShotButton=0x7f080017;
         public static final int options_button=0x7f080013;
         public static final int place_ships_button=0x7f080005;
         public static final int shotButton=0x7f080009;
@@ -90,9 +97,12 @@ public final class R {
         public static final int activity_game_mode=0x7f030005;
         public static final int activity_game_result=0x7f030006;
         public static final int activity_main_menu=0x7f030007;
-        public static final int activity_offline_game=0x7f030008;
-        public static final int activity_options=0x7f030009;
-        public static final int bluetooth_device=0x7f03000a;
+        public static final int activity_multiplayer_mode=0x7f030008;
+        public static final int activity_offline_game=0x7f030009;
+        public static final int activity_options=0x7f03000a;
+        public static final int activity_wi_fi_client=0x7f03000b;
+        public static final int activity_wi_fi_host=0x7f03000c;
+        public static final int bluetooth_device=0x7f03000d;
     }
     public static final class menu {
         public static final int activity_bluetooth=0x7f070000;
@@ -101,8 +111,11 @@ public final class R {
         public static final int activity_game_mode=0x7f070003;
         public static final int activity_game_result=0x7f070004;
         public static final int activity_main_menu=0x7f070005;
-        public static final int activity_offline_game=0x7f070006;
-        public static final int activity_options=0x7f070007;
+        public static final int activity_multiplayer_mode=0x7f070006;
+        public static final int activity_offline_game=0x7f070007;
+        public static final int activity_options=0x7f070008;
+        public static final int activity_wi_fi_client=0x7f070009;
+        public static final int activity_wi_fi_host=0x7f07000a;
     }
     public static final class string {
         /**  ABOUT 
@@ -113,30 +126,30 @@ public final class R {
         /**  SHIPS 
  SHIPS 
          */
-        public static final int aircraft_carriers=0x7f05001f;
-        public static final int aircraft_carriers_value=0x7f05002a;
+        public static final int aircraft_carriers=0x7f050025;
+        public static final int aircraft_carriers_value=0x7f050030;
         public static final int app_name=0x7f050000;
         public static final int author=0x7f050004;
         public static final int authors_name=0x7f050005;
-        public static final int battleships=0x7f050020;
-        public static final int battleships_value=0x7f05002b;
-        public static final int bluetooth_discoverability=0x7f05001a;
-        public static final int bluetooth_help_finding_OFF=0x7f05001b;
-        public static final int bluetooth_help_finding_ON=0x7f05001c;
-        public static final int bt_not_supported=0x7f05001e;
-        public static final int choose_field=0x7f050033;
+        public static final int battleships=0x7f050026;
+        public static final int battleships_value=0x7f050031;
+        public static final int bluetooth_discoverability=0x7f050020;
+        public static final int bluetooth_help_finding_OFF=0x7f050021;
+        public static final int bluetooth_help_finding_ON=0x7f050022;
+        public static final int bt_not_supported=0x7f050024;
+        public static final int choose_field=0x7f050039;
         public static final int commit_changes=0x7f05000f;
-        public static final int connecting_to_host=0x7f050017;
-        public static final int connection_timeout=0x7f05001d;
-        public static final int destroyers=0x7f050022;
-        public static final int destroyers_value=0x7f05002d;
+        public static final int connecting_to_host=0x7f05001d;
+        public static final int connection_timeout=0x7f050023;
+        public static final int destroyers=0x7f050028;
+        public static final int destroyers_value=0x7f050033;
         /**  OPTIONS 
  OPTIONS 
  OPTIONS 
          */
         public static final int enable_vibra=0x7f050008;
-        public static final int exit=0x7f050037;
-        public static final int find_devices=0x7f050018;
+        public static final int exit=0x7f05003d;
+        public static final int find_devices=0x7f05001e;
         public static final int game_mode_client=0x7f050015;
         /**  GAME MODE SELECTION 
  GAME MODE SELECTION 
@@ -146,9 +159,13 @@ public final class R {
         public static final int games_name=0x7f050003;
         public static final int german_translator=0x7f050006;
         public static final int german_translators_name=0x7f050007;
-        public static final int hello_world=0x7f05002f;
+        public static final int hello_world=0x7f050035;
         public static final int logo=0x7f050001;
         public static final int menu_settings=0x7f05000b;
+        public static final int mult_mode_bt=0x7f050017;
+        /**  MULTIPLAYER MODE SELECTION 
+         */
+        public static final int mult_mode_wifi=0x7f050016;
         public static final int multiplayer=0x7f05000a;
         public static final int new_game=0x7f05000c;
         public static final int next=0x7f050010;
@@ -156,50 +173,60 @@ public final class R {
         /**  VALUES 
  VALUES 
          */
-        public static final int of=0x7f050024;
-        public static final int of1=0x7f050025;
-        public static final int of2=0x7f050026;
-        public static final int of3=0x7f050027;
-        public static final int of4=0x7f050028;
-        public static final int of5=0x7f050029;
-        public static final int opponent_starts=0x7f050032;
+        public static final int of=0x7f05002a;
+        public static final int of1=0x7f05002b;
+        public static final int of2=0x7f05002c;
+        public static final int of3=0x7f05002d;
+        public static final int of4=0x7f05002e;
+        public static final int of5=0x7f05002f;
+        public static final int opponent_starts=0x7f050038;
         public static final int options=0x7f05000d;
-        public static final int patrol_boats=0x7f050023;
-        public static final int patrol_boats_value=0x7f05002e;
+        public static final int patrol_boats=0x7f050029;
+        public static final int patrol_boats_value=0x7f050034;
         public static final int place_ships=0x7f05000e;
         public static final int placing_ships_error=0x7f050012;
         public static final int random=0x7f050011;
-        public static final int result_looser=0x7f050036;
-        public static final int result_winner=0x7f050035;
-        public static final int set_visivility=0x7f050019;
-        public static final int shoot=0x7f050034;
+        public static final int result_looser=0x7f05003c;
+        public static final int result_winner=0x7f05003b;
+        public static final int set_visivility=0x7f05001f;
+        public static final int shoot=0x7f05003a;
         /**  GAME PREPARATION 
  GAME PREPARATION 
  GAME PREPARATION 
          */
         public static final int singleplayer=0x7f050009;
-        public static final int submarines=0x7f050021;
-        public static final int submarines_value=0x7f05002c;
-        public static final int title_activity_bluetooth=0x7f050030;
-        public static final int title_activity_bluetooth_host=0x7f05003a;
-        public static final int title_activity_game=0x7f050039;
-        public static final int title_activity_game_mode=0x7f05003b;
-        public static final int title_activity_game_result=0x7f05003c;
+        public static final int submarines=0x7f050027;
+        public static final int submarines_value=0x7f050032;
+        public static final int title_activity_bluetooth=0x7f050036;
+        public static final int title_activity_bluetooth_host=0x7f050040;
+        public static final int title_activity_game=0x7f05003f;
+        public static final int title_activity_game_mode=0x7f050041;
+        public static final int title_activity_game_result=0x7f050042;
         /**  MESSAGES 
          */
-        public static final int title_activity_main_menu=0x7f050038;
-        public static final int title_activity_offline_game=0x7f05003d;
-        public static final int title_activity_options=0x7f05003e;
+        public static final int title_activity_main_menu=0x7f05003e;
+        public static final int title_activity_multiplayer_mode=0x7f050045;
+        public static final int title_activity_offline_game=0x7f050043;
+        public static final int title_activity_options=0x7f050044;
+        public static final int title_activity_wi_fi_client=0x7f050047;
+        public static final int title_activity_wi_fi_host=0x7f050046;
         /**  BLUETOOTH ACTIVITY 
  BLUETOOTH ACTIVITY 
  BLUETOOTH ACTIVITY 
          */
-        public static final int waiting_for_client=0x7f050016;
+        public static final int waiting_for_client=0x7f05001c;
+        public static final int wifi_connect_to_server=0x7f05001b;
+        public static final int wifi_server_ip=0x7f05001a;
+        public static final int wifi_start_server=0x7f050019;
+        /**  WIFI ACTIVITY 
+ WIFI ACTIVITY 
+         */
+        public static final int wifi_your_ip=0x7f050018;
         /**  GAME 
  GAME 
  GAME 
          */
-        public static final int you_start=0x7f050031;
+        public static final int you_start=0x7f050037;
     }
     public static final class style {
         public static final int AppTheme=0x7f060001;

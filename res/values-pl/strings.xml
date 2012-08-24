@@ -28,6 +28,12 @@
     <string name="game_mode_host">Stwórz grę</string>
     <string name="game_mode_client">Dołącz do gry</string>
     
+    <!-- WIFI ACTIVITY -->
+    <string name="wifi_your_ip">Twój IP:   </string>
+    <string name="wifi_start_server">Stwórz serwer</string>
+    <string name="wifi_server_ip">IP serwera:   </string>
+    <string name="wifi_connect_to_server">Połącz z serwerem</string>
+    
     <!-- BLUETOOTH ACTIVITY -->
     <string name="waiting_for_client">Proszę czekać na podłączenie drugiego urządzenia…</string>
     <string name="connecting_to_host">Proszę czekać na podłączenie do wybranego urządzenia…</string>

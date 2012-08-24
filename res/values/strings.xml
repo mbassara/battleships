@@ -10,7 +10,7 @@
     <string name="authors_name">Maciej Bassara</string>
     <string name="german_translator">German translator:</string>
     <string name="german_translators_name">Marcel Bassara</string>
-    
+
     <!-- OPTIONS -->
     <string name="enable_vibra">Enable vibrations</string>
 
@@ -30,6 +30,16 @@
     <!-- GAME MODE SELECTION -->
     <string name="game_mode_host">Create game</string>
     <string name="game_mode_client">Join game</string>
+
+    <!-- MULTIPLAYER MODE SELECTION -->
+    <string name="mult_mode_wifi">WiFi</string>
+    <string name="mult_mode_bt">Bluetooth</string>
+
+    <!-- WIFI ACTIVITY -->
+    <string name="wifi_your_ip">Your IP:   </string>
+    <string name="wifi_start_server">Start server</string>
+    <string name="wifi_server_ip">Server\'s IP:   </string>
+    <string name="wifi_connect_to_server">Connect to server</string>
 
     <!-- BLUETOOTH ACTIVITY -->
     <string name="waiting_for_client">Please wait for other device to connect…</string>
@@ -81,5 +91,8 @@
     <string name="title_activity_game_result">GameResultActivity</string>
     <string name="title_activity_offline_game">OfflineGameActivity</string>
     <string name="title_activity_options">OptionsActivity</string>
+    <string name="title_activity_multiplayer_mode">MultiplayerModeActivity</string>
+    <string name="title_activity_wi_fi_host">WiFiHostActivity</string>
+    <string name="title_activity_wi_fi_client">WiFiClientActivity</string>
 
 </resources>

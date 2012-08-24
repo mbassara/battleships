@@ -2,7 +2,7 @@ package pl.mbassara.battleships.activities;
 
 import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.R;
-import pl.mbassara.battleships.bluetooth.BluetoothService;
+import pl.mbassara.battleships.connections.bluetooth.BluetoothService;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;

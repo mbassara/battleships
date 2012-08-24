@@ -112,7 +112,7 @@ public class AIComputer {
 	
 	public void doShot() {
 		Thread thread = new Thread(new Runnable() {
-			@Override
+			
 			public void run() {
 				Bundle bundle = new Bundle();
 				Message message = new Message();

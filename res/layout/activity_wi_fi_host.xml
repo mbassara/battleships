@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/ic_background" >
+
+    <ImageView
+        android:id="@+id/logoGameMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/ic_logo" />
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+		android:layout_above="@+id/joinGameButton"
+	        android:background="#F0F0F0"
+		android:layout_marginBottom="30dp" >
+	
+	    <TextView
+	        android:id="@+id/HostIPLabelTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="@dimen/text_size_middle"
+	        android:textColor="#111111"
+	        android:text="@string/wifi_your_ip" />
+
+	    <TextView
+	        android:id="@+id/HostIPAdressTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/HostIPLabelTextView"
+	        android:textSize="@dimen/text_size_middle"
+	        android:textColor="#111111" />
+	    
+	</RelativeLayout>
+
+    <Button
+        android:id="@+id/joinGameButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/wifi_start_server"
+        android:background="@drawable/button_large"
+        android:onClick="start" />
+
+</RelativeLayout>

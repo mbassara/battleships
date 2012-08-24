@@ -1,6 +1,7 @@
 package pl.mbassara.battleships.activities;
 
 import pl.mbassara.battleships.R;
+import pl.mbassara.battleships.WiFiClientActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -24,14 +25,26 @@ public class GameModeActivity extends Activity {
     
     public void gameModeClient(View view) {
     	mode = CLIENT_MODE;
-    	Intent intent = new Intent(this, BluetoothClientActivity.class);
-    	startActivity(intent);
+    	Intent intent = null;
+    	if(MultiplayerModeActivity.getMode() == MultiplayerModeActivity.BT_MODE)
+    		intent = new Intent(this, BluetoothClientActivity.class);
+    	else if(MultiplayerModeActivity.getMode() == MultiplayerModeActivity.WIFI_MODE)
+    		intent = new Intent(this, WiFiClientActivity.class);
+    	
+    	if(intent != null)
+    		startActivity(intent);
     }
     
     public void gameModeHost(View view) {
     	mode = HOST_MODE;
-    	Intent intent = new Intent(this, BluetoothHostActivity.class);
-    	startActivity(intent);
+    	Intent intent = null;
+    	if(MultiplayerModeActivity.getMode() == MultiplayerModeActivity.BT_MODE)
+    		intent = new Intent(this, BluetoothHostActivity.class);
+    	else if(MultiplayerModeActivity.getMode() == MultiplayerModeActivity.WIFI_MODE)
+    		intent = new Intent(this, WiFiHostActivity.class);
+    	
+    	if(intent != null)
+    		startActivity(intent);
     }
     
 }

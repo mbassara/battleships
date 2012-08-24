@@ -9,5 +9,7 @@
     
     <dimen name="button_width_middle">150dp</dimen>
     <dimen name="button_width_large">200dp</dimen>
+    
+	<dimen name="IP_box_width">180dp</dimen>
 
 </resources>
