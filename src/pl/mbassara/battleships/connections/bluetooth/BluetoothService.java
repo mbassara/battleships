@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
 import pl.mbassara.battleships.Constants;
+import pl.mbassara.battleships.connections.GamePacket;
 import pl.mbassara.battleships.connections.RemoteService;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;

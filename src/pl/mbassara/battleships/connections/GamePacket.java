@@ -1,4 +1,4 @@
-package pl.mbassara.battleships.connections.bluetooth;
+package pl.mbassara.battleships.connections;
 
 import java.io.Serializable;
 

@@ -1,6 +1,5 @@
 package pl.mbassara.battleships.connections;
 
-import pl.mbassara.battleships.connections.bluetooth.GamePacket;
 
 public interface RemoteService {
 

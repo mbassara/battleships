@@ -5,8 +5,8 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.format.Formatter;
 
+import pl.mbassara.battleships.connections.GamePacket;
 import pl.mbassara.battleships.connections.RemoteService;
-import pl.mbassara.battleships.connections.bluetooth.GamePacket;
 
 public abstract class WiFiService implements RemoteService {
 	

@@ -12,8 +12,8 @@ import pl.mbassara.battleships.ShipButton;
 import pl.mbassara.battleships.ShotResult;
 import pl.mbassara.battleships.Vibra;
 import pl.mbassara.battleships.activities.CreatingShipsActivity;
-import pl.mbassara.battleships.connections.bluetooth.BluetoothService;
-import pl.mbassara.battleships.connections.bluetooth.GamePacket;
+import pl.mbassara.battleships.connections.GamePacket;
+import pl.mbassara.battleships.connections.RemoteService;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,7 +34,7 @@ public class GameActivity extends Activity
 	
 	private GameBoard mainBoard;
 	private GameBoard previewBoard;
-	private BluetoothService bluetoothService;
+	private RemoteService remoteService;
 	private boolean meStartFirst = true;
 	private int gameMode;
 	private ToggleButton shotButton;
@@ -48,19 +48,26 @@ public class GameActivity extends Activity
         setContentView(R.layout.activity_game);
 
 		this.vibra = Vibra.getInstance(this);
-        bluetoothService = BluetoothActivity.getBluetoothService();
+		
+		if(MultiplayerModeActivity.getMode().equals(MultiplayerModeActivity.BT_MODE))
+			remoteService = BluetoothActivity.getBluetoothService();
+		else if(MultiplayerModeActivity.getMode().equals(MultiplayerModeActivity.WIFI_MODE))
+			remoteService = BluetoothActivity.getBluetoothService();	// TODO: WIFI MODE!!!!!!!!!!!
+		else
+			this.finish();
+		
         gameMode = GameModeActivity.getMode();
 
       if(gameMode == GameModeActivity.HOST_MODE) {
       	boolean whoStarts = (new Random(System.currentTimeMillis())).nextBoolean();
       	meStartFirst = whoStarts == GamePacket.HOST_FIRST;
 	        GamePacket packet = new GamePacket(whoStarts);
-	        bluetoothService.send(packet);
+	        remoteService.send(packet);
       }
       else {
       	GamePacket packet = null;
       	while(packet == null) {		// TODO: Screen freezes while waiting for host to start game!
-      		packet = bluetoothService.receive();
+      		packet = remoteService.receive();
       		try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
@@ -111,7 +118,7 @@ public class GameActivity extends Activity
 		if(buttonView.equals(shotButton)) {
 			mainBoard.setEnabled(isChecked);
 			if(!isChecked && field != null) {	// shot
-				bluetoothService.send(new GamePacket(field));
+				remoteService.send(new GamePacket(field));
 				buttonView.setEnabled(false);
 			}
 		}
@@ -145,7 +152,7 @@ public class GameActivity extends Activity
 		public void run() {
 			GamePacket packet;
 			while (true) {
-				packet = bluetoothService.receive();
+				packet = remoteService.receive();
 				if(packet != null) {
 					if(Constants.LOGS_ENABLED) System.out.println("packet received");
 					Bundle bundle = new Bundle();
@@ -204,11 +211,11 @@ public class GameActivity extends Activity
 				int y = msg.getData().getInt(KEY_Y);
 				ShotResult result = previewBoard.shoot(x, y);
 				if(previewBoard.isGameEnded()) {
-					bluetoothService.send(new GamePacket(new GameResult(GameResult.RESULT_WINNER)));	// opponent is winner because he sunk all of my ships
+					remoteService.send(new GamePacket(new GameResult(GameResult.RESULT_WINNER)));	// opponent is winner because he sunk all of my ships
 					endGame(false);
 				}
 				else {
-					bluetoothService.send(new GamePacket(result));
+					remoteService.send(new GamePacket(result));
 					if(!result.isHit() || result.isSunk())
 						shotButton.setEnabled(true);
 				}
