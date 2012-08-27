@@ -1,7 +1,6 @@
 package pl.mbassara.battleships.activities;
 
 import pl.mbassara.battleships.R;
-import pl.mbassara.battleships.WiFiClientActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;

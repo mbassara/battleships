@@ -29,9 +29,9 @@
     <string name="game_mode_client">Dołącz do gry</string>
     
     <!-- WIFI ACTIVITY -->
-    <string name="wifi_your_ip">Twój IP:   </string>
+    <string name="wifi_your_ip">Twój IP:\u0009\u0009</string>
     <string name="wifi_start_server">Stwórz serwer</string>
-    <string name="wifi_server_ip">IP serwera:   </string>
+    <string name="wifi_server_ip">IP serwera:\u0009\u0009</string>
     <string name="wifi_connect_to_server">Połącz z serwerem</string>
     
     <!-- BLUETOOTH ACTIVITY -->

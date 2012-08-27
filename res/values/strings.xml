@@ -36,9 +36,9 @@
     <string name="mult_mode_bt">Bluetooth</string>
 
     <!-- WIFI ACTIVITY -->
-    <string name="wifi_your_ip">Your IP:   </string>
+    <string name="wifi_your_ip">Your IP:\u0009\u0009</string>
     <string name="wifi_start_server">Start server</string>
-    <string name="wifi_server_ip">Server\'s IP:   </string>
+    <string name="wifi_server_ip">Server\'s IP:\u0009\u0009</string>
     <string name="wifi_connect_to_server">Connect to server</string>
 
     <!-- BLUETOOTH ACTIVITY -->

@@ -50,9 +50,9 @@ public class GameActivity extends Activity
 		this.vibra = Vibra.getInstance(this);
 		
 		if(MultiplayerModeActivity.getMode().equals(MultiplayerModeActivity.BT_MODE))
-			remoteService = BluetoothActivity.getBluetoothService();
+			remoteService = BluetoothActivity.getRemoteService();
 		else if(MultiplayerModeActivity.getMode().equals(MultiplayerModeActivity.WIFI_MODE))
-			remoteService = BluetoothActivity.getBluetoothService();	// TODO: WIFI MODE!!!!!!!!!!!
+			remoteService = WiFiActivity.getRemoteService();	// TODO: WIFI MODE!!!!!!!!!!!
 		else
 			this.finish();
 		

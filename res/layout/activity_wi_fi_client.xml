@@ -22,7 +22,7 @@
         android:layout_centerVertical="true"
         android:text="@string/wifi_connect_to_server"
         android:background="@drawable/button_large"
-        android:onClick="connect" />
+        android:onClick="connectToServer" />
 
     <RelativeLayout
         android:layout_width="wrap_content"

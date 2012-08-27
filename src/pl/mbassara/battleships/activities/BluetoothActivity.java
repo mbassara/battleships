@@ -61,7 +61,7 @@ public abstract class BluetoothActivity extends Activity
 		thread.start();
     }
 
-    public static BluetoothService getBluetoothService() {
+    public static BluetoothService getRemoteService() {
 		return bluetoothService;
 	}
     

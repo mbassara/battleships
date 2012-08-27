@@ -83,7 +83,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".WiFiClientActivity"
+            android:name=".activities.WiFiClientActivity"
             android:label="@string/title_activity_wi_fi_client"
             android:screenOrientation="portrait" >
         </activity>
