@@ -17,7 +17,7 @@ import pl.mbassara.battleships.connections.RemoteService;
 
 public abstract class WiFiService implements RemoteService {
 	
-	private Socket socket = null;
+	protected Socket socket = null;
 
 	protected String UUID;
 	
@@ -40,14 +40,7 @@ public abstract class WiFiService implements RemoteService {
 	
 	abstract public Socket connectSpecific();
 
-	public void cancelSpecific() {
-		try {
-			if(socket != null)
-				socket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	abstract public void cancelSpecific();
 	
 	public void connect() {
 		if(Constants.LOGS_ENABLED) System.out.println("WiFiService.connect()");
@@ -208,8 +201,8 @@ public abstract class WiFiService implements RemoteService {
 				}
 			}
 			
-			if(!sendingThread.isAlive()) sendingThread.start();
-			if(!receivingThread.isAlive()) receivingThread.start();
+			if(!sendingThread.isAlive() && isAlive) sendingThread.start();
+			if(!receivingThread.isAlive() && isAlive) receivingThread.start();
 		}
 		
 		public void cancel() {

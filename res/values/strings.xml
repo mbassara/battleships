@@ -40,6 +40,11 @@
     <string name="wifi_start_server">Start server</string>
     <string name="wifi_server_ip">Server\'s IP:\u0009\u0009</string>
     <string name="wifi_connect_to_server">Connect to server</string>
+    <string name="wifi_turning_on">Connecting to WiFi network…</string>
+    <string name="wifi_turned_on_and_connected">Connected to: </string>
+    <string name="wifi_turned_on">WiFi enabled</string>
+    <string name="wifi_refresh_ip">Refresh IP</string>
+    <string name="wifi_connecting">connecting…</string>
 
     <!-- BLUETOOTH ACTIVITY -->
     <string name="waiting_for_client">Please wait for other device to connect…</string>

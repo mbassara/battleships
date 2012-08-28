@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-		android:layout_above="@+id/joinGameButton"
+		android:layout_above="@+id/refreshIPButton"
 	        android:background="#F0F0F0"
 		android:layout_marginBottom="30dp" >
 	
@@ -41,11 +41,22 @@
 	</RelativeLayout>
 
     <Button
-        android:id="@+id/joinGameButton"
+        android:id="@+id/refreshIPButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:text="@string/wifi_refresh_ip"
+        android:background="@drawable/button_large"
+        android:onClick="refreshIP" />
+
+    <Button
+        android:id="@+id/WiFiStartServerButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/refreshIPButton"
+        android:layout_marginTop="15dp"
         android:text="@string/wifi_start_server"
         android:background="@drawable/button_large"
         android:onClick="start" />

@@ -6,12 +6,16 @@ import pl.mbassara.battleships.connections.wifi.WiFiService;
 import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class WiFiHostActivity extends WiFiActivity {
 	
-	TextView ipTextView;
+	private TextView ipTextView;
+	private Button startServerButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,8 +23,23 @@ public class WiFiHostActivity extends WiFiActivity {
         setContentView(R.layout.activity_wi_fi_host);
         
         ipTextView = (TextView) findViewById(R.id.HostIPAdressTextView);
-        ipTextView.setText(WiFiService.getHostAdress(this));
-        
+        startServerButton = (Button) findViewById(R.id.WiFiStartServerButton);
+
+    	setIP(WiFiService.getHostAdress(this));
+		startServerButton.setEnabled(!ipTextView.getText().equals(getString(R.string.wifi_connecting)));
+		
+    }
+    
+    private void setIP(String ip) {
+    	if(ipTextView == null)
+    		return;
+    	
+    	if(ip.equals("0.0.0.0"))
+    		ipTextView.setText(this.getString(R.string.wifi_connecting));
+    	else {
+    		startServerButton.setEnabled(true);
+    		ipTextView.setText(ip);
+    	}
     }
 
     public void start(View view) {
@@ -32,6 +51,10 @@ public class WiFiHostActivity extends WiFiActivity {
 		}
 		
 		connect(new WiFiHostService(this));
+    }
+    
+    public void refreshIP(View view) {
+    	setIP(WiFiService.getHostAdress(this));
     }
 
 	@Override

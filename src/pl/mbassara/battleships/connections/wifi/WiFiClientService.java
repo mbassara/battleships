@@ -1,5 +1,6 @@
 package pl.mbassara.battleships.connections.wifi;
 
+import java.io.IOException;
 import java.net.Socket;
 
 import android.content.Context;
@@ -28,6 +29,16 @@ public class WiFiClientService extends WiFiService {
 		}
 		
 		return socket;
+	}
+	
+	@Override
+	public void cancelSpecific() {
+		try {
+			if(super.socket != null)
+				super.socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

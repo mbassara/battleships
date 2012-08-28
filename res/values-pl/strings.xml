@@ -33,6 +33,11 @@
     <string name="wifi_start_server">Stwórz serwer</string>
     <string name="wifi_server_ip">IP serwera:\u0009\u0009</string>
     <string name="wifi_connect_to_server">Połącz z serwerem</string>
+    <string name="wifi_turning_on">Łączenie z siecią WiFi…</string>
+    <string name="wifi_turned_on_and_connected">Połączono z siecią: </string>
+    <string name="wifi_turned_on">Włączono moduł WiFi</string>
+    <string name="wifi_refresh_ip">Odśwież IP</string>
+    <string name="wifi_connecting">łączenie…</string>
     
     <!-- BLUETOOTH ACTIVITY -->
     <string name="waiting_for_client">Proszę czekać na podłączenie drugiego urządzenia…</string>

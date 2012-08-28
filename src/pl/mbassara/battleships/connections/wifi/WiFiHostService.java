@@ -10,6 +10,8 @@ import pl.mbassara.battleships.Constants;
 
 public class WiFiHostService extends WiFiService {
 	
+	private ServerSocket serverSocket;
+	
 	public WiFiHostService(Context parentContext) {
 		super(parentContext);
 	}
@@ -18,7 +20,7 @@ public class WiFiHostService extends WiFiService {
 	public Socket connectSpecific() {
 		Socket socket = null;
 		try {
-			ServerSocket serverSocket = new ServerSocket(Constants.wifi_port);
+			serverSocket = new ServerSocket(Constants.wifi_port);
 			socket = serverSocket.accept();
 			serverSocket.close();
 		} catch (IOException e) {
@@ -27,4 +29,15 @@ public class WiFiHostService extends WiFiService {
 		return socket;
 	}
 
+	@Override
+	public void cancelSpecific() {
+		try {
+			if(serverSocket != null)
+				serverSocket.close();
+			if(super.socket != null)
+				super.socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

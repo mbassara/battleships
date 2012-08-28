@@ -3,8 +3,6 @@ package pl.mbassara.battleships.activities;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.connections.wifi.WiFiClientService;
 import pl.mbassara.battleships.connections.wifi.WiFiService;
-import android.content.Context;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -28,12 +26,6 @@ public class WiFiClientActivity extends WiFiActivity {
     }
 
     public void connectToServer(View view) {
-		WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-		
-		
-		if(!wifiManager.isWifiEnabled()) {
-			wifiManager.reconnect();
-		}
 		
 		connect(new WiFiClientService(this, ipEditText.getText().toString()));
     }
