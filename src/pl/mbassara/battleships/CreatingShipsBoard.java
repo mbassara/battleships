@@ -51,7 +51,7 @@ public class CreatingShipsBoard extends Board
 		
 	}
 	
-	private boolean checkShipsSize() {
+	private boolean checkShipsSizes() {
 		int[] shipsCounter = new int[Constants.SHIPS_COUNER.length];
 		for(int i = 0; i < Constants.SHIPS_COUNER.length; i++)
 			shipsCounter[i] = Constants.SHIPS_COUNER[i];
@@ -110,7 +110,7 @@ public class CreatingShipsBoard extends Board
     			if (result && matrix[i][j] && ships[i][j].isSelected())
     				result = result && !checkShip(matrix, i, j).isUndefined();
     	
-    	result = result && checkShipsSize();
+    	result = result && checkShipsSizes();
     	
     	if(Constants.LOGS_ENABLED) System.out.println("checking ships result: " + result);
 		return result;

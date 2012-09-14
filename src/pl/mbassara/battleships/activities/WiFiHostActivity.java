@@ -6,8 +6,6 @@ import pl.mbassara.battleships.connections.wifi.WiFiService;
 import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;

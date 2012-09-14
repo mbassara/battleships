@@ -115,4 +115,50 @@ public class GameBoard extends Board {
 		
 		return ended;
 	}
+	
+	public void setShootable(boolean shootable) {
+		
+		this.setEnabled(shootable);
+		if(shootable) {
+			for(int i = 0; i < 10; i++)
+				for(int j = 0; j < 10; j++)
+					if(ships[i][j].isNotShip()) {
+						if(isFieldShootable(i, j))
+							ships[i][j].setLaF(ShipButton.LAF_SHOOTABLE);
+						else
+							ships[i][j].setLaF(ShipButton.LAF_NOT_SHOOTABLE);
+					}
+		}
+		else {
+			for(int i = 0; i < 10; i++)
+				for(int j = 0; j < 10; j++)
+					if(ships[i][j].isNotShip())
+						ships[i][j].setNotShip();
+		}
+	}
+    
+    public boolean isFieldShootable(int x, int y) {
+
+    	// CORNER CHECK
+    	if((x+1)<10 && (y+1)<10 && (ships[x+1][y+1].isShip() || ships[x+1][y+1].isSunk()))
+    		return false;
+    	if((x-1)>=0 && (y+1)<10 && (ships[x-1][y+1].isShip() || ships[x-1][y+1].isSunk()))
+    		return false;
+    	if((x+1)<10 && (y-1)>=0 && (ships[x+1][y-1].isShip() || ships[x+1][y-1].isSunk()))
+    		return false;
+    	if((x-1)>=0 && (y-1)>=0 && (ships[x-1][y-1].isShip() || ships[x-1][y-1].isSunk()))
+    		return false;
+    	
+    	// SIDES CHECK
+    	if((y+1)<10 && (ships[x][y+1].isShip() || ships[x][y+1].isSunk()))
+    		return false;
+    	if((y-1)>=0 && (ships[x][y-1].isShip() || ships[x][y-1].isSunk()))
+    		return false;
+    	if((x+1)<10 && (ships[x+1][y].isShip() || ships[x+1][y].isSunk()))
+    		return false;
+    	if((x-1)>=0 && (ships[x-1][y].isShip() || ships[x-1][y].isSunk()))
+    		return false;
+    	
+    	return true;	
+    }
 }

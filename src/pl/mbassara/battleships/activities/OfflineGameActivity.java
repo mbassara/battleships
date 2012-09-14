@@ -8,7 +8,6 @@ import pl.mbassara.battleships.Coordinates;
 import pl.mbassara.battleships.GameBoard;
 import pl.mbassara.battleships.GameShipButton;
 import pl.mbassara.battleships.R;
-import pl.mbassara.battleships.ShipButton;
 import pl.mbassara.battleships.ShotResult;
 import pl.mbassara.battleships.activities.CreatingShipsActivity;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
-import android.widget.ToggleButton;
 
 public class OfflineGameActivity extends Activity
 	implements OnCheckedChangeListener {
@@ -31,8 +29,7 @@ public class OfflineGameActivity extends Activity
 	private GameBoard previewBoard;
 	private AIComputer aiComputer;
 	private boolean meStartFirst = true;
-	private ToggleButton shotButton;
-	private Coordinates field = null;
+	private GameShipButton currentTarget = null;
 	private boolean[][] matrix = null;
 	private GameMessagesHandler handler;
 
@@ -45,10 +42,7 @@ public class OfflineGameActivity extends Activity
         meStartFirst = (new Random(System.currentTimeMillis())).nextBoolean();
         
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_offline_game_layout);
-        shotButton = (ToggleButton) findViewById(R.id.offlineShotButton);
-        shotButton.setOnCheckedChangeListener(this);
         previewBoard = new GameBoard(this, CreatingShipsActivity.getBoardMatrix(), GameBoard.SIZE_SMALL);
-        previewBoard.setEnabled(false);
         mainBoard = new GameBoard(this, null, GameBoard.SIZE_BIG);
         mainBoard.setOnCheckedChangeListener(this);
         aiComputer = new AIComputer(handler);
@@ -63,12 +57,11 @@ public class OfflineGameActivity extends Activity
         mainBoardParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         mainBoardParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         mainBoard.setLayoutParams(mainBoardParams);
-        mainBoard.setEnabled(false);
         
         layout.addView(previewBoard);
         layout.addView(mainBoard);
         
-        shotButton.setEnabled(meStartFirst);
+        mainBoard.setShootable(meStartFirst);
         if(meStartFirst)
         	Toast.makeText(this, getString(R.string.you_start), Toast.LENGTH_SHORT).show();
         else {
@@ -80,25 +73,22 @@ public class OfflineGameActivity extends Activity
 
 	
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		if(buttonView.equals(shotButton)) {
-			mainBoard.setEnabled(isChecked);
-			if(!isChecked && field != null) {	// shot
-				matrix = aiComputer.receiveShot(field.getX(), field.getY()).getMatrix();
-				buttonView.setEnabled(false);
-			}
-		}
-		else {
-			GameShipButton button = (GameShipButton) buttonView;
+		GameShipButton button = (GameShipButton) buttonView;
+		if(!button.isTarget()) {
 			int x = button.getFieldX();
 			int y = button.getFieldY();
 			if(button.isNotShip()) {
-				if(field != null)
-					mainBoard.setShipLaF(field.getX(), field.getY(), GameShipButton.LAF_NORMAL);
+				if(currentTarget != null)
+					currentTarget.setTarget(false);
 				
 				if(Constants.LOGS_ENABLED) System.out.println("button (" + x + "," + y + ") clicked");
-				field = new Coordinates(x, y);
-				button.setLaF(ShipButton.LAF_POSSIBLE);
+				currentTarget = button;
+				button.setTarget(true);
 			}
+		}
+		else if(currentTarget != null) {	// shot
+			button.setTarget(false);
+			matrix = aiComputer.receiveShot(currentTarget.getFieldX(), currentTarget.getFieldY()).getMatrix();
 		}
 	}
 	
@@ -128,29 +118,26 @@ public class OfflineGameActivity extends Activity
 					result.setCoordinates(new Coordinates(x, y));
 					aiComputer.receiveResult(result);
 					if(!result.isHit() || result.isSunk())
-						shotButton.setEnabled(true);
+						mainBoard.setShootable(true);
 				}
 			}
 			else if(data.getInt(Constants.GameMessagesHandler_KEY_TYPE) == Constants.GameMessagesHandler_TYPE_RESULT) {
 				if(Constants.LOGS_ENABLED) System.out.println("shot result info handled");
 				boolean result = data.getBoolean(Constants.GameMessagesHandler_KEY_RESULT_IS_HIT);
-				mainBoard.shotResult(field.getX(), field.getY(), result);
+				mainBoard.shotResult(currentTarget.getFieldX(), currentTarget.getFieldY(), result);
 				boolean nextShot = result && !data.getBoolean(Constants.GameMessagesHandler_KEY_RESULT_IS_SUNK);
-				shotButton.setEnabled(nextShot);
+				mainBoard.setShootable(nextShot);
 				
 				if(!nextShot)
 					aiComputer.doShot();
-					
-				field = null;
+				
+				currentTarget = null;
 				if(data.getBoolean(Constants.GameMessagesHandler_KEY_RESULT_IS_SUNK)) {
 					if(Constants.LOGS_ENABLED) System.out.println("ship is sunked");
 					mainBoard.setShipSunk(matrix);
 					if(aiComputer.isGameEnded())
 						endGame(true);
 				}
-			}
-			else if (data.getInt(Constants.GameMessagesHandler_KEY_TYPE) == Constants.GameMessagesHandler_TYPE_SHOOT_BUTTON_SET_ENABLED) {
-				shotButton.setEnabled(data.getBoolean(Constants.GameMessagesHandler_KEY_SHOOT_BUTTON_SET_ENABLED));
 			}
 		}
 	};
