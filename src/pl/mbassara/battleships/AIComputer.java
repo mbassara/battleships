@@ -241,13 +241,6 @@ public class AIComputer {
 	}
 	
 	public ShotResult receiveShot(int x, int y) {
-
-    	for(int i = 0; i < 10; i++) {
-			for(int j = 0; j < 10; j++)
-				System.out.print("  " + ships[i][j]);
-			System.out.println();
-    	}
-		System.out.println();
 		
 		Bundle bundle = new Bundle();
 		Message message = new Message();
@@ -260,6 +253,15 @@ public class AIComputer {
 			result = new ShotResult(false, false, (Coordinates) null);
 			if(!ships[x][y].isShip())
 				ships[x][y].setMissed();
+		}
+
+		if(Constants.LOGS_ENABLED) {
+	    	for(int i = 0; i < 10; i++) {
+				for(int j = 0; j < 10; j++)
+					System.out.print("  " + ships[i][j]);
+				System.out.println();
+	    	}
+			System.out.println();
 		}
 
 		bundle.putInt(Constants.GameMessagesHandler_KEY_TYPE, Constants.GameMessagesHandler_TYPE_RESULT);
@@ -368,7 +370,7 @@ class Ship {
 	
 	@Override
 	public String toString() {
-		String result = "Â·";
+		String result = "·";
 		switch (state) {
 		case SHIP:
 			result = "S";

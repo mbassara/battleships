@@ -1,5 +1,6 @@
 package pl.mbassara.battleships.activities;
 
+import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.Vibra;
 import android.os.Bundle;
@@ -20,12 +21,20 @@ public class OptionsActivity extends Activity {
     	super.onStart();
     	
     	((CheckBox) findViewById(R.id.enableVibraCheckBox)).setChecked(Vibra.isEnabled());
+    	((CheckBox) findViewById(R.id.enableTipsCheckBox)).setChecked(Constants.SHOOTING_TIPS_ENABLED);
     }
     
     public void enableVibra(View view) {
     	CheckBox button = (CheckBox) view;
     	Vibra.setEnabled(button.isChecked());
     	if(Vibra.isEnabled())
+    		Vibra.getInstance(this).beepTriple();
+    }
+    
+    public void enableTips(View view) {
+    	CheckBox button = (CheckBox) view;
+    	Constants.SHOOTING_TIPS_ENABLED = button.isChecked();
+    	if(button.isChecked())
     		Vibra.getInstance(this).beepTriple();
     }
     

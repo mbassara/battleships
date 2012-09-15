@@ -201,8 +201,8 @@ public class CreatingShipsBoard extends Board
     
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		CreatingShipsButton ship = (CreatingShipsButton) buttonView;
-		vibra.beep();
 		if(isChecked) {
+			vibra.beep();
 			ship.setChecked(true);
 			ship.setSelected();
    			ship.setLaF(ShipButton.LAF_SELECTED);

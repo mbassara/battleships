@@ -13,6 +13,7 @@
 
     <!-- OPTIONS -->
     <string name="enable_vibra">Enable vibrations</string>
+    <string name="enable_tips">Enable shooting assistance</string>
 
     <!-- GAME PREPARATION -->
     <string name="singleplayer">Singleplayer</string>

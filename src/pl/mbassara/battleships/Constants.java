@@ -24,6 +24,8 @@ public class Constants {
 	public static final int[] SHIPS_COUNER = {0, 0, 2, 2, 2, 1};
 	
 	public static final int wifi_port = 57419;
+	
+	public static boolean SHOOTING_TIPS_ENABLED = true;
 
     public static final String UUID = "76b4c611-da5a-4672-af97-7eb2fb71597e";
 

@@ -137,17 +137,19 @@ public class OfflineGameActivity extends Activity
 				boolean nextShot = result && !data.getBoolean(Constants.GameMessagesHandler_KEY_RESULT_IS_SUNK);
 				mainBoard.setShootable(nextShot);
 				
-				if(!nextShot)
-					aiComputer.doShot();
-				
 				currentTarget = null;
 				if(data.getBoolean(Constants.GameMessagesHandler_KEY_RESULT_IS_SUNK)) {
 					if(Constants.LOGS_ENABLED) System.out.println("ship is sunked");
 					scoreBoard.localPlayerScoreUp();
 					mainBoard.setShipSunk(matrix);
-					if(aiComputer.isGameEnded())
+					if(aiComputer.isGameEnded()) {
+						nextShot = true;	// to prevent aiComputer from shooting when game is ended
 						endGame(true);
+					}
 				}
+				
+				if(!nextShot)
+					aiComputer.doShot();
 			}
 		}
 	};

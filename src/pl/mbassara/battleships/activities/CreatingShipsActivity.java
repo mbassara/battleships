@@ -53,6 +53,7 @@ public class CreatingShipsActivity extends Activity{
     		intent = new Intent(this, OfflineGameActivity.class);
     	
     	startActivity(intent);
+    	this.finish();
 	}
     
     public static boolean[][] getBoardMatrix() {

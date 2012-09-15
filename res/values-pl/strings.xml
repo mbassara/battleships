@@ -10,6 +10,7 @@
     
     <!-- OPTIONS -->
     <string name="enable_vibra">Włącz wibracje</string>
+    <string name="enable_tips">Włącz podpowiedzi podczas strzelania</string>
 
     <!-- GAME PREPARATION -->
     <string name="singleplayer">Jeden gracz</string>

@@ -123,7 +123,7 @@ public class GameBoard extends Board {
 			for(int i = 0; i < 10; i++)
 				for(int j = 0; j < 10; j++)
 					if(ships[i][j].isNotShip()) {
-						if(isFieldShootable(i, j))
+						if(!Constants.SHOOTING_TIPS_ENABLED || isFieldShootable(i, j))
 							ships[i][j].setLaF(ShipButton.LAF_SHOOTABLE);
 						else
 							ships[i][j].setLaF(ShipButton.LAF_NOT_SHOOTABLE);
