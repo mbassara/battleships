@@ -8,6 +8,7 @@ import pl.mbassara.battleships.Coordinates;
 import pl.mbassara.battleships.GameBoard;
 import pl.mbassara.battleships.GameShipButton;
 import pl.mbassara.battleships.R;
+import pl.mbassara.battleships.ScoreBoard;
 import pl.mbassara.battleships.ShotResult;
 import pl.mbassara.battleships.activities.CreatingShipsActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.content.Intent;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
@@ -32,6 +34,7 @@ public class OfflineGameActivity extends Activity
 	private GameShipButton currentTarget = null;
 	private boolean[][] matrix = null;
 	private GameMessagesHandler handler;
+	private ScoreBoard scoreBoard;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,10 @@ public class OfflineGameActivity extends Activity
         mainBoard = new GameBoard(this, null, GameBoard.SIZE_BIG);
         mainBoard.setOnCheckedChangeListener(this);
         aiComputer = new AIComputer(handler);
+
+        TextView playerScore = (TextView) findViewById(R.id.yourScoreTextView);
+        TextView oppScore = (TextView) findViewById(R.id.opponentScoreTextView);
+        scoreBoard = new ScoreBoard(this, playerScore, oppScore);
         
         LayoutParams previewBoardParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         previewBoardParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -119,6 +126,8 @@ public class OfflineGameActivity extends Activity
 					aiComputer.receiveResult(result);
 					if(!result.isHit() || result.isSunk())
 						mainBoard.setShootable(true);
+					if(result.isSunk())
+						scoreBoard.remotePlayerScoreUp();
 				}
 			}
 			else if(data.getInt(Constants.GameMessagesHandler_KEY_TYPE) == Constants.GameMessagesHandler_TYPE_RESULT) {
@@ -134,6 +143,7 @@ public class OfflineGameActivity extends Activity
 				currentTarget = null;
 				if(data.getBoolean(Constants.GameMessagesHandler_KEY_RESULT_IS_SUNK)) {
 					if(Constants.LOGS_ENABLED) System.out.println("ship is sunked");
+					scoreBoard.localPlayerScoreUp();
 					mainBoard.setShipSunk(matrix);
 					if(aiComputer.isGameEnded())
 						endGame(true);

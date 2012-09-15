@@ -104,6 +104,7 @@ public class GameShipButton extends ShipButton {
 	
 	public void setTarget(boolean isTarget) {
 		this.isTarget = isTarget;
+		
 		if(isTarget)
 			this.setLaF(LAF_TARGET);
 		else
