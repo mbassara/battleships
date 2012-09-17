@@ -38,7 +38,6 @@ public abstract class WiFiActivity extends Activity
 		
 		final ProgressDialog dialog = ProgressDialog.show(this, "", getSpecificInfoString(), true, true, this);
 		final Intent intent = new Intent(this, CreatingShipsActivity.class);
-		intent.putExtra(Constants.GAME_TYPE, Constants.MULTIPLAYER);
 		
 		final Activity thisActivity = this;
 		Thread thread = new Thread(new Runnable() {

@@ -8,11 +8,6 @@ import android.content.Intent;
 import android.view.View;
 
 public class MultiplayerModeActivity extends Activity {
-	
-	public static final String WIFI_MODE = "Wifi mode";
-	public static final String BT_MODE = "Bluetooth mode";
-
-	private static String mode = WIFI_MODE;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,16 +19,12 @@ public class MultiplayerModeActivity extends Activity {
     	Intent intent = new Intent(this, GameModeActivity.class);
     	
     	if(view.equals(findViewById(R.id.WiFiModeButton)))
-    		mode = WIFI_MODE;
+    		Constants.GAME_MODE = Constants.GAME_MODE_WIFI;
     	else if(view.equals(findViewById(R.id.bluetoothModeButton)))
-    		mode = BT_MODE;
+    		Constants.GAME_MODE = Constants.GAME_MODE_BT;
     	
-    	if(Constants.LOGS_ENABLED) System.out.println("Multiplayer mode: " + mode);
+    	if(Constants.LOGS_ENABLED) System.out.println("Multiplayer mode: " + Constants.GAME_MODE);
     	startActivity(intent);
     }
-    
-    public static String getMode() {
-		return mode;
-	}
 
 }

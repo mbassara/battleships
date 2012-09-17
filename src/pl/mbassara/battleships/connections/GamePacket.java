@@ -2,13 +2,12 @@ package pl.mbassara.battleships.connections;
 
 import java.io.Serializable;
 
+import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.Coordinates;
 import pl.mbassara.battleships.GameResult;
 import pl.mbassara.battleships.ShotResult;
 
 public class GamePacket implements Serializable{
-	public static final boolean HOST_FIRST = false;
-	public static final boolean CLIENT_FIRST = true;
 	public static final int TYPE_WHO_STARTS = 0;
 	public static final int TYPE_SHOT = 1;
 	public static final int TYPE_RESULT = 2;
@@ -19,7 +18,7 @@ public class GamePacket implements Serializable{
 	private int type;
 	private String message = null;
 	private Coordinates coordinates = null;
-	private boolean whoStarts = HOST_FIRST;
+	private boolean whoStarts = Constants.HOST_FIRST;
 	private ShotResult shotResult = null;
 	private GameResult gameResult = null;
 	

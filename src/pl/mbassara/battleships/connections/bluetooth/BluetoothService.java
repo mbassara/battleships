@@ -9,7 +9,6 @@ import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.connections.GamePacket;
 import pl.mbassara.battleships.connections.RemoteService;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
 
 public abstract class BluetoothService
 	implements RemoteService{
@@ -24,7 +23,7 @@ public abstract class BluetoothService
 	private ReceivingThread receivingThread;
 	private ConnectingThread connectingThread;
 	
-	public BluetoothService(Context parentContext) {
+	public BluetoothService() {
         UUID = Constants.UUID;
         toSendQueue = new LinkedList<GamePacket>();
         receivedQueue = new LinkedList<GamePacket>();

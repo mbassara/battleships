@@ -58,7 +58,7 @@ public class GameBoard extends Board {
 		if(ships[x][y].shoot())
 			return markShipAsSunkIfReallyIs(x, y);
 		else
-			return new ShotResult(false, false, (boolean[][]) null);
+			return new ShotResult(false, false, isGameEnded(), new Coordinates(x, y), (boolean[][]) null);
 	}
 	
 	public void shotResult(int x, int y, boolean result) {
@@ -85,7 +85,7 @@ public class GameBoard extends Board {
     			}
     	}
     	
-    	return new ShotResult(true, result, matrix);
+    	return new ShotResult(true, result, isGameEnded(), new Coordinates(x, y), matrix);
     }
     
     private boolean isWholeShipSunkRecursive(int x, int y, boolean[][] matrix) {

@@ -84,7 +84,7 @@ public class MainMenu extends Activity {
     
     public void singleplayer(View view) {
     	Intent intent = new Intent(this, CreatingShipsActivity.class);
-    	intent.putExtra(Constants.GAME_TYPE, Constants.SINGLEPLAYER);
+    	Constants.GAME_MODE = Constants.GAME_MODE_SINGLE;
     	startActivity(intent);
     }
     

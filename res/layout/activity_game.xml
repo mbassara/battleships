@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_game_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -8,17 +9,26 @@
     android:paddingRight="10dp"
     android:paddingTop="10dp" >
 
-    <ToggleButton
-        android:id="@+id/shotButton"
-        android:layout_width="@dimen/button_width_middle"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="45dp"
-        android:checked="false"
-        android:background="@drawable/button_mid"
-        android:textOff="@string/choose_field"
-        android:textOn="@string/shoot" />
+	<TextView
+	    android:id="@+id/yourScoreTextView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textColor="#111111"
+	    android:textSize="@dimen/text_size_large"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:layout_marginRight="30dp"
+		android:layout_marginTop="30dp" />
+	
+	<TextView
+	    android:id="@+id/opponentScoreTextView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textColor="#111111"
+	    android:textSize="@dimen/text_size_large"
+        android:layout_alignLeft="@+id/yourScoreTextView"
+        android:layout_below="@+id/yourScoreTextView"
+        android:layout_marginTop="10dp" />
+        
 
 </RelativeLayout>

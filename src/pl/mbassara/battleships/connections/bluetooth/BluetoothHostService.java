@@ -6,15 +6,14 @@ import pl.mbassara.battleships.Constants;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
-import android.content.Context;
 
 public class BluetoothHostService extends BluetoothService {
 	
 	private BluetoothAdapter adapter;
 	private BluetoothServerSocket serverSocket = null;
 
-	public BluetoothHostService(BluetoothAdapter adapter, Context context) {
-		super(context);
+	public BluetoothHostService(BluetoothAdapter adapter) {
+		super();
 		this.adapter = adapter;
 	}
 

@@ -80,7 +80,7 @@ public class BluetoothClientActivity extends BluetoothActivity {
     			hostDevice = device;
     	
     	if(hostDevice != null)
-    		connect(new BluetoothClientService(hostDevice, this));
+    		connect(new BluetoothClientService(hostDevice));
     }
 
 	private BluetoothAdapter adapter;

@@ -3,7 +3,6 @@ package pl.mbassara.battleships.activities;
 import pl.mbassara.battleships.activities.GameActivity;
 import pl.mbassara.battleships.AIComputer;
 import pl.mbassara.battleships.Board;
-import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.CreatingShipsBoard;
 import pl.mbassara.battleships.R;
 import android.os.Bundle;
@@ -47,10 +46,10 @@ public class CreatingShipsActivity extends Activity{
     
     public void next(View view) {
     	Intent intent;
-    	if(getIntent().getStringExtra(Constants.GAME_TYPE).equals(Constants.MULTIPLAYER))
+//    	if(getIntent().getStringExtra(Constants.GAME_TYPE).equals(Constants.MULTIPLAYER))	TODO
     		intent = new Intent(this, GameActivity.class);
-    	else
-    		intent = new Intent(this, OfflineGameActivity.class);
+//    	else
+//    		intent = new Intent(this, OfflineGameActivity.class);
     	
     	startActivity(intent);
     	this.finish();

@@ -59,16 +59,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.GameResultActivity"
-            android:label="@string/title_activity_game_result"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".activities.OfflineGameActivity"
-            android:label="@string/title_activity_offline_game"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".activities.OptionsActivity"
             android:label="@string/title_activity_options"
             android:screenOrientation="portrait" >

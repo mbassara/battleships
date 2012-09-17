@@ -26,7 +26,7 @@ public class BluetoothHostActivity extends BluetoothActivity {
 			startActivity(discoverableIntent);
 		}
 		
-		connect(new BluetoothHostService(adapter, this));
+		connect(new BluetoothHostService(adapter));
 		
     	super.onStart();
     }

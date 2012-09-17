@@ -72,6 +72,7 @@
     <string name="patrol_boats_value"> z 5</string>
     
     <!-- GAME -->
+    <string name="wait_for_opponent">Oczekiwanie na przeciwnika…</string>
     <string name="you_start">Strzelasz pierwszy</string>
     <string name="opponent_starts">Przeciwnik strzela pierwszy</string>
     <string name="choose_field">Wybór pola</string>

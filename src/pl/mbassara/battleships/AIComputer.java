@@ -6,26 +6,22 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import pl.mbassara.battleships.connections.GamePacket;
 
 public class AIComputer {
 	
 	private Ship[][] ships;
 	private ArrayList<Dim> opponentShips;
 	private ArrayList<Dim> currentlyShotShip;
-	private Handler handler;
 	private Random rand;
 
-	public AIComputer(Handler handler) {
+	public AIComputer() {
 		this.ships = new Ship[10][10];
 		boolean[][] matrix = generateMatrix();
 		for(int i = 0; i < 10; i++)
 			for(int j = 0; j < 10; j++)
 				ships[i][j] = new Ship(matrix[i][j] ? Ship.SHIP : Ship.NOT_SHIP);
 		
-		this.handler = handler;
 		this.currentlyShotShip = new ArrayList<Dim>();
 		this.opponentShips = new ArrayList<Dim>();
 		this.rand = new Random();
@@ -110,103 +106,89 @@ public class AIComputer {
 		return matrix;
 	}
 	
-	public void doShot() {
-		Thread thread = new Thread(new Runnable() {
-			
-			public void run() {
-				Bundle bundle = new Bundle();
-				Message message = new Message();
+	public GamePacket doShot() {
 				
-				if(Constants.LOGS_ENABLED) System.out.println("currentlyShotShips:\n" + currentlyShotShip);
-				
-				Dim dim = null;
-				try {
-					Thread.sleep(1000);		// computer is thinking
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				if(currentlyShotShip.isEmpty()) {
-					try {
-						Thread.sleep((new Random()).nextInt(3000));		// computer is thinking longer
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					dim = opponentShips.get(rand.nextInt(opponentShips.size()));
-				}
-				else if(currentlyShotShip.size() == 1) {
-					Dim tmpDim = currentlyShotShip.get(0);
-					
-					if(opponentShips.contains(Dim.get(tmpDim.x+1, tmpDim.y)))
-						dim = Dim.get(tmpDim.x+1, tmpDim.y);
-					else if(opponentShips.contains(Dim.get(tmpDim.x, tmpDim.y+1)))
-						dim = Dim.get(tmpDim.x, tmpDim.y+1);
-					else if(opponentShips.contains(Dim.get(tmpDim.x-1, tmpDim.y)))
-						dim = Dim.get(tmpDim.x-1, tmpDim.y);
-					else if(opponentShips.contains(Dim.get(tmpDim.x, tmpDim.y-1)))
-						dim = Dim.get(tmpDim.x, tmpDim.y-1);
-				}
-				else {
-					Dim dim1 = currentlyShotShip.get(0);
-					Dim dim2 = currentlyShotShip.get(1);
-					
-					boolean isHorizontal = (dim1.x == dim2.x);
-					
-					if(isHorizontal) {
-						for(int i = dim1.y; i < 10; i++) {
-							if(!currentlyShotShip.contains(Dim.get(dim1.x, i)) && opponentShips.contains(Dim.get(dim1.x, i))) {
-								dim = Dim.get(dim1.x, i);
-								break;
-							}
-							else if(!currentlyShotShip.contains(Dim.get(dim1.x, i)) && !opponentShips.contains(Dim.get(dim1.x, i)))
-								break;
-						}
-						
-						if(dim == null)
-							for(int i = dim1.y; i >= 0; i--) {
-								if(!currentlyShotShip.contains(Dim.get(dim1.x, i)) && opponentShips.contains(Dim.get(dim1.x, i))) {
-									dim = Dim.get(dim1.x, i);
-									break;
-								}
-								else if(!currentlyShotShip.contains(Dim.get(dim1.x, i)) && !opponentShips.contains(Dim.get(dim1.x, i)))
-									break;
-							}
-					}
-					else {
-						for(int i = dim1.x; i < 10; i++) {
-							if(!currentlyShotShip.contains(Dim.get(i, dim1.y)) && opponentShips.contains(Dim.get(i, dim1.y))) {
-								dim = Dim.get(i, dim1.y);
-								break;
-							}
-							else if(!currentlyShotShip.contains(Dim.get(i, dim1.y)) && !opponentShips.contains(Dim.get(i, dim1.y)))
-								break;
-						}
-						
-						if(dim == null)
-							for(int i = dim1.x; i >= 0; i--) {
-								if(!currentlyShotShip.contains(Dim.get(i, dim1.y)) && opponentShips.contains(Dim.get(i, dim1.y))) {
-									dim = Dim.get(i, dim1.y);
-									break;
-								}
-								else if(!currentlyShotShip.contains(Dim.get(i, dim1.y)) && !opponentShips.contains(Dim.get(i, dim1.y)))
-									break;
-							}
-					}
-				}
-				
-				int x = dim.x;
-				int y = dim.y;
-				if(Constants.LOGS_ENABLED) System.out.println("shot - field: " + x + "," + y);
-				
-				bundle.putInt(Constants.GameMessagesHandler_KEY_TYPE, Constants.GameMessagesHandler_TYPE_SHOT);
-				bundle.putInt(Constants.GameMessagesHandler_KEY_X, x);
-				bundle.putInt(Constants.GameMessagesHandler_KEY_Y, y);
-
-				message.setData(bundle);
-				handler.sendMessage(message);
-			}
-		});
+		if(Constants.LOGS_ENABLED) System.out.println("currentlyShotShips:\n" + currentlyShotShip);
 		
-		thread.start();
+		Dim dim = null;
+		try {
+			Thread.sleep(1000);		// computer is thinking
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		if(currentlyShotShip.isEmpty()) {
+			try {
+				Thread.sleep((new Random()).nextInt(3000));		// computer is thinking longer
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			dim = opponentShips.get(rand.nextInt(opponentShips.size()));
+		}
+		else if(currentlyShotShip.size() == 1) {
+			Dim tmpDim = currentlyShotShip.get(0);
+			
+			if(opponentShips.contains(Dim.get(tmpDim.x+1, tmpDim.y)))
+				dim = Dim.get(tmpDim.x+1, tmpDim.y);
+			else if(opponentShips.contains(Dim.get(tmpDim.x, tmpDim.y+1)))
+				dim = Dim.get(tmpDim.x, tmpDim.y+1);
+			else if(opponentShips.contains(Dim.get(tmpDim.x-1, tmpDim.y)))
+				dim = Dim.get(tmpDim.x-1, tmpDim.y);
+			else if(opponentShips.contains(Dim.get(tmpDim.x, tmpDim.y-1)))
+				dim = Dim.get(tmpDim.x, tmpDim.y-1);
+		}
+		else {
+			Dim dim1 = currentlyShotShip.get(0);
+			Dim dim2 = currentlyShotShip.get(1);
+			
+			boolean isHorizontal = (dim1.x == dim2.x);
+			
+			if(isHorizontal) {
+				for(int i = dim1.y; i < 10; i++) {
+					if(!currentlyShotShip.contains(Dim.get(dim1.x, i)) && opponentShips.contains(Dim.get(dim1.x, i))) {
+						dim = Dim.get(dim1.x, i);
+						break;
+					}
+					else if(!currentlyShotShip.contains(Dim.get(dim1.x, i)) && !opponentShips.contains(Dim.get(dim1.x, i)))
+						break;
+				}
+				
+				if(dim == null)
+					for(int i = dim1.y; i >= 0; i--) {
+						if(!currentlyShotShip.contains(Dim.get(dim1.x, i)) && opponentShips.contains(Dim.get(dim1.x, i))) {
+							dim = Dim.get(dim1.x, i);
+							break;
+						}
+						else if(!currentlyShotShip.contains(Dim.get(dim1.x, i)) && !opponentShips.contains(Dim.get(dim1.x, i)))
+							break;
+					}
+			}
+			else {
+				for(int i = dim1.x; i < 10; i++) {
+					if(!currentlyShotShip.contains(Dim.get(i, dim1.y)) && opponentShips.contains(Dim.get(i, dim1.y))) {
+						dim = Dim.get(i, dim1.y);
+						break;
+					}
+					else if(!currentlyShotShip.contains(Dim.get(i, dim1.y)) && !opponentShips.contains(Dim.get(i, dim1.y)))
+						break;
+				}
+				
+				if(dim == null)
+					for(int i = dim1.x; i >= 0; i--) {
+						if(!currentlyShotShip.contains(Dim.get(i, dim1.y)) && opponentShips.contains(Dim.get(i, dim1.y))) {
+							dim = Dim.get(i, dim1.y);
+							break;
+						}
+						else if(!currentlyShotShip.contains(Dim.get(i, dim1.y)) && !opponentShips.contains(Dim.get(i, dim1.y)))
+							break;
+					}
+			}
+		}
+		
+		int x = dim.x;
+		int y = dim.y;
+		if(Constants.LOGS_ENABLED) System.out.println("shot - field: " + x + "," + y);
+		
+		return new GamePacket(x, y);
 	}
 	
 	public void receiveResult(ShotResult result) {
@@ -231,10 +213,8 @@ public class AIComputer {
 			int x = result.getCoordinates().getX();
 			int y = result.getCoordinates().getY();
 			
-			if(result.isHit()) {
+			if(result.isHit())
 				currentlyShotShip.add(Dim.get(x, y));
-				doShot();
-			}
 			
 			opponentShips.remove(Dim.get(x, y));
 		}
@@ -242,15 +222,13 @@ public class AIComputer {
 	
 	public ShotResult receiveShot(int x, int y) {
 		
-		Bundle bundle = new Bundle();
-		Message message = new Message();
 		ShotResult result;
 		if(ships[x][y].isShip()) {
 			ships[x][y].setHit();
 			result = markShipAsSunkIfReallyIs(x, y);
 		}
 		else {
-			result = new ShotResult(false, false, (Coordinates) null);
+			result = new ShotResult(false, false, isGameEnded(), new Coordinates(x, y), (boolean[][]) null);
 			if(!ships[x][y].isShip())
 				ships[x][y].setMissed();
 		}
@@ -263,13 +241,6 @@ public class AIComputer {
 	    	}
 			System.out.println();
 		}
-
-		bundle.putInt(Constants.GameMessagesHandler_KEY_TYPE, Constants.GameMessagesHandler_TYPE_RESULT);
-		bundle.putBoolean(Constants.GameMessagesHandler_KEY_RESULT_IS_HIT, result.isHit());
-		bundle.putBoolean(Constants.GameMessagesHandler_KEY_RESULT_IS_SUNK, result.isSunk());
-
-		message.setData(bundle);
-		handler.sendMessage(message);
 		
 		return result;
 	}
@@ -291,7 +262,7 @@ public class AIComputer {
     			}
     	}
     	
-    	return new ShotResult(true, result, matrix);
+    	return new ShotResult(true, result, isGameEnded(), new Coordinates(x, y), matrix);
     }
     
     private boolean isWholeShipSunkRecursive(int x, int y, boolean[][] matrix) {

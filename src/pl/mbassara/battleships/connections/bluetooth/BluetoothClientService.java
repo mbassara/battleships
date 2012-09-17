@@ -5,12 +5,11 @@ import java.io.IOException;
 import pl.mbassara.battleships.Constants;
 
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
 
 public class BluetoothClientService extends BluetoothService {
 
-	public BluetoothClientService(BluetoothDevice device, Context context) {
-		super(context);
+	public BluetoothClientService(BluetoothDevice device) {
+		super();
 		try {
 			socket = device.createRfcommSocketToServiceRecord(java.util.UUID.fromString(UUID));
 		} catch (IOException e) {

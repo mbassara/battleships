@@ -7,17 +7,14 @@ public class ShotResult implements Serializable{
 	private boolean[][] matrix;
 	private boolean isHit;
 	private boolean isSunk;
+	private boolean isGameEnded;
 	private Coordinates coordinates;
 	
-	public ShotResult(boolean isHit, boolean isSunk, Coordinates coordinates) {
+	public ShotResult(boolean isHit, boolean isSunk, boolean isGameEnded, Coordinates coordinates, boolean[][] matrix) {
 		this.isHit = isHit;
 		this.isSunk = isSunk;
+		this.isGameEnded = isGameEnded;
 		this.coordinates = coordinates;
-	}
-	
-	public ShotResult(boolean isHit, boolean isSunk, boolean[][] matrix) {
-		this.isHit = isHit;
-		this.isSunk = isSunk;
 		this.matrix = matrix;
 	}
 	
@@ -31,6 +28,10 @@ public class ShotResult implements Serializable{
 	
 	public boolean isSunk() {
 		return isSunk;
+	}
+	
+	public boolean isGameEnded() {
+		return isGameEnded;
 	}
 
 	public boolean[][] getMatrix() {

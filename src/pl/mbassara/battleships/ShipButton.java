@@ -20,6 +20,7 @@ public class ShipButton extends ToggleButton {
 	public static final int LAF_NOT_SHOOTABLE = 11;
 	public static final int LAF_TARGET = 12;
 	public static final int LAF_PREVIOUS = 13;
+	public static final int LAF_SHOT = 14;
 
 	protected int x = -1;
 	protected int y = -1;
@@ -136,6 +137,9 @@ public class ShipButton extends ToggleButton {
 				break;
 			case LAF_TARGET:
 				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_shootable_target_small : R.drawable.ic_im_ship_shootable_target);
+				break;
+			case LAF_SHOT:
+				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_shootable_shot_small : R.drawable.ic_im_ship_shootable_shot);
 				break;
 			default:
 				LaF = prevLaF;

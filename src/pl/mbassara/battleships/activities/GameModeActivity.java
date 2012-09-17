@@ -1,5 +1,6 @@
 package pl.mbassara.battleships.activities;
 
+import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.R;
 import android.os.Bundle;
 import android.app.Activity;
@@ -7,10 +8,8 @@ import android.content.Intent;
 import android.view.View;
 
 public class GameModeActivity extends Activity {
-	public static final int HOST_MODE = 0;
-	public static final int CLIENT_MODE = 1;
 	
-	private static int mode = HOST_MODE;
+	private static String mode = Constants.GAME_MODE_HOST;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -18,16 +17,16 @@ public class GameModeActivity extends Activity {
         setContentView(R.layout.activity_game_mode);
     }
     
-    public static int getMode() {
+    public static String getMode() {
 		return mode;
 	}
     
     public void gameModeClient(View view) {
-    	mode = CLIENT_MODE;
+    	mode = Constants.GAME_MODE_CLIENT;
     	Intent intent = null;
-    	if(MultiplayerModeActivity.getMode() == MultiplayerModeActivity.BT_MODE)
+    	if(Constants.GAME_MODE == Constants.GAME_MODE_BT)
     		intent = new Intent(this, BluetoothClientActivity.class);
-    	else if(MultiplayerModeActivity.getMode() == MultiplayerModeActivity.WIFI_MODE)
+    	else if(Constants.GAME_MODE == Constants.GAME_MODE_WIFI)
     		intent = new Intent(this, WiFiClientActivity.class);
     	
     	if(intent != null)
@@ -35,11 +34,11 @@ public class GameModeActivity extends Activity {
     }
     
     public void gameModeHost(View view) {
-    	mode = HOST_MODE;
+    	mode = Constants.GAME_MODE_HOST;
     	Intent intent = null;
-    	if(MultiplayerModeActivity.getMode() == MultiplayerModeActivity.BT_MODE)
+    	if(Constants.GAME_MODE == Constants.GAME_MODE_BT)
     		intent = new Intent(this, BluetoothHostActivity.class);
-    	else if(MultiplayerModeActivity.getMode() == MultiplayerModeActivity.WIFI_MODE)
+    	else if(Constants.GAME_MODE == Constants.GAME_MODE_WIFI)
     		intent = new Intent(this, WiFiHostActivity.class);
     	
     	if(intent != null)
