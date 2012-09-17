@@ -17,7 +17,7 @@
 	    android:textSize="@dimen/text_size_large"
 		android:layout_alignParentRight="true"
 		android:layout_alignParentTop="true"
-		android:layout_marginRight="30dp"
+		android:layout_marginRight="10dp"
 		android:layout_marginTop="30dp" />
 	
 	<TextView
@@ -26,7 +26,8 @@
 	    android:layout_height="wrap_content"
 	    android:textColor="#111111"
 	    android:textSize="@dimen/text_size_large"
-        android:layout_alignLeft="@+id/yourScoreTextView"
+		android:layout_alignParentRight="true"
+		android:layout_marginRight="10dp"
         android:layout_below="@+id/yourScoreTextView"
         android:layout_marginTop="10dp" />
         

@@ -79,6 +79,8 @@ public class GameActivity extends Activity
         TextView playerScore = (TextView) findViewById(R.id.yourScoreTextView);
         TextView oppScore = (TextView) findViewById(R.id.opponentScoreTextView);
         scoreBoard = new ScoreBoard(this, playerScore, oppScore);
+        scoreBoard.setLocalPlayersName(Constants.USERS_NAME);
+        remoteService.send(new GamePacket(GamePacket.TYPE_USER_NAME, Constants.USERS_NAME));
         
         LayoutParams previewBoardParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         previewBoardParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -165,6 +167,10 @@ public class GameActivity extends Activity
 						bundle.putInt(Constants.GameMessagesHandler_KEY_TYPE, Constants.GameMessagesHandler_TYPE_WHO_STARTS);
 						bundle.putBoolean(Constants.GameMessagesHandler_KEY_WHO_STARTS, packet.getWhoStarts());
 					}
+					else if (packet.getType() == GamePacket.TYPE_USER_NAME) {
+						bundle.putInt(Constants.GameMessagesHandler_KEY_TYPE, Constants.GameMessagesHandler_TYPE_USERS_NAME);
+						bundle.putString(Constants.GameMessagesHandler_KEY_USERS_NAME, packet.getUserName());
+					}
 					else if(packet.getType() == GamePacket.TYPE_SHOT) {
 						int x = packet.getCoordinates().getX();
 						int y = packet.getCoordinates().getY();
@@ -213,6 +219,9 @@ public class GameActivity extends Activity
 	            	youStartToast.show();
 	            else
 	            	opponentStartToast.show();
+			}
+			else if(data.getInt(Constants.GameMessagesHandler_KEY_TYPE) == Constants.GameMessagesHandler_TYPE_USERS_NAME) {
+				scoreBoard.setRemotePlayersName(data.getString(Constants.GameMessagesHandler_KEY_USERS_NAME));
 			}
 			else if(data.getInt(Constants.GameMessagesHandler_KEY_TYPE) == Constants.GameMessagesHandler_TYPE_SHOT) {
 				if(Constants.LOGS_ENABLED) System.out.println("shot info handled");

@@ -16,6 +16,7 @@
     <string name="enable_tips">Enable shooting assistance</string>
 
     <!-- GAME PREPARATION -->
+    <string name="ok">OK</string>
     <string name="singleplayer">Singleplayer</string>
     <string name="multiplayer">Multiplayer</string>
     <string name="menu_settings">Settings</string>
@@ -27,6 +28,10 @@
     <string name="random">Random</string>
     <string name="placing_ships_error">Ships are placed wrong</string>
     <string name="not_available_yet">This function is not available yet</string>
+    <string name="users_name">Name</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="enter_name_info">Name will be cut to first five letters</string>
+    <string name="name_too_long">Name is too long! (5 max)</string>
 
     <!-- GAME MODE SELECTION -->
     <string name="game_mode_host">Create game</string>
@@ -81,8 +86,8 @@
     <string name="title_activity_bluetooth">BluetoothActivity</string>
 
     <!-- GAME -->
-    <string name="your_score">You:</string>
-    <string name="opponents_score">CPU:</string>
+    <string name="your_score">You</string>
+    <string name="opponents_score">CPU</string>
     <string name="wait_for_opponent">Waiting for opponent…</string>
     <string name="you_start">You shoot first</string>
     <string name="opponent_starts">Your opponent shoots first</string>

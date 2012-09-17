@@ -5,6 +5,8 @@ public class Constants {
 	
 	public static final boolean HOST_FIRST = false;
 	public static final boolean CLIENT_FIRST = true;
+	
+	public static String USERS_NAME = "Player";
 
 	public static final String GameMessagesHandler_KEY_X = "x";
 	public static final String GameMessagesHandler_KEY_Y = "y";
@@ -14,10 +16,12 @@ public class Constants {
 	public static final String GameMessagesHandler_KEY_TYPE = "type";
 	public static final String GameMessagesHandler_KEY_SHOOT_BUTTON_SET_ENABLED = "setEnabled";
 	public static final String GameMessagesHandler_KEY_WHO_STARTS = "whoStarts";
+	public static final String GameMessagesHandler_KEY_USERS_NAME = "usersName";
 	public static final int GameMessagesHandler_TYPE_SHOT = 1;
 	public static final int GameMessagesHandler_TYPE_RESULT = 2;
 	public static final int GameMessagesHandler_TYPE_SHOOT_BUTTON_SET_ENABLED = 3;
 	public static final int GameMessagesHandler_TYPE_WHO_STARTS = 4;
+	public static final int GameMessagesHandler_TYPE_USERS_NAME = 5;
 
 	public static final String KEY_GAME_RESULT = "gameReslut";
 	public static final int GAME_RESULT_WINNER = 4;

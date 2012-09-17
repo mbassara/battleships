@@ -24,6 +24,10 @@
     <string name="random">Losuj</string>
     <string name="placing_ships_error">Błędy w ułożeniu statków</string>
     <string name="not_available_yet">Ta funkcja jest jeszcze niedostępna</string>
+    <string name="users_name">Imię</string>
+    <string name="enter_name">Wpisz swoje imię</string>
+    <string name="enter_name_info">Imię będzie skrócone do pierwszych pięciu liter</string>
+    <string name="name_too_long">Za długie imię! (5 max)</string>
     
     <!-- GAME MODE SELECTION -->
     <string name="game_mode_host">Stwórz grę</string>
