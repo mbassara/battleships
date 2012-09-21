@@ -3,9 +3,8 @@ package pl.mbassara.battleships.connections.wifi;
 import java.io.IOException;
 import java.net.Socket;
 
+import pl.mbassara.battleships.Global;
 import android.content.Context;
-
-import pl.mbassara.battleships.Constants;
 
 public class WiFiClientService extends WiFiService {
 	
@@ -23,7 +22,7 @@ public class WiFiClientService extends WiFiService {
 		
 		Socket socket = null;
 		try {
-			socket = new Socket(serverIP, Constants.wifi_port);
+			socket = new Socket(serverIP, Global.WIFI_PORT);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

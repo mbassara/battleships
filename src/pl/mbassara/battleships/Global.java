@@ -1,10 +1,20 @@
 package pl.mbassara.battleships;
 
-public class Constants {
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+public class Global {
 	public static final boolean LOGS_ENABLED = true;
 	
 	public static final boolean HOST_FIRST = false;
 	public static final boolean CLIENT_FIRST = true;
+	
+	public static final int DEVICE_TYPE_ANDROID = 0;
+	public static final int DEVICE_TYPE_WINDOWS = 1;
+	public static int OPPONENT_DEVICE_TYPE = DEVICE_TYPE_WINDOWS;
+	
+	public static final String END_OF_PACKET = "end_168321_end";
 	
 	public static String USERS_NAME = "Player";
 
@@ -29,7 +39,7 @@ public class Constants {
 
 	public static final int[] SHIPS_COUNER = {0, 0, 2, 2, 2, 1};
 	
-	public static final int wifi_port = 57419;
+	public static final int WIFI_PORT = 57419;
 	
 	public static boolean SHOOTING_TIPS_ENABLED = true;
 	
@@ -37,9 +47,48 @@ public class Constants {
 	public static final String GAME_MODE_WIFI = "Wifi mode";
 	public static final String GAME_MODE_BT = "Bluetooth mode";
 	public static final String GAME_MODE_SINGLE = "Single player";
-	public static final String GAME_MODE_HOST = "Host mode";
-	public static final String GAME_MODE_CLIENT = "Client mode";
+	public static final String GAME_MODE_HOST = "host";
+	public static final String GAME_MODE_CLIENT = "client";
 
-    public static final String UUID = "76b4c611-da5a-4672-af97-7eb2fb71597e";
+public static final String UUID = "76b4c611-da5a-4672-af97-7eb2fb71597e";
+    
+    public static byte[] objectToByteArray(Object obj)
+    {
+    	ByteArrayOutputStream byteObject = new ByteArrayOutputStream();
+    	try {
+	    	ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteObject);
+	    	objectOutputStream.writeObject(obj);
+	    	objectOutputStream.flush();
+	    	objectOutputStream.close();
+	    	byteObject.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+    	return byteObject.toByteArray();
+	}
+	
+	public static String boolArrayToString(boolean[][] array) {
+		String result = "";
+		for(boolean[] subarray : array) {
+			for(boolean val : subarray)
+				result += val ? "1" : "0";
+			result += ",";
+		}
+		
+		return result.substring(0, result.length() - 1);
+	}
+	
+	public static boolean[][] stringToBoolArray(String str) {
+		String[] strArray = str.split(",");
+		int size = strArray.length;
+		boolean[][] result = new boolean[size][size];
+		
+		for(int i = 0; i < size; i++)
+			for(int j = 0; j < size; j++)
+				result[i][j] = strArray[i].charAt(j) == '1';
+		
+		return result;
+	}
 
 }

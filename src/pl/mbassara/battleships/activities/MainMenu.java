@@ -1,6 +1,6 @@
 package pl.mbassara.battleships.activities;
 
-import pl.mbassara.battleships.Constants;
+import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.R;
 import android.os.Bundle;
 import android.app.Activity;
@@ -42,13 +42,13 @@ public class MainMenu extends Activity {
     	super.onStart();
     	
     	if(getIntent() != null && getIntent().getExtras() != null) {
-    		int result = getIntent().getExtras().getInt(Constants.KEY_GAME_RESULT);
+    		int result = getIntent().getExtras().getInt(Global.KEY_GAME_RESULT);
     		
 			switch (result) {
-			case Constants.GAME_RESULT_WINNER:
+			case Global.GAME_RESULT_WINNER:
 		    	Toast.makeText(this, getString(R.string.result_winner), Toast.LENGTH_LONG).show();
 				break;
-			case Constants.GAME_RESULT_LOOSER:
+			case Global.GAME_RESULT_LOOSER:
 		    	Toast.makeText(this, getString(R.string.result_looser), Toast.LENGTH_LONG).show();
 				break;
 			}
@@ -84,7 +84,7 @@ public class MainMenu extends Activity {
     
     public void singleplayer(View view) {
     	Intent intent = new Intent(this, CreatingShipsActivity.class);
-    	Constants.GAME_MODE = Constants.GAME_MODE_SINGLE;
+    	Global.GAME_MODE = Global.GAME_MODE_SINGLE;
     	startActivity(intent);
     }
     

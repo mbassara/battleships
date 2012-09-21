@@ -1,6 +1,6 @@
 package pl.mbassara.battleships.activities;
 
-import pl.mbassara.battleships.Constants;
+import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.R;
 import android.os.Bundle;
 import android.app.Activity;
@@ -19,11 +19,11 @@ public class MultiplayerModeActivity extends Activity {
     	Intent intent = new Intent(this, GameModeActivity.class);
     	
     	if(view.equals(findViewById(R.id.WiFiModeButton)))
-    		Constants.GAME_MODE = Constants.GAME_MODE_WIFI;
+    		Global.GAME_MODE = Global.GAME_MODE_WIFI;
     	else if(view.equals(findViewById(R.id.bluetoothModeButton)))
-    		Constants.GAME_MODE = Constants.GAME_MODE_BT;
+    		Global.GAME_MODE = Global.GAME_MODE_BT;
     	
-    	if(Constants.LOGS_ENABLED) System.out.println("Multiplayer mode: " + Constants.GAME_MODE);
+    	if(Global.LOGS_ENABLED) System.out.println("Multiplayer mode: " + Global.GAME_MODE);
     	startActivity(intent);
     }
 

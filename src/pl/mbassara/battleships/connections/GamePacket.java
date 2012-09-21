@@ -2,9 +2,12 @@ package pl.mbassara.battleships.connections;
 
 import java.io.Serializable;
 
-import pl.mbassara.battleships.Constants;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import pl.mbassara.battleships.Coordinates;
 import pl.mbassara.battleships.GameResult;
+import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.ShotResult;
 
 public class GamePacket implements Serializable{
@@ -21,7 +24,7 @@ public class GamePacket implements Serializable{
 	private String message = null;
 	private String userName = null;
 	private Coordinates coordinates = null;
-	private boolean whoStarts = Constants.HOST_FIRST;
+	private boolean whoStarts = Global.HOST_FIRST;
 	private ShotResult shotResult = null;
 	private GameResult gameResult = null;
 	
@@ -113,6 +116,41 @@ public class GamePacket implements Serializable{
 	
 	public Coordinates getCoordinates() {
 		return coordinates;
+	}
+	
+	public Element getXMLelement(Document doc) {
+		Element element = doc.createElement("gamePacket");
+		
+		String typeStr;
+		switch (type) {
+			case TYPE_GAME_RESULT:
+				typeStr = "gameResult";
+				element.appendChild(GameResult.getXMLelement(gameResult, doc));
+				break;
+			case TYPE_RESULT:
+				typeStr = "result";
+				element.appendChild(ShotResult.getXMLelement(shotResult, doc));
+				break;
+			case TYPE_SHOT:
+				typeStr = "shot";
+				element.appendChild(Coordinates.getXMLelement(coordinates, doc));
+				break;
+			case TYPE_TEXT_MESSAGE:
+				typeStr = "textMessage";
+				element.setAttribute("message", message);
+				break;
+			case TYPE_WHO_STARTS:
+				typeStr = "whoStarts";
+				element.setAttribute("whoStarts", whoStarts == Global.HOST_FIRST ? "host" : "client");
+				break;
+			default:
+				typeStr = "error";
+				break;
+		}
+		
+		element.setAttribute("type", typeStr);
+		
+		return element;
 	}
 	
 }

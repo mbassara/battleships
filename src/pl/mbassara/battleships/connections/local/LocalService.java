@@ -3,9 +3,9 @@ package pl.mbassara.battleships.connections.local;
 import java.util.LinkedList;
 
 import pl.mbassara.battleships.AIComputer;
-import pl.mbassara.battleships.Constants;
 import pl.mbassara.battleships.Coordinates;
 import pl.mbassara.battleships.GameResult;
+import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.ShotResult;
 import pl.mbassara.battleships.connections.GamePacket;
 import pl.mbassara.battleships.connections.RemoteService;
@@ -40,7 +40,7 @@ public class LocalService implements RemoteService {
 					GamePacket gamePacket = fromPlayerToCPUQueue.poll();
 	
 					if(gamePacket.getType() == GamePacket.TYPE_WHO_STARTS) {
-						if(gamePacket.getWhoStarts() == Constants.CLIENT_FIRST)
+						if(gamePacket.getWhoStarts() == Global.CLIENT_FIRST)
 							fromCPUtoPlayerQueue.offer(aiComputer.doShot());
 					}
 					else if(gamePacket.getType() == GamePacket.TYPE_SHOT) {
@@ -49,7 +49,7 @@ public class LocalService implements RemoteService {
 						fromCPUtoPlayerQueue.offer(new GamePacket(result));
 	
 						if(result.isGameEnded())
-							fromCPUtoPlayerQueue.offer(new GamePacket(new GameResult(GameResult.RESULT_WINNER)));
+							fromCPUtoPlayerQueue.offer(new GamePacket(new GameResult(Global.GAME_RESULT_WINNER)));
 						else if((!result.isHit() || result.isSunk()) && !result.isGameEnded())
 							fromCPUtoPlayerQueue.offer(aiComputer.doShot());
 					}

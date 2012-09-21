@@ -2,12 +2,13 @@ package pl.mbassara.battleships;
 
 import java.io.Serializable;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 public class GameResult
 	implements Serializable{
 	
 	private static final long serialVersionUID = 4596309422991271910L;
-	public static final int RESULT_WINNER = 1;
-	public static final int RESULT_LOOSER = 1;
 
 	private int result;
 	
@@ -16,6 +17,21 @@ public class GameResult
 	}
 	
 	public boolean isWinner() {
-		return result == RESULT_WINNER;
+		return result == Global.GAME_RESULT_WINNER;
+	}
+	
+	public static Element getXMLelement(GameResult gameResult, Document doc) {
+		Element element = doc.createElement("gameResult");
+		
+		if(gameResult == null) {
+			element.setAttribute("isNull", "true");
+			return element;
+		}
+		else
+			element.setAttribute("isNull", "false");
+		
+		element.setAttribute("result", gameResult.result == Global.GAME_RESULT_WINNER ? "winner" : "looser");
+		
+		return element;
 	}
 }

@@ -1,6 +1,6 @@
 package pl.mbassara.battleships.activities;
 
-import pl.mbassara.battleships.Constants;
+import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.connections.wifi.WiFiService;
 import android.app.Activity;
@@ -33,7 +33,7 @@ public abstract class WiFiActivity extends Activity
 	public abstract String getSpecificInfoString();
 	
 	protected void connect(WiFiService service) {
-		if(Constants.LOGS_ENABLED) System.out.println("WiFiActivity.connect()");
+		if(Global.LOGS_ENABLED) System.out.println("WiFiActivity.connect()");
 		wiFiService = service;
 		
 		final ProgressDialog dialog = ProgressDialog.show(this, "", getSpecificInfoString(), true, true, this);

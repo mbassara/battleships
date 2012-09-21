@@ -54,18 +54,18 @@ public class GameBoard extends Board {
 						ships[i][j].setSunk();
 	}
 	
-	public ShotResult shoot(int x, int y) {
-		if(ships[x][y].shoot())
-			return markShipAsSunkIfReallyIs(x, y);
-		else
-			return new ShotResult(false, false, isGameEnded(), new Coordinates(x, y), (boolean[][]) null);
-	}
-	
 	public void shotResult(int x, int y, boolean result) {
 		if(result)
 			ships[x][y].setHit();
 		else
 			ships[x][y].setMissed();
+	}
+	
+	public ShotResult shoot(int x, int y) {
+		if(ships[x][y].shoot())
+			return markShipAsSunkIfReallyIs(x, y);
+		else
+			return new ShotResult(false, false, isGameEnded(), new Coordinates(x, y), (boolean[][]) null);
 	}
     
     public ShotResult markShipAsSunkIfReallyIs(int x, int y) {
@@ -123,7 +123,7 @@ public class GameBoard extends Board {
 			for(int i = 0; i < 10; i++)
 				for(int j = 0; j < 10; j++)
 					if(ships[i][j].isNotShip()) {
-						if(!Constants.SHOOTING_TIPS_ENABLED || isFieldShootable(i, j))
+						if(!Global.SHOOTING_TIPS_ENABLED || isFieldShootable(i, j))
 							ships[i][j].setLaF(ShipButton.LAF_SHOOTABLE);
 						else
 							ships[i][j].setLaF(ShipButton.LAF_NOT_SHOOTABLE);

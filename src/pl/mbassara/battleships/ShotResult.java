@@ -2,6 +2,9 @@ package pl.mbassara.battleships;
 
 import java.io.Serializable;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 public class ShotResult implements Serializable{
 	private static final long serialVersionUID = 635685272254738631L;
 	private boolean[][] matrix;
@@ -40,5 +43,28 @@ public class ShotResult implements Serializable{
 	
 	public Coordinates getCoordinates() {
 		return coordinates;
+	}
+	
+	public static Element getXMLelement(ShotResult shotResult, Document doc) {
+		Element element = doc.createElement("shotResult");
+		
+		if(shotResult == null) {
+			element.setAttribute("isNull", "true");
+			return element;
+		}
+		else
+			element.setAttribute("isNull", "false");
+		
+		element.setAttribute("isSunk", shotResult.isSunk ? "true" : "false");
+		
+		element.setAttribute("isHit", shotResult.isHit ? "true" : "false");
+		
+		element.setAttribute("isGameEnded", shotResult.isGameEnded ? "true" : "false");
+		
+		element.appendChild(Coordinates.getXMLelement(shotResult.coordinates, doc));
+		
+		element.setAttribute("matrix", shotResult.matrix == null ? "null" : Global.boolArrayToString(shotResult.matrix));
+		
+		return element;
 	}
 }

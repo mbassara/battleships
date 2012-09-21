@@ -3,7 +3,7 @@ package pl.mbassara.battleships.activities;
 import pl.mbassara.battleships.activities.GameActivity;
 import pl.mbassara.battleships.AIComputer;
 import pl.mbassara.battleships.Board;
-import pl.mbassara.battleships.Constants;
+import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.CreatingShipsBoard;
 import pl.mbassara.battleships.R;
 import android.os.Bundle;
@@ -68,9 +68,9 @@ public class CreatingShipsActivity extends Activity{
 						String name = textField.getText().toString();
 						
 						if(name.length() > 5)
-							Constants.USERS_NAME = name.substring(0, 5);
+							Global.USERS_NAME = name.substring(0, 5);
 						else
-							Constants.USERS_NAME = name;
+							Global.USERS_NAME = name;
 						
 				    	Intent intent;
 				   		intent = new Intent(context, GameActivity.class);

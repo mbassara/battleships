@@ -1,6 +1,6 @@
 package pl.mbassara.battleships.activities;
 
-import pl.mbassara.battleships.Constants;
+import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.R;
 import android.os.Bundle;
 import android.app.Activity;
@@ -9,7 +9,7 @@ import android.view.View;
 
 public class GameModeActivity extends Activity {
 	
-	private static String mode = Constants.GAME_MODE_HOST;
+	private static String mode = Global.GAME_MODE_HOST;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,11 +22,11 @@ public class GameModeActivity extends Activity {
 	}
     
     public void gameModeClient(View view) {
-    	mode = Constants.GAME_MODE_CLIENT;
+    	mode = Global.GAME_MODE_CLIENT;
     	Intent intent = null;
-    	if(Constants.GAME_MODE == Constants.GAME_MODE_BT)
+    	if(Global.GAME_MODE == Global.GAME_MODE_BT)
     		intent = new Intent(this, BluetoothClientActivity.class);
-    	else if(Constants.GAME_MODE == Constants.GAME_MODE_WIFI)
+    	else if(Global.GAME_MODE == Global.GAME_MODE_WIFI)
     		intent = new Intent(this, WiFiClientActivity.class);
     	
     	if(intent != null)
@@ -34,11 +34,11 @@ public class GameModeActivity extends Activity {
     }
     
     public void gameModeHost(View view) {
-    	mode = Constants.GAME_MODE_HOST;
+    	mode = Global.GAME_MODE_HOST;
     	Intent intent = null;
-    	if(Constants.GAME_MODE == Constants.GAME_MODE_BT)
+    	if(Global.GAME_MODE == Global.GAME_MODE_BT)
     		intent = new Intent(this, BluetoothHostActivity.class);
-    	else if(Constants.GAME_MODE == Constants.GAME_MODE_WIFI)
+    	else if(Global.GAME_MODE == Global.GAME_MODE_WIFI)
     		intent = new Intent(this, WiFiHostActivity.class);
     	
     	if(intent != null)
