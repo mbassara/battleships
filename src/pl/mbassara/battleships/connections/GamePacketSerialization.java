@@ -80,7 +80,7 @@ class GamePacketXMLHandler extends DefaultHandler {
 			isSunk = Boolean.parseBoolean(attr.getValue("isSunk"));
 			isGameEnded = Boolean.parseBoolean(attr.getValue("isGameEnded"));
 			String matrixStr = attr.getValue("matrix");
-			if(matrixStr != null)
+			if(!matrixStr.equals("null"))
 				matrix = Global.stringToBoolArray(matrixStr);
 		}
 		
