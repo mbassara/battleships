@@ -1,4 +1,4 @@
-package pl.mbassara.battleships.activities;
+package pl.mbassara.battleships.activities.connections.bluetooth;
 
 import java.util.ArrayList;
 

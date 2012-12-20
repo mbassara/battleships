@@ -55,7 +55,7 @@ public class LocalService implements RemoteService {
 					}
 					else if(gamePacket.getType() == GamePacket.TYPE_RESULT) {
 						aiComputer.receiveResult(gamePacket.getShotResult());
-						if(gamePacket.getShotResult().isHit())
+						if(gamePacket.getShotResult().isHit() && !gamePacket.getShotResult().isSunk())
 							fromCPUtoPlayerQueue.offer(aiComputer.doShot());
 					}
 					else if(gamePacket.getType() == GamePacket.TYPE_GAME_RESULT) {

@@ -10,6 +10,8 @@ import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.ScoreBoard;
 import pl.mbassara.battleships.ShipButton;
 import pl.mbassara.battleships.ShotResult;
+import pl.mbassara.battleships.activities.connections.bluetooth.BluetoothActivity;
+import pl.mbassara.battleships.activities.connections.wifi.WiFiActivity;
 import pl.mbassara.battleships.connections.GamePacket;
 import pl.mbassara.battleships.connections.RemoteService;
 import pl.mbassara.battleships.connections.local.LocalService;

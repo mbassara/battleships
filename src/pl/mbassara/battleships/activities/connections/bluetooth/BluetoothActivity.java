@@ -1,7 +1,8 @@
-package pl.mbassara.battleships.activities;
+package pl.mbassara.battleships.activities.connections.bluetooth;
 
 import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.R;
+import pl.mbassara.battleships.activities.CreatingShipsActivity;
 import pl.mbassara.battleships.connections.bluetooth.BluetoothService;
 import android.os.Bundle;
 import android.app.Activity;

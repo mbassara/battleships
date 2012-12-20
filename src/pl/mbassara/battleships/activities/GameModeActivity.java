@@ -2,6 +2,10 @@ package pl.mbassara.battleships.activities;
 
 import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.R;
+import pl.mbassara.battleships.activities.connections.bluetooth.BluetoothClientActivity;
+import pl.mbassara.battleships.activities.connections.bluetooth.BluetoothHostActivity;
+import pl.mbassara.battleships.activities.connections.wifi.WiFiClientActivity;
+import pl.mbassara.battleships.activities.connections.wifi.WiFiHostActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;

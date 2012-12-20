@@ -1,4 +1,4 @@
-package pl.mbassara.battleships.activities;
+package pl.mbassara.battleships.activities.connections.wifi;
 
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.connections.wifi.WiFiHostService;
