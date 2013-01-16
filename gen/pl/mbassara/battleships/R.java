@@ -166,7 +166,7 @@ public final class R {
         public static final int enable_vibra=0x7f050008;
         public static final int enter_name=0x7f050017;
         public static final int enter_name_info=0x7f050018;
-        public static final int exit=0x7f05004b;
+        public static final int exit=0x7f05004c;
         public static final int find_devices=0x7f050029;
         public static final int game_mode_client=0x7f05001b;
         /**  GAME MODE SELECTION 
@@ -186,6 +186,7 @@ public final class R {
         public static final int mult_mode_wifi=0x7f05001c;
         public static final int multiplayer=0x7f05000c;
         public static final int name_too_long=0x7f050019;
+        public static final int negative_button=0x7f05004e;
         public static final int new_game=0x7f05000e;
         public static final int next=0x7f050012;
         public static final int not_available_yet=0x7f050015;
@@ -208,9 +209,10 @@ public final class R {
         public static final int patrol_boats_value=0x7f05003f;
         public static final int place_ships=0x7f050010;
         public static final int placing_ships_error=0x7f050014;
+        public static final int positive_button=0x7f05004d;
         public static final int random=0x7f050013;
-        public static final int result_looser=0x7f05004a;
-        public static final int result_winner=0x7f050049;
+        public static final int result_looser=0x7f05004b;
+        public static final int result_winner=0x7f05004a;
         public static final int set_visivility=0x7f05002a;
         public static final int shoot=0x7f050048;
         /**  GAME PREPARATION 
@@ -219,19 +221,20 @@ public final class R {
         public static final int singleplayer=0x7f05000b;
         public static final int submarines=0x7f050032;
         public static final int submarines_value=0x7f05003d;
+        public static final int sure_wanna_quit=0x7f050049;
         public static final int title_activity_bluetooth=0x7f050041;
-        public static final int title_activity_bluetooth_host=0x7f05004e;
-        public static final int title_activity_game=0x7f05004d;
-        public static final int title_activity_game_mode=0x7f05004f;
-        public static final int title_activity_game_result=0x7f050050;
+        public static final int title_activity_bluetooth_host=0x7f050051;
+        public static final int title_activity_game=0x7f050050;
+        public static final int title_activity_game_mode=0x7f050052;
+        public static final int title_activity_game_result=0x7f050053;
         /**  MESSAGES 
          */
-        public static final int title_activity_main_menu=0x7f05004c;
-        public static final int title_activity_multiplayer_mode=0x7f050053;
-        public static final int title_activity_offline_game=0x7f050051;
-        public static final int title_activity_options=0x7f050052;
-        public static final int title_activity_wi_fi_client=0x7f050055;
-        public static final int title_activity_wi_fi_host=0x7f050054;
+        public static final int title_activity_main_menu=0x7f05004f;
+        public static final int title_activity_multiplayer_mode=0x7f050056;
+        public static final int title_activity_offline_game=0x7f050054;
+        public static final int title_activity_options=0x7f050055;
+        public static final int title_activity_wi_fi_client=0x7f050058;
+        public static final int title_activity_wi_fi_host=0x7f050057;
         public static final int users_name=0x7f050016;
         /**  GAME 
          */

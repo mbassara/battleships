@@ -24,6 +24,13 @@ public class OptionsActivity extends Activity {
     	((CheckBox) findViewById(R.id.enableTipsCheckBox)).setChecked(Global.SHOOTING_TIPS_ENABLED);
     }
     
+    @Override
+    protected void onStop() {
+    	super.onStop();
+    	
+    	this.finish();
+    }
+    
     public void enableVibra(View view) {
     	CheckBox button = (CheckBox) view;
     	Vibra.setEnabled(button.isChecked());

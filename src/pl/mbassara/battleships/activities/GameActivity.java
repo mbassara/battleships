@@ -10,6 +10,7 @@ import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.ScoreBoard;
 import pl.mbassara.battleships.ShipButton;
 import pl.mbassara.battleships.ShotResult;
+import pl.mbassara.battleships.activities.connections.GameModeActivity;
 import pl.mbassara.battleships.activities.connections.bluetooth.BluetoothActivity;
 import pl.mbassara.battleships.activities.connections.wifi.WiFiActivity;
 import pl.mbassara.battleships.connections.GamePacket;
@@ -17,8 +18,9 @@ import pl.mbassara.battleships.connections.RemoteService;
 import pl.mbassara.battleships.connections.local.LocalService;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -73,7 +75,7 @@ public class GameActivity extends Activity
 		
         
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_game_layout);
-        previewBoard = new GameBoard(this, CreatingShipsActivity.getBoardMatrix(), GameBoard.SIZE_SMALL);
+        previewBoard = new GameBoard(this, Global.getLocalUserBoardMatrix(), GameBoard.SIZE_SMALL);
         mainBoard = new GameBoard(this, null, GameBoard.SIZE_BIG);
         mainBoard.setOnCheckedChangeListener(this);
 
@@ -145,11 +147,17 @@ public class GameActivity extends Activity
 		}
 	}
 	
-	private void endGame(boolean result) {
-		Intent intent = new Intent(this, MainMenu.class);
-		intent.putExtra(Global.KEY_GAME_RESULT, result ? Global.GAME_RESULT_WINNER : Global.GAME_RESULT_LOOSER);
+	private void endGame(int result) {
 		
-		startActivity(intent);
+		switch (result) {
+		case Global.GAME_RESULT_WINNER:
+	    	Toast.makeText(this, getString(R.string.result_winner), Toast.LENGTH_LONG).show();
+			break;
+		case Global.GAME_RESULT_LOOSER:
+	    	Toast.makeText(this, getString(R.string.result_looser), Toast.LENGTH_LONG).show();
+			break;
+		}
+		
 		this.finish();
 	}
 	
@@ -189,7 +197,11 @@ public class GameActivity extends Activity
 						if(Global.LOGS_ENABLED) System.out.println("shot result received");
 					}
 					else if(packet.getType() == GamePacket.TYPE_GAME_RESULT) {
-						endGame(packet.getGameResult().isWinner());
+						endGame(
+								packet.getGameResult().isWinner() ?
+										Global.GAME_RESULT_WINNER :
+										Global.GAME_RESULT_LOOSER
+								);
 						if(Global.LOGS_ENABLED) System.out.println("game result received");
 					}
 
@@ -231,7 +243,7 @@ public class GameActivity extends Activity
 				ShotResult result = previewBoard.shoot(x, y);
 				if(previewBoard.isGameEnded()) {
 					remoteService.send(new GamePacket(new GameResult(Global.GAME_RESULT_WINNER)));	// opponent is winner because he sunk all of my ships
-					endGame(false);
+					endGame(Global.GAME_RESULT_LOOSER);
 				}
 				else {
 					remoteService.send(new GamePacket(result));
@@ -256,5 +268,20 @@ public class GameActivity extends Activity
 			}
 		}
 	};
+	
+	
+	@Override
+	public void onBackPressed() {
+		new AlertDialog.Builder(this)
+			.setMessage(R.string.sure_wanna_quit)
+			.setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
+				
+				public void onClick(DialogInterface dialog, int which) {
+					endGame(Global.GAME_RESULT_ABORTED);
+				}
+			})
+			.setNegativeButton(R.string.negative_button, null)
+			.show();
+	}
     
 }

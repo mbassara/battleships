@@ -81,8 +81,12 @@
     <string name="opponent_starts">Przeciwnik strzela pierwszy</string>
     <string name="choose_field">Wybór pola</string>
     <string name="shoot">Strzał!</string>
+    <string name="sure_wanna_quit">Na pewno chcesz zakończyć grę?</string>
     <string name="result_winner">Wygrałeś!!!</string>
     <string name="result_looser">Przegrałeś…</string>
     <string name="exit">Wyjście</string>
+    
+    <string name="positive_button">Tak</string>
+    <string name="negative_button">Nie</string>
 
 </resources>

@@ -10,12 +10,6 @@ public class ShipsCounter {
 	private int[] values = new int[5];
 	
 	public ShipsCounter(Activity parent) {
-//        shipsCountTexts[4] = (TextView) parent.findViewById(R.id.aircraft_carriers_value_text);	// TODO
-//        shipsCountTexts[3] = (TextView) parent.findViewById(R.id.battleships_value_text);
-//        shipsCountTexts[2] = (TextView) parent.findViewById(R.id.submarines_value_text);
-//        shipsCountTexts[1] = (TextView) parent.findViewById(R.id.destroyers_value_text);
-//        shipsCountTexts[0] = (TextView) parent.findViewById(R.id.patrol_boats_value_text);
-        
         valuesStrings[4] = (String) parent.getResources().getString(R.string.aircraft_carriers_value);
         valuesStrings[3] = (String) parent.getResources().getString(R.string.battleships_value);
         valuesStrings[2] = (String) parent.getResources().getString(R.string.submarines_value);

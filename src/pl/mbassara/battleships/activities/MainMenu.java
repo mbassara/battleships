@@ -2,15 +2,15 @@ package pl.mbassara.battleships.activities;
 
 import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.R;
-import android.os.Bundle;
+import pl.mbassara.battleships.activities.connections.MultiplayerModeActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 public class MainMenu extends Activity {
 	
@@ -35,25 +35,6 @@ public class MainMenu extends Activity {
         
         aboutDialog = builder.create();
         
-    }
-    
-    @Override
-    protected void onStart() {
-    	super.onStart();
-    	
-    	if(getIntent() != null && getIntent().getExtras() != null) {
-    		int result = getIntent().getExtras().getInt(Global.KEY_GAME_RESULT);
-    		
-			switch (result) {
-			case Global.GAME_RESULT_WINNER:
-		    	Toast.makeText(this, getString(R.string.result_winner), Toast.LENGTH_LONG).show();
-				break;
-			case Global.GAME_RESULT_LOOSER:
-		    	Toast.makeText(this, getString(R.string.result_looser), Toast.LENGTH_LONG).show();
-				break;
-			}
-    	}
-    	
     }
     
     @Override

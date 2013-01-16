@@ -93,9 +93,13 @@
     <string name="opponent_starts">Your opponent shoots first</string>
     <string name="choose_field">Choose field</string>
     <string name="shoot">Shoot!</string>
+    <string name="sure_wanna_quit">Are you sure you want to end this game?</string>
     <string name="result_winner">You\'ve won!!!</string>
     <string name="result_looser">You\'ve lost…</string>
     <string name="exit">Exit</string>
+    
+    <string name="positive_button">Yes</string>
+    <string name="negative_button">No</string>
 
     <!-- MESSAGES -->
     <string name="title_activity_main_menu">Battleships</string>

@@ -17,7 +17,6 @@ import android.widget.ToggleButton;
 public class CreatingShipsActivity extends Activity{
 
 	private static CreatingShipsBoard board = null;
-	private final CreatingShipsActivity context = this;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +30,13 @@ public class CreatingShipsActivity extends Activity{
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         board.setLayoutParams(layoutParams);
         layout.addView(board);
+    }
+    
+    @Override
+    protected void onStop() {
+    	super.onStop();
+    	
+    	this.finish();
     }
     
     public void togglePlacingShipsMode(View view){
@@ -47,39 +53,13 @@ public class CreatingShipsActivity extends Activity{
     
     public void next(View view) {
     	Global.USERS_NAME = getString(R.string.your_score);
-//   		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-//   		View layout = inflater.inflate(R.layout.dialog_user_name,
-//   										(ViewGroup) findViewById(R.id.userNameDialogLayout));
-//        AlertDialog dialog;
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setView(layout)
-//				.setCancelable(false)
-//				.setTitle(R.string.enter_name)
-//				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//
-//					public void onClick(DialogInterface dialog, int which) {
-//						EditText textField = (EditText) ((AlertDialog) dialog).findViewById(R.id.userNameDialogEditText);
-//						String name = textField.getText().toString();
-//						
-//						if(name.length() > 5)
-//							Global.USERS_NAME = name.substring(0, 5);
-//						else
-//							Global.USERS_NAME = name;
 						
-				    	Intent intent;
-				   		intent = new Intent(context, GameActivity.class);
-				   		
-				    	context.startActivity(intent);
-				    	((CreatingShipsActivity) context).finish();
-//					}
-//				});
-//        
-//        dialog = builder.create();
-//        Toast.makeText(this, R.string.enter_name_info, Toast.LENGTH_LONG);
-//        dialog.show();
+    	Intent intent;
+   		intent = new Intent(this, GameActivity.class);
+
+        Global.setLocalUserBoardMatrix(board.getBoardMatrix());
+   		this.startActivity(intent);
+    	this.finish();
 	}
     
-    public static boolean[][] getBoardMatrix() {
-    	return board.getBoardMatrix();
-    }
 }

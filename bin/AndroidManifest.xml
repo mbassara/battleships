@@ -34,17 +34,17 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.BluetoothClientActivity"
+            android:name=".activities.connections.bluetooth.BluetoothClientActivity"
             android:label="@string/title_activity_bluetooth"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.BluetoothHostActivity"
+            android:name=".activities.connections.bluetooth.BluetoothHostActivity"
             android:label="@string/title_activity_bluetooth_host"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.GameModeActivity"
+            android:name=".activities.connections.GameModeActivity"
             android:label="@string/title_activity_game_mode"
             android:screenOrientation="portrait" >
         </activity>
@@ -54,7 +54,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.BluetoothActivity"
+            android:name=".activities.connections.bluetoothBluetoothActivity"
             android:label="@string/title_activity_bluetooth"
             android:screenOrientation="portrait" >
         </activity>
@@ -64,17 +64,17 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.MultiplayerModeActivity"
+            android:name=".activities.connections.MultiplayerModeActivity"
             android:label="@string/title_activity_multiplayer_mode"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.WiFiHostActivity"
+            android:name=".activities.connections.wifi.WiFiHostActivity"
             android:label="@string/title_activity_wi_fi_host"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.WiFiClientActivity"
+            android:name=".activities.connections.wifi.WiFiClientActivity"
             android:label="@string/title_activity_wi_fi_client"
             android:screenOrientation="portrait" >
         </activity>

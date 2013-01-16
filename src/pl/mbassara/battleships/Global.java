@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import android.app.Application;
+
 public class Global {
 	public static final boolean LOGS_ENABLED = true;
 	
@@ -36,6 +38,7 @@ public class Global {
 	public static final String KEY_GAME_RESULT = "gameReslut";
 	public static final int GAME_RESULT_WINNER = 4;
 	public static final int GAME_RESULT_LOOSER = 5;
+	public static final int GAME_RESULT_ABORTED = 6;
 
 	public static final int[] SHIPS_COUNER = {0, 0, 2, 2, 2, 1};
 	
@@ -50,7 +53,22 @@ public class Global {
 	public static final String GAME_MODE_HOST = "host";
 	public static final String GAME_MODE_CLIENT = "client";
 
-public static final String UUID = "76b4c611-da5a-4672-af97-7eb2fb71597e";
+	public static final String UUID = "76b4c611-da5a-4672-af97-7eb2fb71597e";
+	
+
+	
+	private static boolean[][] localUserBoardMatrix;
+	public static void setLocalUserBoardMatrix(boolean[][] matrix) {
+		if(matrix.length == 0)
+			return;
+		localUserBoardMatrix = new boolean[matrix.length][matrix[0].length];
+		for(int i = 0; i < localUserBoardMatrix.length; i++)
+			for(int j = 0; j < localUserBoardMatrix[i].length; j++)
+				localUserBoardMatrix[i][j] = matrix[i][j];
+	}
+	public static boolean[][] getLocalUserBoardMatrix() {
+		return localUserBoardMatrix;
+	}
     
     public static byte[] objectToByteArray(Object obj)
     {
