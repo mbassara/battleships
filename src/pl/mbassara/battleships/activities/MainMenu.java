@@ -3,6 +3,7 @@ package pl.mbassara.battleships.activities;
 import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.activities.connections.MultiplayerModeActivity;
+import pl.mbassara.battleships.enums.GameMode;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,14 +12,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 public class MainMenu extends Activity {
 	
 	private AlertDialog aboutDialog;
+	private Global global = Global.getInstance();
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main_menu);
         
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -65,7 +69,7 @@ public class MainMenu extends Activity {
     
     public void singleplayer(View view) {
     	Intent intent = new Intent(this, CreatingShipsActivity.class);
-    	Global.GAME_MODE = Global.GAME_MODE_SINGLE;
+    	global.GAME_MODE = GameMode.SINGLE;
     	startActivity(intent);
     }
     

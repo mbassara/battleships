@@ -4,22 +4,19 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import pl.mbassara.battleships.Global;
-import android.content.Context;
-
 public class WiFiHostService extends WiFiService {
 	
 	private ServerSocket serverSocket;
 	
-	public WiFiHostService(Context parentContext) {
-		super(parentContext);
+	public WiFiHostService() {
+		super();
 	}
 
 	@Override
 	public Socket connectSpecific() {
 		Socket socket = null;
 		try {
-			serverSocket = new ServerSocket(Global.WIFI_PORT);
+			serverSocket = new ServerSocket(global.WIFI_PORT);
 			socket = serverSocket.accept();
 			serverSocket.close();
 		} catch (IOException e) {

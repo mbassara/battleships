@@ -4,27 +4,35 @@ import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.activities.CreatingShipsActivity;
 import pl.mbassara.battleships.connections.bluetooth.BluetoothService;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 
 public abstract class BluetoothActivity extends Activity
 	implements DialogInterface.OnCancelListener {
 	
 	private static BluetoothService bluetoothService;
 	private boolean isActive = true;
+	protected Global global = Global.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+    
+    @Override
+    protected void onStop() {
+    	super.onStop();
+    	
+    	this.finish();
+    }
 
-    public abstract String getSpecificInfoString();
+    protected abstract String getSpecificInfoString();
     
     protected void connect(BluetoothService service) {
-		if(Global.LOGS_ENABLED) System.out.println("BluetoothActivity.connect()");
+		if(global.LOGS_ENABLED) System.out.println("BluetoothActivity.connect()");
 		bluetoothService = service;
 		
 		final ProgressDialog progressDialog = ProgressDialog.show(this, "", getSpecificInfoString(), true, true, this);
@@ -48,8 +56,10 @@ public abstract class BluetoothActivity extends Activity
 				}
 				
 				progressDialog.dismiss();
-				if(trialsCounter < COUNTER_MAX && isActive)
+				if(trialsCounter < COUNTER_MAX && isActive){
+					global.remoteService = bluetoothService;
 					startActivity(intent);
+				}
 				else if(isActive){
 					bluetoothService.stop();
 					System.out.println(getString(R.string.connection_timeout));
@@ -61,11 +71,6 @@ public abstract class BluetoothActivity extends Activity
 		thread.start();
     }
 
-    public static BluetoothService getRemoteService() {
-		return bluetoothService;
-	}
-    
-    
     public void onCancel(DialogInterface dialog) {
 		bluetoothService.stop();
 		isActive = false;

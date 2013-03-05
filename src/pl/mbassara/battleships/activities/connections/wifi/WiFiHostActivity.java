@@ -7,6 +7,7 @@ import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ public class WiFiHostActivity extends WiFiActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_wi_fi_host);
         
         ipTextView = (TextView) findViewById(R.id.HostIPAdressTextView);
@@ -48,7 +50,7 @@ public class WiFiHostActivity extends WiFiActivity {
 			wifiManager.reconnect();
 		}
 		
-		connect(new WiFiHostService(this));
+		connect(new WiFiHostService());
     }
     
     public void refreshIP(View view) {

@@ -14,6 +14,7 @@ public class CreatingShipsBoard extends Board
 	private ToggleButton placeShipsButton;
 	private Activity activity;
 	private Vibra vibra;
+	private Global global = Global.getInstance();
 		
 	public CreatingShipsBoard(Context context) {
 		this(context, SIZE_BIG);
@@ -52,9 +53,9 @@ public class CreatingShipsBoard extends Board
 	}
 	
 	private boolean checkShipsSizes() {
-		int[] shipsCounter = new int[Global.SHIPS_COUNER.length];
-		for(int i = 0; i < Global.SHIPS_COUNER.length; i++)
-			shipsCounter[i] = Global.SHIPS_COUNER[i];
+		int[] shipsCounter = new int[global.SHIPS_COUNER.length];
+		for(int i = 0; i < global.SHIPS_COUNER.length; i++)
+			shipsCounter[i] = global.SHIPS_COUNER[i];
 		
 		boolean result = true;
     	boolean[][] matrix = new boolean[10][10];
@@ -112,7 +113,7 @@ public class CreatingShipsBoard extends Board
     	
     	result = result && checkShipsSizes();
     	
-    	if(Global.LOGS_ENABLED) System.out.println("checking ships result: " + result);
+    	if(global.LOGS_ENABLED) System.out.println("checking ships result: " + result);
 		return result;
     }
     
@@ -155,7 +156,7 @@ public class CreatingShipsBoard extends Board
     			dir.concatenate(checkShip(matrix, x, y-1));
     	}
     	
-    	if(Global.LOGS_ENABLED) System.out.println("\tchecking ship " + x + "," + y + " result: " + dir);
+    	if(global.LOGS_ENABLED) System.out.println("\tchecking ship " + x + "," + y + " result: " + dir);
     	
     	return dir;	
     }

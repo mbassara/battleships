@@ -6,91 +6,87 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import pl.mbassara.battleships.Coordinates;
-import pl.mbassara.battleships.GameResult;
-import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.ShotResult;
+import pl.mbassara.battleships.enums.GamePacketType;
+import pl.mbassara.battleships.enums.GameResult;
+import pl.mbassara.battleships.enums.WhoStarts;
 
 public class GamePacket implements Serializable{
-	public static final int TYPE_WHO_STARTS = 0;
-	public static final int TYPE_SHOT = 1;
-	public static final int TYPE_RESULT = 2;
-	public static final int TYPE_TEXT_MESSAGE = 3;
-	public static final int TYPE_GAME_RESULT = 4;
-	public static final int TYPE_USER_NAME = 5;
-	public static final int TYPE_PACKET_BROKEN = 6;
 	
 	private static final long serialVersionUID = 5504703199854898469L;
-	private int type;
+	private GamePacketType type;
 	private String message = null;
 	private String userName = null;
 	private Coordinates coordinates = null;
-	private boolean whoStarts = Global.HOST_FIRST;
+	private WhoStarts whoStarts = WhoStarts.HOST_STARTS;
 	private ShotResult shotResult = null;
 	private GameResult gameResult = null;
 	
-	public GamePacket(int type, Object value) {
+	public GamePacket(GamePacketType type, Object value) {
 		this.type = type;
 		switch (type) {
-			case TYPE_WHO_STARTS:
-				this.whoStarts = (Boolean) value;
+			case WHO_STARTS:
+				this.whoStarts = (WhoStarts) value;
 				break;
-			case TYPE_SHOT:
+			case SHOT:
 				this.coordinates = (Coordinates) value;
 				break;
-			case TYPE_RESULT:
+			case RESULT:
 				this.shotResult = (ShotResult) value;
 				break;
-			case TYPE_TEXT_MESSAGE:
+			case TEXT_MESSAGE:
 				this.message = (String) value;
 				break;
-			case TYPE_GAME_RESULT:
+			case GAME_RESULT:
 				this.gameResult = (GameResult) value;
 				break;
-			case TYPE_USER_NAME:
+			case USER_NAME:
 				this.userName = (String) value;
+				break;
+			case OPPONENT_DISCONNECTED:
 				break;
 	
 			default:
-				this.type = TYPE_PACKET_BROKEN;
+				this.type = GamePacketType.PACKET_BROKEN;
 				break;
 		}
 	}
 	
-	public GamePacket(boolean whoStarts) {
+	public GamePacket(WhoStarts whoStarts) {
 		this.whoStarts = whoStarts;
-		type = TYPE_WHO_STARTS;
+		type = GamePacketType.WHO_STARTS;
 	}
 	
 	public GamePacket(ShotResult result) {
 		this.shotResult = result;
-		type = TYPE_RESULT;
+		type = GamePacketType.RESULT;
 	}
 	
 	public GamePacket(GameResult result) {
 		this.gameResult = result;
-		type = TYPE_GAME_RESULT;
+		type = GamePacketType.GAME_RESULT;
 	}
 	
 	public GamePacket(Coordinates coordinates) {
 		this.coordinates = coordinates;
-		type = TYPE_SHOT;
+		type = GamePacketType.SHOT;
 	}
 	
 	public GamePacket(int x, int y) {
 		coordinates = new Coordinates(x, y);
-		type = TYPE_SHOT;
+		type = GamePacketType.SHOT;
 	}
 	
 	public GamePacket(String message) {
 		this.message = message;
-		type = TYPE_TEXT_MESSAGE;
+		type = GamePacketType.TEXT_MESSAGE;
 	}
 
-	public int getType() {
+	public GamePacketType getType() {
 		return type;
 	}
 	
-	public boolean getWhoStarts() {
+	public WhoStarts getWhoStarts() {
 		return whoStarts;
 	}
 	
@@ -121,34 +117,27 @@ public class GamePacket implements Serializable{
 	public Element getXMLelement(Document doc) {
 		Element element = doc.createElement("gamePacket");
 		
-		String typeStr;
 		switch (type) {
-			case TYPE_GAME_RESULT:
-				typeStr = "gameResult";
+			case GAME_RESULT:
 				element.appendChild(GameResult.getXMLelement(gameResult, doc));
 				break;
-			case TYPE_RESULT:
-				typeStr = "result";
+			case RESULT:
 				element.appendChild(ShotResult.getXMLelement(shotResult, doc));
 				break;
-			case TYPE_SHOT:
-				typeStr = "shot";
+			case SHOT:
 				element.appendChild(Coordinates.getXMLelement(coordinates, doc));
 				break;
-			case TYPE_TEXT_MESSAGE:
-				typeStr = "textMessage";
+			case TEXT_MESSAGE:
 				element.setAttribute("message", message);
 				break;
-			case TYPE_WHO_STARTS:
-				typeStr = "whoStarts";
-				element.setAttribute("whoStarts", whoStarts == Global.HOST_FIRST ? "host" : "client");
+			case WHO_STARTS:
+				element.setAttribute("whoStarts", whoStarts == WhoStarts.HOST_STARTS ? "host" : "client");
 				break;
 			default:
-				typeStr = "error";
 				break;
 		}
 		
-		element.setAttribute("type", typeStr);
+		element.setAttribute("type", type.name());
 		
 		return element;
 	}

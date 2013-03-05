@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -17,10 +18,12 @@ import android.widget.ToggleButton;
 public class CreatingShipsActivity extends Activity{
 
 	private static CreatingShipsBoard board = null;
+	private Global global = Global.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_creating_ships);
         
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.creating_ships_layout);
@@ -52,12 +55,10 @@ public class CreatingShipsActivity extends Activity{
     }
     
     public void next(View view) {
-    	Global.USERS_NAME = getString(R.string.your_score);
-						
     	Intent intent;
    		intent = new Intent(this, GameActivity.class);
 
-        Global.setLocalUserBoardMatrix(board.getBoardMatrix());
+   		global.setLocalUserBoardMatrix(board.getBoardMatrix());
    		this.startActivity(intent);
     	this.finish();
 	}

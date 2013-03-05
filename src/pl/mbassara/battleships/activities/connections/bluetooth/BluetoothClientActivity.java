@@ -2,17 +2,17 @@ package pl.mbassara.battleships.activities.connections.bluetooth;
 
 import java.util.ArrayList;
 
-import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.connections.bluetooth.BluetoothClientService;
-import android.os.Bundle;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +23,7 @@ public class BluetoothClientActivity extends BluetoothActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_bluetooth_client);
 
 		adapter = BluetoothAdapter.getDefaultAdapter();
@@ -71,7 +72,7 @@ public class BluetoothClientActivity extends BluetoothActivity {
     public void bluetoothDeviceClicked(View view) {
     	String deviceName = ((TextView) view).getText().toString();
     	deviceName = deviceName.substring(deviceName.indexOf("\n") + 1);
-    	if(Global.LOGS_ENABLED) System.out.println("connecting to " + deviceName);
+    	if(global.LOGS_ENABLED) System.out.println("connecting to " + deviceName);
     	adapter.cancelDiscovery();
     	
     	BluetoothDevice hostDevice = null;

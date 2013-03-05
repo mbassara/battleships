@@ -3,6 +3,7 @@ package pl.mbassara.battleships.activities.connections.bluetooth;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.connections.bluetooth.BluetoothHostService;
 import android.os.Bundle;
+import android.view.Window;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 
@@ -13,6 +14,7 @@ public class BluetoothHostActivity extends BluetoothActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_bluetooth_host);
         
         adapter = BluetoothAdapter.getDefaultAdapter();

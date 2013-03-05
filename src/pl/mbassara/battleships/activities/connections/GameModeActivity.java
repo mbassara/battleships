@@ -6,18 +6,22 @@ import pl.mbassara.battleships.activities.connections.bluetooth.BluetoothClientA
 import pl.mbassara.battleships.activities.connections.bluetooth.BluetoothHostActivity;
 import pl.mbassara.battleships.activities.connections.wifi.WiFiClientActivity;
 import pl.mbassara.battleships.activities.connections.wifi.WiFiHostActivity;
-import android.os.Bundle;
+import pl.mbassara.battleships.enums.GameMode;
+import pl.mbassara.battleships.enums.MultiplayerGameMode;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 
 public class GameModeActivity extends Activity {
-	
-	private static String mode = Global.GAME_MODE_HOST;
 
+	private Global global = Global.getInstance();
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_game_mode);
     }
     
@@ -28,16 +32,12 @@ public class GameModeActivity extends Activity {
     	this.finish();
     }
     
-    public static String getMode() {
-		return mode;
-	}
-    
     public void gameModeClient(View view) {
-    	mode = Global.GAME_MODE_CLIENT;
+    	global.MULTIPLAYER_GAME_MODE = MultiplayerGameMode.CLIENT;
     	Intent intent = null;
-    	if(Global.GAME_MODE == Global.GAME_MODE_BT)
+    	if(global.GAME_MODE == GameMode.BLUETOOTH)
     		intent = new Intent(this, BluetoothClientActivity.class);
-    	else if(Global.GAME_MODE == Global.GAME_MODE_WIFI)
+    	else if(global.GAME_MODE == GameMode.WIFI)
     		intent = new Intent(this, WiFiClientActivity.class);
     	
     	if(intent != null)
@@ -45,11 +45,11 @@ public class GameModeActivity extends Activity {
     }
     
     public void gameModeHost(View view) {
-    	mode = Global.GAME_MODE_HOST;
+    	global.MULTIPLAYER_GAME_MODE = MultiplayerGameMode.HOST;
     	Intent intent = null;
-    	if(Global.GAME_MODE == Global.GAME_MODE_BT)
+    	if(global.GAME_MODE == GameMode.BLUETOOTH)
     		intent = new Intent(this, BluetoothHostActivity.class);
-    	else if(Global.GAME_MODE == Global.GAME_MODE_WIFI)
+    	else if(global.GAME_MODE == GameMode.WIFI)
     		intent = new Intent(this, WiFiHostActivity.class);
     	
     	if(intent != null)

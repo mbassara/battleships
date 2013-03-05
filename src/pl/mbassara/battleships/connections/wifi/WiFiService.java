@@ -14,6 +14,7 @@ import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.connections.GamePacket;
 import pl.mbassara.battleships.connections.GamePacketSerialization;
 import pl.mbassara.battleships.connections.RemoteService;
+import pl.mbassara.battleships.enums.DeviceType;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -24,6 +25,7 @@ public abstract class WiFiService implements RemoteService {
 	protected Socket socket = null;
 
 	protected String UUID;
+	protected Global global = Global.getInstance();
 	
 	private boolean isConnected = false;
 	private LinkedList<GamePacket> toSendQueue;
@@ -32,8 +34,8 @@ public abstract class WiFiService implements RemoteService {
 	private ReceivingThread receivingThread;
 	private ConnectingThread connectingThread;
 	
-	public WiFiService(Context parentContext) {
-        UUID = Global.UUID;
+	public WiFiService() {
+        UUID = global.UUID;
         toSendQueue = new LinkedList<GamePacket>();
         receivedQueue = new LinkedList<GamePacket>();
         
@@ -47,28 +49,27 @@ public abstract class WiFiService implements RemoteService {
 	abstract public void cancelSpecific();
 	
 	public void connect() {
-		if(Global.LOGS_ENABLED) System.out.println("WiFiService.connect()");
+		if(global.LOGS_ENABLED) System.out.println("WiFiService.connect()");
 		if(!connectingThread.isAlive()) connectingThread.start();
 	}
 	
 	public void stop() {
 		while(sendingThread.isAlive() || receivingThread.isAlive() || connectingThread.isAlive()) {
+			try {
+				Thread.sleep(550);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			
 			if(sendingThread != null && sendingThread.isAlive()) sendingThread.cancel();
 			if(receivingThread != null && receivingThread.isAlive()) receivingThread.cancel();
 			if(connectingThread != null && connectingThread.isAlive()) connectingThread.cancel();
-			
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 	
 	public boolean isConnected() {
 		if(socket != null)
-			return isConnected;
+			return socket.isConnected();
 		else
 			return false;
 	}
@@ -102,7 +103,7 @@ public abstract class WiFiService implements RemoteService {
 		
 		@Override
 		public void run() {
-			if(Global.LOGS_ENABLED) System.out.println("SendingThread.run()");
+			if(global.LOGS_ENABLED) System.out.println("SendingThread.run()");
 			isAlive = true;
 			try {
 				while(!isConnected && isAlive)
@@ -110,9 +111,9 @@ public abstract class WiFiService implements RemoteService {
 				
 				if(isAlive) {
 					outputStream = socket.getOutputStream();
-					if(Global.OPPONENT_DEVICE_TYPE == Global.DEVICE_TYPE_ANDROID)
+					if(global.OPPONENT_DEVICE_TYPE == DeviceType.ANDROID)
 						objectOutputStream = new ObjectOutputStream(outputStream);
-					if(Global.OPPONENT_DEVICE_TYPE == Global.DEVICE_TYPE_WINDOWS)
+					if(global.OPPONENT_DEVICE_TYPE == DeviceType.WINDOWS)
 						outputStreamWriter = new OutputStreamWriter(outputStream);
 				}
 				GamePacket packet;
@@ -120,13 +121,13 @@ public abstract class WiFiService implements RemoteService {
 				while(isAlive) {
 					if(!toSendQueue.isEmpty()) {
 						packet = toSendQueue.poll();
-						if(Global.OPPONENT_DEVICE_TYPE == Global.DEVICE_TYPE_ANDROID) {
+						if(global.OPPONENT_DEVICE_TYPE == DeviceType.ANDROID) {
 							objectOutputStream.writeObject(packet);
 							objectOutputStream.flush();
 						}
-						else if(Global.OPPONENT_DEVICE_TYPE == Global.DEVICE_TYPE_WINDOWS) {
+						else if(global.OPPONENT_DEVICE_TYPE == DeviceType.WINDOWS) {
 							String serializedPacket = GamePacketSerialization.serialize(packet);
-							outputStreamWriter.write(serializedPacket + Global.END_OF_PACKET);
+							outputStreamWriter.write(serializedPacket + global.END_OF_PACKET);
 							outputStreamWriter.flush();
 						}
 					}
@@ -143,7 +144,7 @@ public abstract class WiFiService implements RemoteService {
 		}
 		
 		public void cancel() {
-			if(Global.LOGS_ENABLED) System.out.println("SendingThread.cancel()");
+			if(global.LOGS_ENABLED) System.out.println("SendingThread.cancel()");
 			isAlive = false;
 			try {
 				if(outputStream != null) outputStream.close();
@@ -161,7 +162,7 @@ public abstract class WiFiService implements RemoteService {
 		
 		@Override
 		public void run() {
-			if(Global.LOGS_ENABLED) System.out.println("ReceivingThread.run()");
+			if(global.LOGS_ENABLED) System.out.println("ReceivingThread.run()");
 			isAlive = true;
 			try {
 				while(!isConnected && isAlive)
@@ -169,22 +170,22 @@ public abstract class WiFiService implements RemoteService {
 
 				if(isAlive) {
 					inputStream = socket.getInputStream();
-					if(Global.OPPONENT_DEVICE_TYPE == Global.DEVICE_TYPE_ANDROID)
+					if(global.OPPONENT_DEVICE_TYPE == DeviceType.ANDROID)
 						objectInputStream = new ObjectInputStream(inputStream);
-					if(Global.OPPONENT_DEVICE_TYPE == Global.DEVICE_TYPE_WINDOWS)
+					if(global.OPPONENT_DEVICE_TYPE == DeviceType.WINDOWS)
 						inputStreamReader = new InputStreamReader(inputStream);
 				}
 				GamePacket packet = null;
 				
 				while(isAlive) {
-					if(Global.OPPONENT_DEVICE_TYPE == Global.DEVICE_TYPE_ANDROID)
+					if(global.OPPONENT_DEVICE_TYPE == DeviceType.ANDROID)
 						packet = (GamePacket) objectInputStream.readObject();
-					else if(Global.OPPONENT_DEVICE_TYPE == Global.DEVICE_TYPE_WINDOWS) {
+					else if(global.OPPONENT_DEVICE_TYPE == DeviceType.WINDOWS) {
 						String serializedPacket = "";
-						while(!serializedPacket.endsWith(Global.END_OF_PACKET))
+						while(!serializedPacket.endsWith(global.END_OF_PACKET))
 							serializedPacket += (char) inputStreamReader.read();
 						
-						serializedPacket = serializedPacket.replace(Global.END_OF_PACKET, "");
+						serializedPacket = serializedPacket.replace(global.END_OF_PACKET, "");
 						packet = GamePacketSerialization.deserialize(serializedPacket);
 					}
 					
@@ -206,7 +207,7 @@ public abstract class WiFiService implements RemoteService {
 		}
 		
 		public void cancel() {
-			if(Global.LOGS_ENABLED) System.out.println("ReceivingThread.cancel()");
+			if(global.LOGS_ENABLED) System.out.println("ReceivingThread.cancel()");
 			isAlive = false;
 			try {
 				if(inputStream != null) inputStream.close();
@@ -221,35 +222,37 @@ public abstract class WiFiService implements RemoteService {
 		
 		@Override
 		public void run() {
-			if(Global.LOGS_ENABLED) System.out.println("ConnectingThread.run()");
+			if(global.LOGS_ENABLED) System.out.println("ConnectingThread.run()");
 			isAlive = true;
 			while(!isConnected && isAlive) {
 				socket = connectSpecific();	// can block
 				
-				try {
-					InputStream input = socket.getInputStream();
-					OutputStream output = socket.getOutputStream();
-					
-					output.write(Global.DEVICE_TYPE_ANDROID);	// send your DEVICE_TYPE
-					
-					int opponentDeviceType = input.read();
-					if(opponentDeviceType == Global.DEVICE_TYPE_WINDOWS) {
-						if(Global.LOGS_ENABLED) System.out.println("Opponent's device type: WINDOWS");
-						Global.OPPONENT_DEVICE_TYPE = opponentDeviceType;
-					}
-					else if(opponentDeviceType == Global.DEVICE_TYPE_ANDROID) {
-						if(Global.LOGS_ENABLED) System.out.println("Opponent's device type: ANDROID");
-						Global.OPPONENT_DEVICE_TYPE = opponentDeviceType;
-					}// if wrong value is read then do nothing (default value (windows) will be used)
-					
-				} catch (IOException e1) {
+				if(socket != null) {
 					try {
-						socket.close();
-					} catch (IOException e) {
-						e.printStackTrace();
+						InputStream input = socket.getInputStream();
+						OutputStream output = socket.getOutputStream();
+						
+						output.write(DeviceType.ANDROID.ordinal());	// send your DEVICE_TYPE
+						
+						int opponentDeviceType = input.read();
+						if(opponentDeviceType == DeviceType.WINDOWS.ordinal()) {
+							if(global.LOGS_ENABLED) System.out.println("Opponent's device type: WINDOWS");
+							global.OPPONENT_DEVICE_TYPE = DeviceType.WINDOWS;
+						}
+						else if(opponentDeviceType == DeviceType.ANDROID.ordinal()) {
+							if(global.LOGS_ENABLED) System.out.println("Opponent's device type: ANDROID");
+							global.OPPONENT_DEVICE_TYPE = DeviceType.ANDROID;
+						}// if wrong value is read then do nothing (default value (windows) will be used)
+						
+					} catch (IOException e1) {
+						try {
+							socket.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						socket = null;
+						e1.printStackTrace();
 					}
-					socket = null;
-					e1.printStackTrace();
 				}
 				
 				isConnected = socket != null;
@@ -266,7 +269,7 @@ public abstract class WiFiService implements RemoteService {
 		}
 		
 		public void cancel() {
-			if(Global.LOGS_ENABLED) System.out.println("ConnectingThread.cancel()");
+			if(global.LOGS_ENABLED) System.out.println("ConnectingThread.cancel()");
 			
 			cancelSpecific();
 			isAlive = false;

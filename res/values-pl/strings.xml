@@ -84,6 +84,7 @@
     <string name="sure_wanna_quit">Na pewno chcesz zakończyć grę?</string>
     <string name="result_winner">Wygrałeś!!!</string>
     <string name="result_looser">Przegrałeś…</string>
+    <string name="opponent_disconnected">Przeciwnik przerwał grę.</string>
     <string name="exit">Wyjście</string>
     
     <string name="positive_button">Tak</string>

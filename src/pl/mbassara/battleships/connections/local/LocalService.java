@@ -2,13 +2,17 @@ package pl.mbassara.battleships.connections.local;
 
 import java.util.LinkedList;
 
+import android.content.Context;
+
 import pl.mbassara.battleships.AIComputer;
 import pl.mbassara.battleships.Coordinates;
-import pl.mbassara.battleships.GameResult;
 import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.ShotResult;
 import pl.mbassara.battleships.connections.GamePacket;
 import pl.mbassara.battleships.connections.RemoteService;
+import pl.mbassara.battleships.enums.GamePacketType;
+import pl.mbassara.battleships.enums.GameResult;
+import pl.mbassara.battleships.enums.WhoStarts;
 
 public class LocalService implements RemoteService {
 	
@@ -17,7 +21,7 @@ public class LocalService implements RemoteService {
 	private final LinkedList<GamePacket> fromPlayerToCPUQueue = new LinkedList<GamePacket>();
 	private AIComputer aiComputer;
 	
-	public LocalService() {
+	public LocalService(Context context) {
 		aiComputer = new AIComputer();
 	}
 
@@ -38,30 +42,34 @@ public class LocalService implements RemoteService {
 					}
 					
 					GamePacket gamePacket = fromPlayerToCPUQueue.poll();
+					if(!isConnected)
+						continue;
 	
-					if(gamePacket.getType() == GamePacket.TYPE_WHO_STARTS) {
-						if(gamePacket.getWhoStarts() == Global.CLIENT_FIRST)
+					if(gamePacket.getType() == GamePacketType.WHO_STARTS) {
+						if(gamePacket.getWhoStarts() == WhoStarts.CLIENT_STARTS)
 							fromCPUtoPlayerQueue.offer(aiComputer.doShot());
 					}
-					else if(gamePacket.getType() == GamePacket.TYPE_SHOT) {
+					else if(gamePacket.getType() == GamePacketType.SHOT) {
 						Coordinates field = gamePacket.getCoordinates();
 						ShotResult result = aiComputer.receiveShot(field.getX(), field.getY());
 						fromCPUtoPlayerQueue.offer(new GamePacket(result));
 	
 						if(result.isGameEnded())
-							fromCPUtoPlayerQueue.offer(new GamePacket(new GameResult(Global.GAME_RESULT_WINNER)));
+							fromCPUtoPlayerQueue.offer(new GamePacket(GameResult.WINNER));
 						else if((!result.isHit() || result.isSunk()) && !result.isGameEnded())
 							fromCPUtoPlayerQueue.offer(aiComputer.doShot());
 					}
-					else if(gamePacket.getType() == GamePacket.TYPE_RESULT) {
+					else if(gamePacket.getType() == GamePacketType.RESULT) {
 						aiComputer.receiveResult(gamePacket.getShotResult());
 						if(gamePacket.getShotResult().isHit() && !gamePacket.getShotResult().isSunk())
 							fromCPUtoPlayerQueue.offer(aiComputer.doShot());
 					}
-					else if(gamePacket.getType() == GamePacket.TYPE_GAME_RESULT) {
+					else if(gamePacket.getType() == GamePacketType.GAME_RESULT) {
 						isConnected = false;
 					}
 				}
+				if(Global.getInstance().LOGS_ENABLED)
+					System.out.println("Local service's receiving thread finished.");
 			}
 		});
 		

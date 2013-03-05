@@ -63,7 +63,7 @@ public class ShotResult implements Serializable{
 		
 		element.appendChild(Coordinates.getXMLelement(shotResult.coordinates, doc));
 		
-		element.setAttribute("matrix", shotResult.matrix == null ? "null" : Global.boolArrayToString(shotResult.matrix));
+		element.setAttribute("matrix", shotResult.matrix == null ? "null" : ArrayUtilities.boolArrayToString(shotResult.matrix));
 		
 		return element;
 	}

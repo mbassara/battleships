@@ -14,8 +14,10 @@ public class AIComputer {
 	private ArrayList<Dim> opponentShips;
 	private ArrayList<Dim> currentlyShotShip;
 	private Random rand;
+	private Global global = Global.getInstance();
 
 	public AIComputer() {
+		
 		this.ships = new Ship[10][10];
 		boolean[][] matrix = generateMatrix();
 		for(int i = 0; i < 10; i++)
@@ -31,7 +33,8 @@ public class AIComputer {
 	}
 	
 	public static boolean[][] generateMatrix() {
-		if(Global.LOGS_ENABLED) System.out.println("AIComputerBoard.generateMatrix()");
+		Global global = Global.getInstance();
+		if(global.LOGS_ENABLED) System.out.println("AIComputerBoard.generateMatrix()");
 		boolean[][] matrix = new boolean[10][10];
 		ArrayList<Dim> fields = new ArrayList<Dim>();
 		ArrayList<Dim> tmp = new ArrayList<Dim>();
@@ -44,8 +47,8 @@ public class AIComputer {
 		
 		Random rand = new Random();
 		
-		for(int size = Global.SHIPS_COUNER.length-1; size > 1; size--) {
-			for(int no = 0; no < Global.SHIPS_COUNER[size]; no++) {
+		for(int size = global.SHIPS_COUNER.length-1; size > 1; size--) {
+			for(int no = 0; no < global.SHIPS_COUNER[size]; no++) {
 				Collections.shuffle(fields);
 				for(Dim dim : fields) {
 					boolean possible = true;
@@ -108,7 +111,7 @@ public class AIComputer {
 	
 	public GamePacket doShot() {
 				
-		if(Global.LOGS_ENABLED) System.out.println("currentlyShotShips:\n" + currentlyShotShip);
+		if(global.LOGS_ENABLED) System.out.println("currentlyShotShips:\n" + currentlyShotShip);
 		
 		Dim dim = null;
 		try {
@@ -186,7 +189,7 @@ public class AIComputer {
 		
 		int x = dim.x;
 		int y = dim.y;
-		if(Global.LOGS_ENABLED) System.out.println("shot - field: " + x + "," + y);
+		if(global.LOGS_ENABLED) System.out.println("shot - field: " + x + "," + y);
 		
 		return new GamePacket(x, y);
 	}
@@ -233,7 +236,7 @@ public class AIComputer {
 				ships[x][y].setMissed();
 		}
 
-		if(Global.LOGS_ENABLED) {
+		if(global.LOGS_ENABLED) {
 	    	for(int i = 0; i < 10; i++) {
 				for(int j = 0; j < 10; j++)
 					System.out.print("  " + ships[i][j]);

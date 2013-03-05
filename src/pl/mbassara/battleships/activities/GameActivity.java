@@ -1,21 +1,20 @@
 package pl.mbassara.battleships.activities;
 
-import java.util.Random;
-
+import pl.mbassara.battleships.ArrayUtilities;
 import pl.mbassara.battleships.GameBoard;
-import pl.mbassara.battleships.GameResult;
 import pl.mbassara.battleships.GameShipButton;
 import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.ScoreBoard;
 import pl.mbassara.battleships.ShipButton;
 import pl.mbassara.battleships.ShotResult;
-import pl.mbassara.battleships.activities.connections.GameModeActivity;
-import pl.mbassara.battleships.activities.connections.bluetooth.BluetoothActivity;
-import pl.mbassara.battleships.activities.connections.wifi.WiFiActivity;
 import pl.mbassara.battleships.connections.GamePacket;
 import pl.mbassara.battleships.connections.RemoteService;
 import pl.mbassara.battleships.connections.local.LocalService;
+import pl.mbassara.battleships.enums.GamePacketType;
+import pl.mbassara.battleships.enums.GameResult;
+import pl.mbassara.battleships.enums.MultiplayerGameMode;
+import pl.mbassara.battleships.enums.WhoStarts;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,6 +23,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -34,17 +34,20 @@ import android.widget.Toast;
 
 public class GameActivity extends Activity
 	implements OnCheckedChangeListener {
-	
+
+	private Global global = Global.getInstance();
 	private GameBoard mainBoard;
 	private GameBoard previewBoard;
 	private RemoteService remoteService;
 	private boolean meStartFirst = true;
-	private String gameMode;
+	private MultiplayerGameMode gameMode;
 	private GameShipButton currentTarget = null;
 	private boolean[][] matrix = null;
 	private ScoreBoard scoreBoard;
 	private final GameMessagesHandler handler = new GameMessagesHandler();
 	private final Context currentContext = this;
+	
+	private boolean isGameInProgress = false;
 	
 	private Toast youStartToast;
 	private Toast opponentStartToast;
@@ -53,37 +56,41 @@ public class GameActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_game);
         
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-		if(Global.GAME_MODE.equals(Global.GAME_MODE_BT)) {
-			remoteService = BluetoothActivity.getRemoteService();
-	        gameMode = GameModeActivity.getMode();
-		}
-		else if(Global.GAME_MODE.equals(Global.GAME_MODE_WIFI)) {
-			remoteService = WiFiActivity.getRemoteService();
-	        gameMode = GameModeActivity.getMode();
-		}
-		else if(Global.GAME_MODE.equals(Global.GAME_MODE_SINGLE)) {
-			remoteService = new LocalService();
+        switch (global.GAME_MODE) {
+		case BLUETOOTH:
+			remoteService = global.remoteService;
+	        gameMode = global.MULTIPLAYER_GAME_MODE;
+			break;
+		case WIFI:
+			remoteService = global.remoteService;
+	        gameMode = global.MULTIPLAYER_GAME_MODE;
+			break;
+		case SINGLE:
+			remoteService = new LocalService(this);
 			remoteService.connect();
-	        gameMode = Global.GAME_MODE_HOST;
-		}
-		else
+	        gameMode = MultiplayerGameMode.HOST;
+			break;
+
+		default:
 			this.finish();
-		
+			break;
+		}
         
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_game_layout);
-        previewBoard = new GameBoard(this, Global.getLocalUserBoardMatrix(), GameBoard.SIZE_SMALL);
+        previewBoard = new GameBoard(this, global.getLocalUserBoardMatrix(), GameBoard.SIZE_SMALL);
         mainBoard = new GameBoard(this, null, GameBoard.SIZE_BIG);
         mainBoard.setOnCheckedChangeListener(this);
 
         TextView playerScore = (TextView) findViewById(R.id.yourScoreTextView);
         TextView oppScore = (TextView) findViewById(R.id.opponentScoreTextView);
         scoreBoard = new ScoreBoard(this, playerScore, oppScore);
-        scoreBoard.setLocalPlayersName(Global.USERS_NAME);
-        remoteService.send(new GamePacket(GamePacket.TYPE_USER_NAME, Global.USERS_NAME));
+        scoreBoard.setLocalPlayersName(global.USER_NAME);
+        remoteService.send(new GamePacket(GamePacketType.USER_NAME, global.USER_NAME));
         
         LayoutParams previewBoardParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         previewBoardParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -104,9 +111,9 @@ public class GameActivity extends Activity
     	opponentStartToast = Toast.makeText(currentContext, getString(R.string.opponent_starts), Toast.LENGTH_SHORT);
     	waitingForOpponentToast = Toast.makeText(currentContext, getString(R.string.wait_for_opponent), Toast.LENGTH_SHORT);
 
-        if(gameMode == Global.GAME_MODE_HOST) {
-        	boolean whoStarts = (new Random(System.currentTimeMillis())).nextBoolean();
-        	meStartFirst = whoStarts == Global.HOST_FIRST;
+        if(gameMode == MultiplayerGameMode.HOST) {
+        	WhoStarts whoStarts = WhoStarts.getRandom();
+        	meStartFirst = whoStarts == WhoStarts.HOST_STARTS;
   	        GamePacket packet = new GamePacket(whoStarts);
   	        remoteService.send(packet);
   	        
@@ -134,7 +141,7 @@ public class GameActivity extends Activity
 				if(currentTarget != null)
 					currentTarget.setTarget(false);
 				
-				if(Global.LOGS_ENABLED) System.out.println("button (" + x + "," + y + ") clicked");
+				if(global.LOGS_ENABLED) System.out.println("button (" + x + "," + y + ") clicked");
 				currentTarget = button;
 				button.setTarget(true);
 			}
@@ -147,16 +154,27 @@ public class GameActivity extends Activity
 		}
 	}
 	
-	private void endGame(int result) {
+	private void endGame(GameResult result) {
 		
 		switch (result) {
-		case Global.GAME_RESULT_WINNER:
+		case WINNER:
 	    	Toast.makeText(this, getString(R.string.result_winner), Toast.LENGTH_LONG).show();
 			break;
-		case Global.GAME_RESULT_LOOSER:
+		case LOOSER:
 	    	Toast.makeText(this, getString(R.string.result_looser), Toast.LENGTH_LONG).show();
 			break;
+		case OPPONENT_DISCONNECTED:
+			Toast.makeText(this, getString(R.string.opponent_disconnected), Toast.LENGTH_LONG).show();
+			break;
+		case ABORTED:
+			remoteService.send(new GamePacket(GamePacketType.OPPONENT_DISCONNECTED, null));
+			break;
+		default:
+			break;
 		}
+		
+		isGameInProgress = false;
+		remoteService.stop();
 		
 		this.finish();
 	}
@@ -165,44 +183,46 @@ public class GameActivity extends Activity
 
 		public void run() {
 			GamePacket packet;
-			while (true) {
+			isGameInProgress = true;
+			while (isGameInProgress) {
 				packet = remoteService.receive();
 				if(packet != null) {
-					if(Global.LOGS_ENABLED) System.out.println("packet received, size = " + Global.objectToByteArray(packet).length);
+					if(global.LOGS_ENABLED) System.out.println("packet received, size = " + ArrayUtilities.objectToByteArray(packet).length);
 					Bundle bundle = new Bundle();
 					Message message = new Message();
 					
-					if(packet.getType() == GamePacket.TYPE_WHO_STARTS) {
-						bundle.putInt(Global.GameMessagesHandler_KEY_TYPE, Global.GameMessagesHandler_TYPE_WHO_STARTS);
-						bundle.putBoolean(Global.GameMessagesHandler_KEY_WHO_STARTS, packet.getWhoStarts());
+					if(packet.getType() == GamePacketType.WHO_STARTS) {
+						bundle.putInt(HandlerKey.TYPE.name(), GamePacketType.WHO_STARTS.ordinal());
+						bundle.putInt(HandlerKey.WHO_STARTS.name(), packet.getWhoStarts().ordinal());
 					}
-					else if (packet.getType() == GamePacket.TYPE_USER_NAME) {
-						bundle.putInt(Global.GameMessagesHandler_KEY_TYPE, Global.GameMessagesHandler_TYPE_USERS_NAME);
-						bundle.putString(Global.GameMessagesHandler_KEY_USERS_NAME, packet.getUserName());
+					else if (packet.getType() == GamePacketType.USER_NAME) {
+						bundle.putInt(HandlerKey.TYPE.name(), GamePacketType.USER_NAME.ordinal());
+						bundle.putString(HandlerKey.USER_NAME.name(), packet.getUserName());
 					}
-					else if(packet.getType() == GamePacket.TYPE_SHOT) {
+					else if(packet.getType() == GamePacketType.SHOT) {
 						int x = packet.getCoordinates().getX();
 						int y = packet.getCoordinates().getY();
-						if(Global.LOGS_ENABLED) System.out.println("shot - field: " + x + "," + y);
+						if(global.LOGS_ENABLED) System.out.println("shot - field: " + x + "," + y);
 						
-						bundle.putInt(Global.GameMessagesHandler_KEY_TYPE, Global.GameMessagesHandler_TYPE_SHOT);
-						bundle.putInt(Global.GameMessagesHandler_KEY_X, x);
-						bundle.putInt(Global.GameMessagesHandler_KEY_Y, y);
+						bundle.putInt(HandlerKey.TYPE.name(), GamePacketType.SHOT.ordinal());
+						bundle.putInt(HandlerKey.X.name(), x);
+						bundle.putInt(HandlerKey.Y.name(), y);
 					}
-					else if(packet.getType() == GamePacket.TYPE_RESULT) {
-						bundle.putInt(Global.GameMessagesHandler_KEY_TYPE, Global.GameMessagesHandler_TYPE_RESULT);
-						bundle.putBoolean(Global.GameMessagesHandler_KEY_RESULT_IS_HIT, packet.getShotResult().isHit());
-						bundle.putBoolean(Global.GameMessagesHandler_KEY_RESULT_IS_SUNK, packet.getShotResult().isSunk());
+					else if(packet.getType() == GamePacketType.RESULT) {
+						bundle.putInt(HandlerKey.TYPE.name(), GamePacketType.RESULT.ordinal());
+						bundle.putBoolean(HandlerKey.RESULT_IS_HIT.name(), packet.getShotResult().isHit());
+						bundle.putBoolean(HandlerKey.RESULT_IS_SUNK.name(), packet.getShotResult().isSunk());
 						matrix = packet.getShotResult().getMatrix();
-						if(Global.LOGS_ENABLED) System.out.println("shot result received");
+						if(global.LOGS_ENABLED) System.out.println("shot result received");
 					}
-					else if(packet.getType() == GamePacket.TYPE_GAME_RESULT) {
-						endGame(
-								packet.getGameResult().isWinner() ?
-										Global.GAME_RESULT_WINNER :
-										Global.GAME_RESULT_LOOSER
-								);
-						if(Global.LOGS_ENABLED) System.out.println("game result received");
+					else if(packet.getType() == GamePacketType.GAME_RESULT) {
+						bundle.putInt(HandlerKey.TYPE.name(), GamePacketType.GAME_RESULT.ordinal());
+						bundle.putInt(HandlerKey.GAME_RESULT.name(), packet.getGameResult().ordinal());
+						if(global.LOGS_ENABLED) System.out.println("game result received");
+					}
+					else if(packet.getType() == GamePacketType.OPPONENT_DISCONNECTED) {
+						bundle.putInt(HandlerKey.TYPE.name(), GamePacketType.OPPONENT_DISCONNECTED.ordinal());
+						if(global.LOGS_ENABLED) System.out.println("OPPONENT_DISCONNECTED info received");
 					}
 
 					message.setData(bundle);
@@ -224,26 +244,29 @@ public class GameActivity extends Activity
 		@Override
 		public void handleMessage(Message msg) {
 			Bundle data = msg.getData();
-			if(data.getInt(Global.GameMessagesHandler_KEY_TYPE) == Global.GameMessagesHandler_TYPE_WHO_STARTS) {
+			if(data.getInt(HandlerKey.TYPE.name()) == GamePacketType.WHO_STARTS.ordinal()) {
 				waitingForOpponentToast.cancel();
-	        	meStartFirst = data.getBoolean(Global.GameMessagesHandler_KEY_WHO_STARTS) == Global.CLIENT_FIRST;
+	        	meStartFirst = data.getInt(HandlerKey.WHO_STARTS.name()) == WhoStarts.CLIENT_STARTS.ordinal();
 	            mainBoard.setShootable(meStartFirst);
 	            if(meStartFirst)
 	            	youStartToast.show();
 	            else
 	            	opponentStartToast.show();
 			}
-			else if(data.getInt(Global.GameMessagesHandler_KEY_TYPE) == Global.GameMessagesHandler_TYPE_USERS_NAME) {
-				scoreBoard.setRemotePlayersName(data.getString(Global.GameMessagesHandler_KEY_USERS_NAME));
+			else if(data.getInt(HandlerKey.TYPE.name()) == GamePacketType.USER_NAME.ordinal()) {
+				scoreBoard.setRemotePlayersName(data.getString(HandlerKey.USER_NAME.name()));
 			}
-			else if(data.getInt(Global.GameMessagesHandler_KEY_TYPE) == Global.GameMessagesHandler_TYPE_SHOT) {
-				if(Global.LOGS_ENABLED) System.out.println("shot info handled");
-				int x = msg.getData().getInt(Global.GameMessagesHandler_KEY_X);
-				int y = msg.getData().getInt(Global.GameMessagesHandler_KEY_Y);
+			else if(data.getInt(HandlerKey.TYPE.name()) == GamePacketType.GAME_RESULT.ordinal()) {
+				endGame(GameResult.values()[data.getInt(HandlerKey.GAME_RESULT.name())]);
+			}
+			else if(data.getInt(HandlerKey.TYPE.name()) == GamePacketType.SHOT.ordinal()) {
+				if(global.LOGS_ENABLED) System.out.println("shot info handled");
+				int x = msg.getData().getInt(HandlerKey.X.name());
+				int y = msg.getData().getInt(HandlerKey.Y.name());
 				ShotResult result = previewBoard.shoot(x, y);
 				if(previewBoard.isGameEnded()) {
-					remoteService.send(new GamePacket(new GameResult(Global.GAME_RESULT_WINNER)));	// opponent is winner because he sunk all of my ships
-					endGame(Global.GAME_RESULT_LOOSER);
+					remoteService.send(new GamePacket(GameResult.WINNER));	// opponent is winner because he sunk all of my ships
+					endGame(GameResult.LOOSER);
 				}
 				else {
 					remoteService.send(new GamePacket(result));
@@ -253,22 +276,37 @@ public class GameActivity extends Activity
 						scoreBoard.remotePlayerScoreUp();
 				}
 			}
-			else if(data.getInt(Global.GameMessagesHandler_KEY_TYPE) == Global.GameMessagesHandler_TYPE_RESULT) {
-				if(Global.LOGS_ENABLED) System.out.println("shot result info handled");
-				boolean result = data.getBoolean(Global.GameMessagesHandler_KEY_RESULT_IS_HIT);
+			else if(data.getInt(HandlerKey.TYPE.name()) == GamePacketType.RESULT.ordinal()) {
+				if(global.LOGS_ENABLED) System.out.println("shot result info handled");
+				boolean result = data.getBoolean(HandlerKey.RESULT_IS_HIT.name());
 				mainBoard.shotResult(currentTarget.getFieldX(), currentTarget.getFieldY(), result);
-				mainBoard.setShootable(result && !data.getBoolean(Global.GameMessagesHandler_KEY_RESULT_IS_SUNK));
+				mainBoard.setShootable(result && !data.getBoolean(HandlerKey.RESULT_IS_SUNK.name()));
 				
 				currentTarget = null;
-				if(data.getBoolean(Global.GameMessagesHandler_KEY_RESULT_IS_SUNK)) {
-					if(Global.LOGS_ENABLED) System.out.println("ship is sunked");
+				if(data.getBoolean(HandlerKey.RESULT_IS_SUNK.name())) {
+					if(global.LOGS_ENABLED) System.out.println("ship is sunked");
 					scoreBoard.localPlayerScoreUp();
 					mainBoard.setShipSunk(matrix);
 				}
 			}
+			else if(data.getInt(HandlerKey.TYPE.name()) == GamePacketType.OPPONENT_DISCONNECTED.ordinal()) {
+				endGame(GameResult.OPPONENT_DISCONNECTED);
+			}
 		}
 	};
 	
+	private enum HandlerKey {
+		X,
+		Y,
+		RESULT_IS_HIT,
+		RESULT_IS_SUNK,
+		RESULT_IS_GAME_ENDED,
+		TYPE,
+		SHOOT_BUTTON_SET_ENABLED,
+		WHO_STARTS,
+		GAME_RESULT,
+		USER_NAME 
+	}
 	
 	@Override
 	public void onBackPressed() {
@@ -277,7 +315,7 @@ public class GameActivity extends Activity
 			.setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
 				
 				public void onClick(DialogInterface dialog, int which) {
-					endGame(Global.GAME_RESULT_ABORTED);
+					endGame(GameResult.ABORTED);
 				}
 			})
 			.setNegativeButton(R.string.negative_button, null)

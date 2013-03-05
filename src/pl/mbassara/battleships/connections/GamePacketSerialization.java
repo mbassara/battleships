@@ -22,19 +22,21 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import pl.mbassara.battleships.ArrayUtilities;
 import pl.mbassara.battleships.Coordinates;
-import pl.mbassara.battleships.GameResult;
-import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.ShotResult;
+import pl.mbassara.battleships.enums.GamePacketType;
+import pl.mbassara.battleships.enums.GameResult;
+import pl.mbassara.battleships.enums.WhoStarts;
 
 
 class GamePacketXMLHandler extends DefaultHandler {
 	
 	private GamePacket packet = null;
-	private int type;
+	private GamePacketType type;
 	private String message = null;
 	private Coordinates coordinates = null;
-	private boolean whoStarts;
+	private WhoStarts whoStarts;
 	private ShotResult shotResult = null;
 	private GameResult gameResult = null;
 	private boolean[][] matrix;
@@ -49,22 +51,27 @@ class GamePacketXMLHandler extends DefaultHandler {
 //System.out.println("start:\t" + qName);
 		
 		if(qName.equals("gamePacket")) {
-			if(attr.getValue("type").equals("whoStarts")) {
-				type = GamePacket.TYPE_WHO_STARTS;
-				whoStarts = attr.getValue("whoStarts").equals("host") ? Global.HOST_FIRST : Global.CLIENT_FIRST;
+			if(attr.getValue("type").equals(GamePacketType.WHO_STARTS.name())) {
+				type = GamePacketType.WHO_STARTS;
+				whoStarts = attr.getValue("whoStarts").equals("host") ?
+								WhoStarts.HOST_STARTS :
+								WhoStarts.CLIENT_STARTS;
 			}
-			else if(attr.getValue("type").equals("textMessage")) {
-				type = GamePacket.TYPE_TEXT_MESSAGE;
+			else if(attr.getValue("type").equals(GamePacketType.TEXT_MESSAGE.name())) {
+				type = GamePacketType.TEXT_MESSAGE;
 				message = attr.getValue("message");
 			}
-			else if(attr.getValue("type").equals("shot")) {
-				type = GamePacket.TYPE_SHOT;
+			else if(attr.getValue("type").equals(GamePacketType.SHOT.name())) {
+				type = GamePacketType.SHOT;
 			}
-			else if(attr.getValue("type").equals("result")) {
-				type = GamePacket.TYPE_RESULT;
+			else if(attr.getValue("type").equals(GamePacketType.RESULT.name())) {
+				type = GamePacketType.RESULT;
 			}
-			else if(attr.getValue("type").equals("gameResult")) {
-				type = GamePacket.TYPE_GAME_RESULT;
+			else if(attr.getValue("type").equals(GamePacketType.GAME_RESULT.name())) {
+				type = GamePacketType.GAME_RESULT;
+			}
+			else if(attr.getValue("type").equals(GamePacketType.OPPONENT_DISCONNECTED.name())) {
+				type = GamePacketType.OPPONENT_DISCONNECTED;
 			}
 		}
 		else if(qName.equals("coordinates") && attr.getValue("isNull").equals("false")) {
@@ -73,7 +80,7 @@ class GamePacketXMLHandler extends DefaultHandler {
 			coordinates = new Coordinates(x, y);
 		}
 		else if(qName.equals("gameResult") && attr.getValue("isNull").equals("false")) {
-			gameResult = new GameResult(attr.getValue("result").equals("winner") ? Global.GAME_RESULT_WINNER : Global.GAME_RESULT_LOOSER);
+			gameResult = attr.getValue("result").equals("winner") ? GameResult.WINNER : GameResult.LOOSER;
 		}
 		else if(qName.equals("shotResult") && attr.getValue("isNull").equals("false")) {
 			isHit = Boolean.parseBoolean(attr.getValue("isHit"));
@@ -81,7 +88,7 @@ class GamePacketXMLHandler extends DefaultHandler {
 			isGameEnded = Boolean.parseBoolean(attr.getValue("isGameEnded"));
 			String matrixStr = attr.getValue("matrix");
 			if(!matrixStr.equals("null"))
-				matrix = Global.stringToBoolArray(matrixStr);
+				matrix = ArrayUtilities.stringToBoolArray(matrixStr);
 		}
 		
 		super.startElement(uri, localName, qName, attr);
@@ -95,19 +102,19 @@ class GamePacketXMLHandler extends DefaultHandler {
 
 		if(qName.equals("gamePacket")) {
 			switch (type) {
-				case GamePacket.TYPE_GAME_RESULT:
+				case GAME_RESULT:
 					packet = new GamePacket(gameResult);
 					break;
-				case GamePacket.TYPE_RESULT:
+				case RESULT:
 					packet = new GamePacket(shotResult);
 					break;
-				case GamePacket.TYPE_SHOT:
+				case SHOT:
 					packet = new GamePacket(coordinates);
 					break;
-				case GamePacket.TYPE_TEXT_MESSAGE:
+				case TEXT_MESSAGE:
 					packet = new GamePacket(message);
 					break;
-				case GamePacket.TYPE_WHO_STARTS:
+				case WHO_STARTS:
 					packet = new GamePacket(whoStarts);
 					break;
 				default:

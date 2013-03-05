@@ -3,16 +3,20 @@ package pl.mbassara.battleships.activities;
 import pl.mbassara.battleships.Global;
 import pl.mbassara.battleships.R;
 import pl.mbassara.battleships.Vibra;
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.CheckBox;
 
 public class OptionsActivity extends Activity {
 
+	private Global global = Global.getInstance();
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_options);
     }
     
@@ -21,7 +25,7 @@ public class OptionsActivity extends Activity {
     	super.onStart();
     	
     	((CheckBox) findViewById(R.id.enableVibraCheckBox)).setChecked(Vibra.isEnabled());
-    	((CheckBox) findViewById(R.id.enableTipsCheckBox)).setChecked(Global.SHOOTING_TIPS_ENABLED);
+    	((CheckBox) findViewById(R.id.enableTipsCheckBox)).setChecked(global.SHOOTING_TIPS_ENABLED);
     }
     
     @Override
@@ -40,7 +44,7 @@ public class OptionsActivity extends Activity {
     
     public void enableTips(View view) {
     	CheckBox button = (CheckBox) view;
-    	Global.SHOOTING_TIPS_ENABLED = button.isChecked();
+    	global.SHOOTING_TIPS_ENABLED = button.isChecked();
     	if(button.isChecked())
     		Vibra.getInstance(this).beepTriple();
     }

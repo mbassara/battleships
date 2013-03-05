@@ -18,6 +18,7 @@ public abstract class WiFiActivity extends Activity
 	
 	private static WiFiService wiFiService;
 	private boolean isActive = true;
+	protected Global global = Global.getInstance();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,11 +31,18 @@ public abstract class WiFiActivity extends Activity
 		}
 		
 	}
+    
+    @Override
+    protected void onStop() {
+    	super.onStop();
+    	
+    	this.finish();
+    }
 	
-	public abstract String getSpecificInfoString();
+	protected abstract String getSpecificInfoString();
 	
 	protected void connect(WiFiService service) {
-		if(Global.LOGS_ENABLED) System.out.println("WiFiActivity.connect()");
+		if(global.LOGS_ENABLED) System.out.println("WiFiActivity.connect()");
 		wiFiService = service;
 		
 		final ProgressDialog dialog = ProgressDialog.show(this, "", getSpecificInfoString(), true, true, this);
@@ -58,8 +66,10 @@ public abstract class WiFiActivity extends Activity
 				}
 				
 				dialog.dismiss();
-				if(trialsCounter < COUNTER_MAX && isActive)
+				if(trialsCounter < COUNTER_MAX && isActive){
+					global.remoteService = wiFiService;
 					startActivity(intent);
+				}
 				else if(isActive){
 					wiFiService.stop();
 					System.out.println(getString(R.string.connection_timeout));
@@ -70,11 +80,6 @@ public abstract class WiFiActivity extends Activity
 		
 		thread.start();
 	}
-	
-	public static WiFiService getRemoteService() {
-		return wiFiService;
-	}
-	
 	
 	public void onCancel(DialogInterface dialog) {
 		if(wiFiService != null) wiFiService.stop();

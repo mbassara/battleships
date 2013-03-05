@@ -7,7 +7,7 @@
     android:paddingBottom="10dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:paddingTop="5dp" >
+    android:paddingTop="10dp" >
 
 	<TextView
 	    android:id="@+id/yourScoreTextView"
@@ -30,5 +30,6 @@
 		android:layout_marginRight="10dp"
         android:layout_below="@+id/yourScoreTextView"
         android:layout_marginTop="10dp" />
+        
 
 </RelativeLayout>

@@ -7,6 +7,7 @@ public class GameBoard extends Board {
 	
 	private GameShipButton[][] ships;
 	private boolean[][] shipsMatrix;
+	private Global global = Global.getInstance();
 
 	public GameBoard(Context context) {
 		this(context, null, SIZE_BIG);
@@ -123,7 +124,7 @@ public class GameBoard extends Board {
 			for(int i = 0; i < 10; i++)
 				for(int j = 0; j < 10; j++)
 					if(ships[i][j].isNotShip()) {
-						if(!Global.SHOOTING_TIPS_ENABLED || isFieldShootable(i, j))
+						if(!global.SHOOTING_TIPS_ENABLED || isFieldShootable(i, j))
 							ships[i][j].setLaF(ShipButton.LAF_SHOOTABLE);
 						else
 							ships[i][j].setLaF(ShipButton.LAF_NOT_SHOOTABLE);

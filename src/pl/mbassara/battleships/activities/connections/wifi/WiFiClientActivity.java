@@ -5,6 +5,7 @@ import pl.mbassara.battleships.connections.wifi.WiFiClientService;
 import pl.mbassara.battleships.connections.wifi.WiFiService;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 
 public class WiFiClientActivity extends WiFiActivity {
@@ -14,6 +15,7 @@ public class WiFiClientActivity extends WiFiActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_wi_fi_client);
         
         ipEditText = (EditText) findViewById(R.id.HostIPAdressTextView);
@@ -27,7 +29,7 @@ public class WiFiClientActivity extends WiFiActivity {
 
     public void connectToServer(View view) {
 		
-		connect(new WiFiClientService(this, ipEditText.getText().toString()));
+		connect(new WiFiClientService(ipEditText.getText().toString()));
     }
 
 	@Override
