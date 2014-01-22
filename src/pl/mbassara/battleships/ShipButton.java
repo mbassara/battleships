@@ -5,37 +5,29 @@ import android.util.AttributeSet;
 import android.widget.ToggleButton;
 
 public class ShipButton extends ToggleButton {
-	
-	public static final int SIZE_SMALL = 1;
-	public static final int SIZE_BIG = 2;
-	
-	public static final int LAF_POSSIBLE = 3;
-	public static final int LAF_IMPOSSIBLE = 4;
-	public static final int LAF_NORMAL = 5;
-	public static final int LAF_SELECTED = 6;
-	public static final int LAF_HIT = 7;
-	public static final int LAF_SUNK = 8;
-	public static final int LAF_MISSED = 9;
-	public static final int LAF_SHOOTABLE = 10;
-	public static final int LAF_NOT_SHOOTABLE = 11;
-	public static final int LAF_TARGET = 12;
-	public static final int LAF_PREVIOUS = 13;
-	public static final int LAF_SHOT = 14;
+
+	public static enum Size {
+		BIG, SMALL
+	}
+
+	public enum LafType {
+		POSSIBLE, IMPOSSIBLE, NORMAL, SELECTED, HIT, SUNK, MISSED, SHOOTABLE, NOT_SHOOTABLE, TARGET, PREVIOUS, SHOT
+	}
 
 	protected int x = -1;
 	protected int y = -1;
-	protected int size = SIZE_BIG;
-	protected int LaF = LAF_NORMAL;
-	protected int prevLaF = LAF_NORMAL;
-	
+	protected Size size = Size.BIG;
+	protected LafType LaF = LafType.NORMAL;
+	protected LafType prevLaF = LafType.NORMAL;
+
 	public ShipButton(Context context, int x, int y) {
 		super(context);
 		this.x = x;
 		this.y = y;
 		setUp();
 	}
-	
-	public ShipButton(Context context, int x, int y, int size) {
+
+	public ShipButton(Context context, int x, int y, Size size) {
 		super(context);
 		this.x = x;
 		this.y = y;
@@ -57,9 +49,9 @@ public class ShipButton extends ToggleButton {
 		super(context, attrs, defStyle);
 		setUp();
 	}
-	
+
 	private void setUp() {
-		setLaF(LAF_NORMAL);
+		setLaF(LafType.NORMAL);
 		setTextOn("");
 		setTextOff("");
 		setMinimumHeight(10);
@@ -84,67 +76,71 @@ public class ShipButton extends ToggleButton {
 	public int getFieldY() {
 		return y;
 	}
-	
-	public int getSize() {
+
+	public Size getSize() {
 		return size;
 	}
 
-	public void setSize(int size) {
+	public void setSize(Size size) {
 		this.size = size;
 		setLaF(LaF);
 	}
-	
-	public int getLaF() {
+
+	public LafType getLaF() {
 		return LaF;
 	}
-	
-	public void setLaF(int laf) {
-		if(laf == LAF_PREVIOUS) {
+
+	public void setLaF(LafType laf) {
+		if (laf == LafType.PREVIOUS) {
 			setLaF(prevLaF);
 			return;
 		}
-		
-		int prevPrevLaf = prevLaF;
+
+		LafType prevPrevLaf = prevLaF;
 		prevLaF = LaF;
 		LaF = laf;
 		switch (laf) {
-			case LAF_IMPOSSIBLE:
-				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_impossible_small : R.drawable.ic_im_ship_impossible);
-				break;
-			case LAF_POSSIBLE:
-				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_possible_small : R.drawable.ic_im_ship_possible);
-				break;
-			case LAF_NORMAL:
-				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_small : R.drawable.ic_im_ship);
-				break;
-			case LAF_SELECTED:
-				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_sel_small : R.drawable.ic_im_ship_sel);
-				break;
-			case LAF_HIT:
-				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_hit_small : R.drawable.ic_im_ship_hit);
-				break;
-			case LAF_SUNK:
-				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_sunk_small : R.drawable.ic_im_ship_sunk);
-				break;
-			case LAF_MISSED:
-				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_missed_small : R.drawable.ic_im_ship_missed);
-				break;
-			case LAF_SHOOTABLE:
-				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_shootable_small : R.drawable.ic_im_ship_shootable);
-				break;
-			case LAF_NOT_SHOOTABLE:
-				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_not_shootable_small : R.drawable.ic_im_ship_not_shootable);
-				break;
-			case LAF_TARGET:
-				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_shootable_target_small : R.drawable.ic_im_ship_shootable_target);
-				break;
-			case LAF_SHOT:
-				setBackgroundResource((size == SIZE_SMALL) ? R.drawable.ic_im_ship_shootable_shot_small : R.drawable.ic_im_ship_shootable_shot);
-				break;
-			default:
-				LaF = prevLaF;
-				prevLaF = prevPrevLaf;
-				break;
+		case IMPOSSIBLE:
+			setBackgroundResource((size == Size.SMALL) ? R.drawable.ic_im_ship_impossible_small
+					: R.drawable.ic_im_ship_impossible);
+			break;
+		case POSSIBLE:
+			setBackgroundResource((size == Size.SMALL) ? R.drawable.ic_im_ship_possible_small : R.drawable.ic_im_ship_possible);
+			break;
+		case NORMAL:
+			setBackgroundResource((size == Size.SMALL) ? R.drawable.ic_im_ship_small : R.drawable.ic_im_ship);
+			break;
+		case SELECTED:
+			setBackgroundResource((size == Size.SMALL) ? R.drawable.ic_im_ship_sel_small : R.drawable.ic_im_ship_sel);
+			break;
+		case HIT:
+			setBackgroundResource((size == Size.SMALL) ? R.drawable.ic_im_ship_hit_small : R.drawable.ic_im_ship_hit);
+			break;
+		case SUNK:
+			setBackgroundResource((size == Size.SMALL) ? R.drawable.ic_im_ship_sunk_small : R.drawable.ic_im_ship_sunk);
+			break;
+		case MISSED:
+			setBackgroundResource((size == Size.SMALL) ? R.drawable.ic_im_ship_missed_small : R.drawable.ic_im_ship_missed);
+			break;
+		case SHOOTABLE:
+			setBackgroundResource((size == Size.SMALL) ? R.drawable.ic_im_ship_shootable_small : R.drawable.ic_im_ship_shootable);
+			break;
+		case NOT_SHOOTABLE:
+			setBackgroundResource((size == Size.SMALL) ? R.drawable.ic_im_ship_not_shootable_small
+					: R.drawable.ic_im_ship_not_shootable);
+			break;
+		case TARGET:
+			setBackgroundResource((size == Size.SMALL) ? R.drawable.ic_im_ship_shootable_target_small
+					: R.drawable.ic_im_ship_shootable_target);
+			break;
+		case SHOT:
+			setBackgroundResource((size == Size.SMALL) ? R.drawable.ic_im_ship_shootable_shot_small
+					: R.drawable.ic_im_ship_shootable_shot);
+			break;
+		default:
+			LaF = prevLaF;
+			prevLaF = prevPrevLaf;
+			break;
 		}
 	}
 

@@ -9,7 +9,7 @@ public class CreatingShipsButton extends ShipButton {
 		super(context, attrs, defStyle);
 	}
 
-	public CreatingShipsButton(Context context, int x, int y, int size) {
+	public CreatingShipsButton(Context context, int x, int y, Size size) {
 		super(context, x, y, size);
 	}
 
@@ -21,34 +21,27 @@ public class CreatingShipsButton extends ShipButton {
 		super(context, attrs);
 	}
 
-	private static final int NOT_SELECTED = 0;
-	private static final int SELECTED = 1;
-	
-	private int state = NOT_SELECTED;
+	private boolean isSelected = true;
 
-	public int getState() {
-		return state;
-	}
-	
 	public boolean isNotSelected() {
-		return state == NOT_SELECTED;
+		return !isSelected;
 	}
-	
+
 	public boolean isSelected() {
-		return state == SELECTED;
+		return isSelected;
 	}
-	
+
 	public void setNotSelected(boolean creatingMode) {
-		state = NOT_SELECTED;
-		if(creatingMode)
-			this.setLaF(ShipButton.LAF_POSSIBLE);
+		isSelected = false;
+		if (creatingMode)
+			this.setLaF(LafType.POSSIBLE);
 		else
-			this.setLaF(ShipButton.LAF_NORMAL);
+			this.setLaF(LafType.NORMAL);
 	}
-	
+
 	public void setSelected() {
-		state = SELECTED;
-		this.setLaF(ShipButton.LAF_SELECTED);
+		isSelected = true;
+		this.setLaF(LafType.SELECTED);
 	}
 
 }
