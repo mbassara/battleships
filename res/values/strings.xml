@@ -86,8 +86,8 @@
     <string name="title_activity_bluetooth">BluetoothActivity</string>
 
     <!-- GAME -->
-    <string name="your_score">User1</string>
-    <string name="opponents_score">User2</string>
+    <string name="score_user_name">You</string>
+    <string name="score_opponent_name">User2</string>
     <string name="wait_for_opponent">Waiting for opponent…</string>
     <string name="you_start">You shoot first</string>
     <string name="opponent_starts">Your opponent shoots first</string>

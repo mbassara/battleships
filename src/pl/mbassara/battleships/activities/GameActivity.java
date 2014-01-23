@@ -81,7 +81,9 @@ public class GameActivity extends Activity implements OnCheckedChangeListener {
 			break;
 		}
 
-		RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_game_layout);
+		RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.activity_game_layout);
+		RelativeLayout topLayout = (RelativeLayout) findViewById(R.id.gameTopLayout);
+
 		previewBoard = new GameBoard(this, global.getLocalUserBoardMatrix(), Size.SMALL);
 		mainBoard = new GameBoard(this, null, Size.BIG);
 		mainBoard.setOnCheckedChangeListener(this);
@@ -89,8 +91,7 @@ public class GameActivity extends Activity implements OnCheckedChangeListener {
 		TextView playerScore = (TextView) findViewById(R.id.yourScoreTextView);
 		TextView oppScore = (TextView) findViewById(R.id.opponentScoreTextView);
 		scoreBoard = new ScoreBoard(this, playerScore, oppScore);
-		scoreBoard.setLocalPlayersName(global.USER_NAME);
-		remoteService.send(new GamePacket(GamePacketType.USER_NAME, global.USER_NAME));
+		remoteService.send(new GamePacket(GamePacketType.USER_NAME, scoreBoard.getRemotePlayerName()));
 
 		LayoutParams previewBoardParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		previewBoardParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -104,8 +105,8 @@ public class GameActivity extends Activity implements OnCheckedChangeListener {
 		mainBoard.setLayoutParams(mainBoardParams);
 		mainBoard.setEnabled(false);
 
-		layout.addView(previewBoard);
-		layout.addView(mainBoard);
+		topLayout.addView(previewBoard);
+		mainLayout.addView(mainBoard);
 
 		youStartToast = Toast.makeText(currentContext, getString(R.string.you_start), Toast.LENGTH_SHORT);
 		opponentStartToast = Toast.makeText(currentContext, getString(R.string.opponent_starts), Toast.LENGTH_SHORT);

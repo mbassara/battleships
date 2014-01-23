@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/ic_background" >
+
+    <ImageView
+        android:id="@+id/logoWiFiClient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/ic_logo" />
+
+    <Button
+        android:id="@+id/connectToServerButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/wifi_connect_to_server"
+        android:background="@drawable/button_large"
+        android:onClick="connectToServer" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logoWiFiClient"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true" >
+
+        <TextView
+            android:id="@+id/HostIPLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wifi_server_ip"
+            android:textColor="#111111"
+            android:textSize="@dimen/text_size_middle" />
+
+        <EditText
+            android:id="@+id/HostIPAdressTextView"
+            android:layout_width="@dimen/IP_box_width"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/HostIPLabelTextView"
+            android:digits="0123456789."
+            android:inputType="number"
+            android:textColor="#111111"
+            android:textSize="@dimen/text_size_middle" >
+
+            <requestFocus />
+        </EditText>
+    </RelativeLayout>
+
+</RelativeLayout>

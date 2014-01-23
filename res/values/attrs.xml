@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="Board">
+        <attr name="sizeType" format="enum">
+            <enum name="SIZE_BIG" value="0" />
+            <enum name="SIZE_SMALL" value="1" />
+        </attr>
+    </declare-styleable>
+
+</resources>

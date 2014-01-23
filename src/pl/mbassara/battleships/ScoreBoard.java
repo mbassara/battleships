@@ -8,47 +8,55 @@ public class ScoreBoard {
 
 	private TextView localPlayerScore;
 	private TextView remotePlayerScore;
-	private String localPlayerScoreString;
-	private String remotePlayerScoreString;
+	private String localPlayerName;
+	private String remotePlayerName;
 	private int localPlayerScoreInt;
 	private int remotePlayerScoreInt;
-	
+
 	public ScoreBoard(Context context, TextView localPlayerScore, TextView remotePlayerScore) {
 		this.localPlayerScore = localPlayerScore;
 		this.remotePlayerScore = remotePlayerScore;
-		
-		localPlayerScoreString = context.getString(R.string.your_score);
-		remotePlayerScoreString = context.getString(R.string.opponents_score);
-		
+
+		localPlayerName = context.getString(R.string.score_user_name);
+		remotePlayerName = context.getString(R.string.score_opponent_name);
+
 		localPlayerScoreInt = 0;
 		remotePlayerScoreInt = 0;
 
-		localPlayerScore.setText(localPlayerScoreString + ":\t" + localPlayerScoreInt);
-		remotePlayerScore.setText(remotePlayerScoreString + ":\t" + remotePlayerScoreInt);
-		
+		localPlayerScore.setText(localPlayerName + ":\t" + localPlayerScoreInt);
+		remotePlayerScore.setText(remotePlayerName + ":\t" + remotePlayerScoreInt);
+
 		Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/SF_Collegiate.ttf");
 		localPlayerScore.setTypeface(typeface);
 		remotePlayerScore.setTypeface(typeface);
 	}
-	
+
 	public void setLocalPlayersName(String name) {
-		localPlayerScoreString = name;
-		localPlayerScore.setText(localPlayerScoreString + ":\t" + localPlayerScoreInt);
+		localPlayerName = name;
+		localPlayerScore.setText(localPlayerName + ":\t" + localPlayerScoreInt);
 	}
-	
+
 	public void setRemotePlayersName(String name) {
-		remotePlayerScoreString = name;
-		remotePlayerScore.setText(remotePlayerScoreString + ":\t" + remotePlayerScoreInt);
+		remotePlayerName = name;
+		remotePlayerScore.setText(remotePlayerName + ":\t" + remotePlayerScoreInt);
 	}
-	
+
+	public String getLocalPlayerName() {
+		return localPlayerName;
+	}
+
+	public String getRemotePlayerName() {
+		return remotePlayerName;
+	}
+
 	public void localPlayerScoreUp() {
 		localPlayerScoreInt++;
-		localPlayerScore.setText(localPlayerScoreString + ":\t" + localPlayerScoreInt);
+		localPlayerScore.setText(localPlayerName + ":\t" + localPlayerScoreInt);
 	}
-	
+
 	public void remotePlayerScoreUp() {
 		remotePlayerScoreInt++;
-		remotePlayerScore.setText(remotePlayerScoreString + ":\t" + remotePlayerScoreInt);
+		remotePlayerScore.setText(remotePlayerName + ":\t" + remotePlayerScoreInt);
 	}
-	
+
 }
